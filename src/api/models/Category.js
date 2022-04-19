@@ -4,6 +4,7 @@ const categorySchema = new Schema(
   {
     name: {
       type: String,
+      index: true,
       unique: [true, "Category name should be unique."],
       required: [true, "Category name can't be empty."],
     },
@@ -13,8 +14,12 @@ const categorySchema = new Schema(
       required: [true, "Category image can't be empty."],
     },
     description: { type: String, default: "" },
+    creatorId: {
+      type: Schema.Types.ObjectId,
+      required: [true, "Creator Id can't be empty."],
+    },
   },
   { timestamps: true }
 );
-
+categorySchema.index({ name: "text" });
 module.exports = Category = model("category", categorySchema);

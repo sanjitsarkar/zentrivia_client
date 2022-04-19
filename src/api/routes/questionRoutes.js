@@ -1,5 +1,5 @@
 const express = require("express");
-const { auth, isPermissible } = require("../middlewares");
+const { auth } = require("../middlewares");
 
 const {
   fetchAllQuestion,
@@ -11,9 +11,9 @@ const {
 const router = express.Router();
 
 router.get("/", fetchAllQuestion);
-router.post("/", auth, isPermissible, addQuestion);
-router.delete("/:id", auth, isPermissible, deleteQuestion);
+router.post("/", auth, addQuestion);
+router.delete("/:id", auth, deleteQuestion);
 router.get("/:id", fetchQuestion);
-router.put("/:id", auth, isPermissible, updateQuestion);
+router.put("/:id", auth, updateQuestion);
 
 module.exports = router;

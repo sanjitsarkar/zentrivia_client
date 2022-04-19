@@ -6,6 +6,7 @@ const quizSchema = new Schema(
       type: String,
       required: [true, "Quiz title can't be empty."],
       unique: [true, "Quiz title is already taken."],
+      index: true,
     },
     quizCoverImage: {
       type: String,
@@ -29,5 +30,6 @@ const quizSchema = new Schema(
   },
   { timestamps: true }
 );
+quizSchema.index({ title: "text" });
 
 module.exports = quiz = model("quiz", quizSchema);

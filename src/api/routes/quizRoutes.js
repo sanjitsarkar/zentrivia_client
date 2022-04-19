@@ -1,5 +1,5 @@
 const express = require("express");
-const { auth, isPermissible } = require("../middlewares");
+const { auth } = require("../middlewares");
 
 const {
   fetchAllQuiz,
@@ -8,14 +8,16 @@ const {
   deleteQuiz,
   updateQuiz,
   fetchAllQuestionByQuizId,
+  searchQuiz,
 } = require("../controllers/quizController");
 const router = express.Router();
 
+router.get("/search", searchQuiz);
 router.get("/", fetchAllQuiz);
 router.get("/:id/questions", fetchAllQuestionByQuizId);
-router.post("/", auth, isPermissible, addQuiz);
-router.delete("/:id", auth, isPermissible, deleteQuiz);
+router.post("/", auth, addQuiz);
+router.delete("/:id", auth, deleteQuiz);
 router.get("/:id", fetchQuiz);
-router.put("/:id", auth, isPermissible, updateQuiz);
+router.put("/:id", auth, updateQuiz);
 
 module.exports = router;
