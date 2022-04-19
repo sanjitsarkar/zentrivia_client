@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import "./Header.css";
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const { isLoggedIn, logOut } = useAuth();
   return (
     <header
       id="header"
@@ -45,7 +46,7 @@ const Header = () => {
             <li>
               <button
                 className="btn btn-secondary auth-button"
-                onClick={() => {}}
+                onClick={logOut}
               >
                 Logout
               </button>
