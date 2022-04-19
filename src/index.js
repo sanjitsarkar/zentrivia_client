@@ -1,5 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 require("dotenv").config();
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://zentriviax.netlify.app"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
+  })
+);
 const connectMongo = require("./config/index.js");
 const {
   authRoutes,
