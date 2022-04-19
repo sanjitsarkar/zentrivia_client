@@ -18,7 +18,7 @@ app.use(
     methods: ["GET", "POST", "DELETE", "PUT"],
   })
 );
-const PORT = 5000 || process.env.PORT;
+const PORT =process.env.PORT || 5000
 
 connectMongo(() => {
   app.listen(PORT, () => {
