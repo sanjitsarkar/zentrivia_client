@@ -1,12 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "https://zentriviax.netlify.app"],
-    methods: ["GET", "POST", "DELETE", "PUT"],
-  })
-);
+
 const connectMongo = require("./config/index.js");
 const {
   authRoutes,
@@ -17,6 +12,12 @@ const {
 } = require("./api/routes");
 const { auth } = require("./api/middlewares/");
 const app = express();
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://zentriviax.netlify.app"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
+  })
+);
 const PORT = 5000 || process.env.PORT;
 
 connectMongo(() => {
@@ -34,4 +35,7 @@ app.use("/api/questions", questionRoutes);
 app.use("/api/user", userRoutes);
 app.get("/welcome", auth, (req, res) => {
   res.send("Welcome ", req.user.id);
+});
+app.get("/", (_, res) => {
+  res.send("Welcome to ZenTrivia");
 });
