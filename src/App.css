@@ -1,0 +1,38 @@
+.card:hover img {
+  box-shadow: none;
+  transition: all 0.1s linear;
+  background-color: var(--primary-color);
+  transform: scale(0.9);
+  object-fit: contain;
+}
+.category-section img {
+  background-color: var(--dark-color-7);
+  object-fit: contain;
+}
+
+::marker {
+  color: var(--dark-color-2);
+  font-weight: bold;
+}
+
+.options .btn {
+  padding: 0.75rem 0;
+  font-size: 1rem;
+}
+
+.hero-section-button {
+  padding: 0.5rem 1.5rem;
+}
+@media only screen and (max-width: 470px) {
+  .hero-section-title {
+    font-size: 4rem;
+  }
+  .rules-section {
+    margin: 2rem;
+  }
+}
+@media only screen and (max-width: 315px) {
+  .hero-section-title {
+    font-size: 3.5rem;
+  }
+}
