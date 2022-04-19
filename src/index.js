@@ -26,5 +26,5 @@ app.use("/api/quizzes", quizRoutes);
 app.use("/api/questions", questionRoutes);
 app.use("/api/user", userRoutes);
 app.get("/welcome", auth, (req, res) => {
-  res.send("Welcome");
+  res.send("Welcome ", req.user.id);
 });
