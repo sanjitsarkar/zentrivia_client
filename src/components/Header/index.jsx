@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import "./Header.css";
 const Header = () => {
-  const { isLoggedIn, logOut } = useAuth();
+  const { isLoggedIn, logOut, user } = useAuth();
   return (
     <header
       id="header"
@@ -43,14 +43,23 @@ const Header = () => {
               </Link>
             </li>
           ) : (
-            <li>
-              <button
-                className="btn btn-secondary auth-button"
-                onClick={logOut}
-              >
-                Logout
-              </button>
-            </li>
+            <>
+              <li>
+                <button
+                  className="btn btn-secondary auth-button"
+                  onClick={logOut}
+                >
+                  Logout
+                </button>
+              </li>
+              <li>
+                <img
+                  src={user.data.profilePictureURL}
+                  className="avatar avatar-xsm"
+                  alt={user.data.name}
+                />
+              </li>
+            </>
           )}
         </ul>
       </div>

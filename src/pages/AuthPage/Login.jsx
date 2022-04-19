@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../../components/Header";
 import Layout from "../../components/Layout";
 import Loader from "../../components/Loader";
 import { useAuth } from "../../context/AuthContext";
