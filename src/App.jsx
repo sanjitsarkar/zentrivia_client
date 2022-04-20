@@ -1,5 +1,4 @@
-import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import React from "react";
 import "./App.css";
 import SignupPage from "./pages/AuthPage/SignupPage";
 import LoginPage from "./pages/AuthPage/Login";
