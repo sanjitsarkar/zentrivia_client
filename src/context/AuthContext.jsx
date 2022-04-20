@@ -12,6 +12,7 @@ import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
+  formatError,
 } from "../utils";
 import { useToast } from "./ToastContext";
 
@@ -66,7 +67,7 @@ const AuthProvider = ({ children }) => {
     } catch (err) {
       setToast({
         show: true,
-        content: err.response.data.errors.join(", "),
+        content: formatError(err),
         type: "error",
       });
 
@@ -95,7 +96,7 @@ const AuthProvider = ({ children }) => {
     } catch (err) {
       setToast({
         show: true,
-        content: err.response.data.errors.join(", "),
+        content: formatError(err),
         type: "error",
       });
 
@@ -118,6 +119,7 @@ const AuthProvider = ({ children }) => {
     if (isLoggedIn) {
       setToken(localStorage.getItem("token"));
       localStorage.setItem("user", JSON.stringify(state.data));
+      localStorage.setItem("token", state.data.token);
       navigate("/", { replace: true });
     }
   }, [isLoggedIn]);

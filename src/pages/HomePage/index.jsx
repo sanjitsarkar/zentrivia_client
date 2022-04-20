@@ -10,7 +10,7 @@ const HomePage = () => {
           <div className="hero-section-content col gap-2 justify-center items-center h-full">
             <div className="col">
               <h1 className="hero-section-title text-primary text-8xl text-center">
-                ZenTriviax
+                ZenTrivia
               </h1>
               <p className="hero-section-text text-light text-xl o-90 text-center">
                 The place where you can test your
@@ -19,7 +19,7 @@ const HomePage = () => {
                 <span className="text-primary text-bold text-2xl">Music</span>.
               </p>
             </div>
-            <Link to="/category">
+            <Link to="/categories">
               <button className="hero-section-button btn btn-light w-fit  br-sm m-auto text-xl text-dark">
                 Start Trivia
               </button>
