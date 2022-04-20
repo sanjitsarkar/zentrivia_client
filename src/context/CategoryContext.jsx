@@ -17,7 +17,7 @@ import {
 const CategoryContext = createContext();
 
 const CategoryProvider = ({ children }) => {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("");
   const [categories, dispatchCategories] = useReducer(reducer, initialState);
   const [yourCategories, dispatchYourCategories] = useReducer(
     reducer,
@@ -164,6 +164,9 @@ const CategoryProvider = ({ children }) => {
       });
     }
   };
+  const clearCategoryInfo = () => {
+    dispatchCategoryInfo({ type: ACTION_TYPE_SUCCESS, payload: [] });
+  };
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -186,6 +189,7 @@ const CategoryProvider = ({ children }) => {
         dispatchYourCategories,
         categoryInfo,
         dispatchCategoryInfo,
+        clearCategoryInfo,
       }}
     >
       {children}

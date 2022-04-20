@@ -17,7 +17,7 @@ import {
 const QuizContext = createContext();
 
 const QuizProvider = ({ children }) => {
-  const [activeQuiz, setActiveQuiz] = useState("All");
+  const [activeQuiz, setActiveQuiz] = useState("");
   const [quizzes, dispatchQuizzes] = useReducer(reducer, initialState);
   const [yourQuizzes, dispatchYourQuizzes] = useReducer(reducer, initialState);
   const [QuizInfo, dispatchQuizInfo] = useReducer(reducer, initialState);

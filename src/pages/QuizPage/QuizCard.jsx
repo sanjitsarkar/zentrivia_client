@@ -18,11 +18,11 @@ const QuizCard = ({ quiz }) => {
           </button>
           <div className="row gap-2">
             <span>
-              {quiz.totalQuestion} Question
+              {quiz.totalQuestion} question
               {quiz.totalQuestion.length > 1 && "s"}
             </span>
             <span>
-              {quiz.totalPlayedUser} user
+              {quiz.totalPlayedUser} player
               {quiz.totalPlayedUser.length > 1 && "s"} played
             </span>
             <span
