@@ -4,10 +4,8 @@ import { API_URL } from "../utils";
 export const useApi = () => {
   const token = localStorage.getItem("token");
   const callApi = async (method, endPoint, isProtected = false, data = {}) => {
-    if (isProtected) endPoint = `${API_URL}/${endPoint}`;
-    else {
-      endPoint = `${API_URL}/${endPoint}`;
-    }
+    endPoint = `${API_URL}/${endPoint}`;
+
     switch (method) {
       case "get": {
         return await axios.get(
