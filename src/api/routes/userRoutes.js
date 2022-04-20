@@ -16,10 +16,9 @@ const {
 const router = express.Router();
 
 router.get("/quizzes", auth, fetchAllQuizByCreatorId);
-router.get("/quizzes/search", auth, fetchAllQuizByCreatorId);
-router.get("/quizzes/:id/search", auth, searchQuestion);
+router.get("/quizzes/:id/", auth, searchQuestion);
 router.get("/categories", auth, fetchAllCategoryByCreatorId);
-router.get("/categories/search", auth, fetchAllCategoryByCreatorId);
+router.get("/:id/categories", auth, fetchAllCategoryByCreatorId);
 router.get("/scores", auth, fetchAllScore);
 router.get("/scores/:id", auth, fetchScore);
 router.post("/scores/", auth, addScore);

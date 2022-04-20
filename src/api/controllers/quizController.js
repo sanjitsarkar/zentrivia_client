@@ -44,7 +44,10 @@ const updateQuiz = async (req, res) => {
         }
       );
       res.json({ quiz });
-    } else throw Error("You are not authorized to perform this action");
+    } else
+      res
+        .status(404)
+        .json({ errors: ["You are not authorized to perform this action"] });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
   }
@@ -57,7 +60,10 @@ const deleteQuiz = async (req, res) => {
     if (isQuizExists) {
       const quiz = await Quiz.deleteOne({ _id: id });
       res.json({ quiz });
-    } else throw Error("You are not authorized to perform this action");
+    } else
+      res
+        .status(404)
+        .json({ errors: ["You are not authorized to perform this action"] });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
   }
@@ -73,7 +79,14 @@ const fetchQuiz = async (req, res) => {
 };
 const fetchAllQuiz = async (req, res) => {
   try {
-    const quizzes = await Quiz.find();
+    const { search } = req.query;
+    let quizzes;
+    if (search)
+      quizzes = await Quiz.find(
+        { $text: { $search: search } },
+        { score: { $meta: "textScore" } }
+      ).sort({ score: { $meta: "textScore" } });
+    else quizzes = await Quiz.find();
     res.json({ quizzes });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
@@ -81,11 +94,11 @@ const fetchAllQuiz = async (req, res) => {
 };
 const fetchAllQuizByCreatorId = async (req, res) => {
   try {
-    const { q } = req.query;
+    const { search } = req.query;
     let quizzes;
-    if (q)
+    if (search)
       quizzes = await Quiz.find(
-        { creatorId: req.user.id, $text: { $search: q } },
+        { creatorId: req.user.id, $text: { $search: search } },
         { score: { $meta: "textScore" } }
       ).sort({ score: { $meta: "textScore" } });
     else quizzes = await Quiz.find({ creatorId: req.user.id });
@@ -103,19 +116,16 @@ const fetchAllQuestionByQuizId = async (req, res) => {
     res.status(404).json({ errors: [err.message.split(",")] });
   }
 };
-const searchQuiz = async (req, res) => {
+const fetchAllQuizByCategoryId = async (req, res) => {
   try {
-    const { q } = req.query;
-    if (!q) throw Error("Please add query q value");
-    const quizzes = await Quiz.find(
-      { $text: { $search: q } },
-      { score: { $meta: "textScore" } }
-    ).sort({ score: { $meta: "textScore" } });
+    const { id: categoryId } = req.params;
+    const quizzes = await Quiz.find({ categoryId });
     res.json({ quizzes });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
   }
 };
+
 module.exports = {
   addQuiz,
   updateQuiz,
@@ -124,5 +134,5 @@ module.exports = {
   fetchAllQuiz,
   fetchAllQuestionByQuizId,
   fetchAllQuizByCreatorId,
-  searchQuiz,
+  fetchAllQuizByCategoryId,
 };

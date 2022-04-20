@@ -27,6 +27,8 @@ const quizSchema = new Schema(
       required: [true, "Category can't be empty."],
     },
     quizDesc: { type: String, default: "" },
+    totalQuestion: { type: Number, default: 0 },
+    totalPlayedUser: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

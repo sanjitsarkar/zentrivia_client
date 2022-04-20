@@ -14,7 +14,11 @@ const { auth } = require("./api/middlewares/");
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://zentriviax.netlify.app"],
+    origin: [
+      "http://localhost:3000",
+      "http://192.168.42.242:3000",
+      "https://zentriviax.netlify.app",
+    ],
     methods: ["GET", "POST", "DELETE", "PUT"],
   })
 );

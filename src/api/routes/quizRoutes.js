@@ -12,7 +12,6 @@ const {
 } = require("../controllers/quizController");
 const router = express.Router();
 
-router.get("/search", searchQuiz);
 router.get("/", fetchAllQuiz);
 router.get("/:id/questions", fetchAllQuestionByQuizId);
 router.post("/", auth, addQuiz);

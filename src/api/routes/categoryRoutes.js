@@ -7,14 +7,12 @@ const {
   addCategory,
   deleteCategory,
   updateCategory,
-  fetchAllCategoryByCreatorId,
-  searchCategory,
 } = require("../controllers/categoryController");
+const { fetchAllQuizByCategoryId } = require("../controllers/quizController");
 const router = express.Router();
 
-router.get("/search", searchCategory);
 router.get("/", fetchAllCategory);
-router.get("/user/:id", fetchAllCategoryByCreatorId);
+router.get("/:id/quizzes", fetchAllQuizByCategoryId);
 router.post("/", auth, addCategory);
 router.delete("/:id", auth, deleteCategory);
 router.get("/:id", fetchCategory);

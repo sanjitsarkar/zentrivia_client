@@ -28,7 +28,10 @@ const updateCategory = async (req, res) => {
         { name, img, description }
       );
       res.json({ category });
-    } else throw Error("You are not authorized to perform this action");
+    } else
+      res
+        .status(404)
+        .json({ errors: ["You are not authorized to perform this action"] });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
   }
@@ -43,7 +46,10 @@ const deleteCategory = async (req, res) => {
     if (isCategoryExists) {
       const category = await Category.deleteOne({ _id: id });
       res.json({ category });
-    } else throw Error("You are not authorized to perform this action");
+    } else
+      res
+        .status(404)
+        .json({ errors: ["You are not authorized to perform this action"] });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
   }
@@ -59,7 +65,14 @@ const fetchCategory = async (req, res) => {
 };
 const fetchAllCategory = async (req, res) => {
   try {
-    const categories = await Category.find();
+    let categories;
+    const { search } = req.query;
+    if (search)
+      categories = await Category.find(
+        { $text: { $search: search } },
+        { score: { $meta: "textScore" } }
+      ).sort({ score: { $meta: "textScore" } });
+    else categories = await Category.find();
     res.json({ categories });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
@@ -67,13 +80,13 @@ const fetchAllCategory = async (req, res) => {
 };
 const fetchAllCategoryByCreatorId = async (req, res) => {
   try {
-    const { q } = req.query;
+    const { search } = req.query;
     let categories;
-    if (q)
+    if (search)
       categories = await Category.find(
         {
           creatorId: req.user.id,
-          $text: { $search: q },
+          $text: { $search: search },
         },
         { score: { $meta: "textScore" } }
       ).sort({ score: { $meta: "textScore" } });
@@ -83,19 +96,7 @@ const fetchAllCategoryByCreatorId = async (req, res) => {
     res.status(404).json({ errors: [err.message.split(",")] });
   }
 };
-const searchCategory = async (req, res) => {
-  try {
-    const { q } = req.query;
-    if (!q) throw Error("Please add query q value");
-    const categories = await Category.find(
-      { $text: { $search: q } },
-      { score: { $meta: "textScore" } }
-    ).sort({ score: { $meta: "textScore" } });
-    res.json({ categories });
-  } catch (err) {
-    res.status(404).json({ errors: [err.message.split(",")] });
-  }
-};
+
 module.exports = {
   addCategory,
   updateCategory,
@@ -103,5 +104,4 @@ module.exports = {
   fetchCategory,
   fetchAllCategory,
   fetchAllCategoryByCreatorId,
-  searchCategory,
 };

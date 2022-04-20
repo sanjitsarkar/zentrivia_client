@@ -32,7 +32,10 @@ const updateScore = async (req, res) => {
         }
       );
       res.json({ score });
-    } else throw Error("You are not authorized to perform this action");
+    } else
+      res
+        .status(404)
+        .json({ errors: ["You are not authorized to perform this action"] });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
   }
@@ -47,7 +50,10 @@ const deleteScore = async (req, res) => {
     if (isScoreExists) {
       const score = await Score.deleteOne({ quizId });
       res.json({ score });
-    } else throw Error("You are not authorized to perform this action");
+    } else
+      res
+        .status(404)
+        .json({ errors: ["You are not authorized to perform this action"] });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
   }
