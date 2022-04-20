@@ -16,7 +16,7 @@ const CategoryCard = ({ category }) => {
           <div className="card-title">{category.name}</div>
         </div>
         <div className="card-footer">
-          <Link to="/quizzes" className="w-full">
+          <Link to="/categories" className="w-full">
             <button className="btn btn-dark w-full">Play</button>
           </Link>
         </div>
