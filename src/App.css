@@ -6,6 +6,9 @@
   transform: scale(0.9);
   object-fit: cover;
 }
+.category-section {
+  min-height: 90vh;
+}
 .category-section img {
   background-color: var(--dark-color-7);
   object-fit: contain;
@@ -32,4 +35,11 @@
   form.form {
     padding: 1rem;
   }
+}
+
+/* Body Section */
+.main {
+  --main-top-margin: 9.8vh;
+  margin-top: var(--main-top-margin);
+  min-height: calc(100vh - var(--main-top-margin));
 }

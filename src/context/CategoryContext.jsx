@@ -79,7 +79,7 @@ const CategoryProvider = ({ children }) => {
   const deleteCategory = async (categoryId) => {
     dispatchCategories({ type: ACTION_TYPE_LOADING });
     try {
-      const result = await callApi("delete", `categories/${categoryId}`, false);
+      await callApi("delete", `categories/${categoryId}`, false);
       dispatchCategories({
         type: ACTION_TYPE_SUCCESS,
         payload: categories.payload.filter(

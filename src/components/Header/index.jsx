@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <header
       id="header"
-      className="p-3  bx-sh-primary-2 pt-2 pb-2 fixed  bg-dark w-full  row justify-between items-center"
+      className="p-3 t-0 bx-sh-primary-2 pt-2 pb-2 fixed  bg-dark w-full  row justify-between items-center"
     >
       <div className="row items-center justify-between w-full gap-1 flex-nowrap">
         <div className="row gap-1 items-center  flex-nowrap">
