@@ -12,7 +12,7 @@ const Header = () => {
     >
       <div className="row items-center justify-between w-full gap-1 flex-nowrap">
         <div className="row gap-1 items-center  flex-nowrap">
-          <div className="left title">
+          <div className={`left title ${isLoggedIn ? "hide" : ""}`}>
             <Link to="/" className="text-2xl">
               Zen<span className="text-primary">Trivia</span>
             </Link>
