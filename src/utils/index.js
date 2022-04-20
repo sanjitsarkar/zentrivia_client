@@ -11,3 +11,8 @@ export const formatError = (err) => {
   }
   return err.message;
 };
+
+export const GUEST_CREDENTIAL = {
+  email: "johndoe@gmail.com",
+  password: "123456",
+};

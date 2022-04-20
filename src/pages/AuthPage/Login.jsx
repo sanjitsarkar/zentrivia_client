@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Layout from "../../components/Layout";
 import Loader from "../../components/Loader";
 import { useAuth } from "../../context/AuthContext";
+import { GUEST_CREDENTIAL } from "../../utils";
 
 const LoginPage = () => {
   const { logIn, loginCred, setLoginCred, user } = useAuth();
@@ -70,10 +71,7 @@ const LoginPage = () => {
           <button
             className="btn btn-info w-full text-md mb-1"
             onClick={() => {
-              setLoginCred({
-                email: "johndoe@gmail.com",
-                password: "123456",
-              });
+              setLoginCred(GUEST_CREDENTIAL);
             }}
           >
             Guest Login
