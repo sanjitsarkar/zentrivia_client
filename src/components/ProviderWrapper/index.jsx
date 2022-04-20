@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../../context/AuthContext";
 import { CategoryProvider } from "../../context/CategoryContext";
+import { QuizProvider } from "../../context/QuizContext";
 import { ToastProvider } from "../../context/ToastContext";
 
 const ProviderWrapper = ({ children }) => {
@@ -10,7 +11,9 @@ const ProviderWrapper = ({ children }) => {
       <BrowserRouter>
         <ToastProvider>
           <AuthProvider>
-            <CategoryProvider>{children}</CategoryProvider>
+            <CategoryProvider>
+              <QuizProvider>{children}</QuizProvider>
+            </CategoryProvider>
           </AuthProvider>
         </ToastProvider>
       </BrowserRouter>

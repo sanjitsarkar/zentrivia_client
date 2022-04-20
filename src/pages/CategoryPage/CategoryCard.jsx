@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useQuiz } from "../../context/QuizContext";
 
 const CategoryCard = ({ category }) => {
+  const { setActiveQuiz } = useQuiz();
   return (
     <div className="card w-60 bg-primary">
       <div className="card-header">
@@ -16,7 +18,11 @@ const CategoryCard = ({ category }) => {
           <div className="card-title">{category.name}</div>
         </div>
         <div className="card-footer">
-          <Link to="/categories" className="w-full">
+          <Link
+            to={`/quizzes/${category._id}`}
+            className="w-full"
+            onClick={() => setActiveQuiz(category.name)}
+          >
             <button className="btn btn-dark w-full">Play</button>
           </Link>
         </div>
