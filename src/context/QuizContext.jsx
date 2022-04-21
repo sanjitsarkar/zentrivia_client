@@ -20,7 +20,7 @@ const QuizProvider = ({ children }) => {
   const [activeQuiz, setActiveQuiz] = useState("");
   const [quizzes, dispatchQuizzes] = useReducer(reducer, initialState);
   const [yourQuizzes, dispatchYourQuizzes] = useReducer(reducer, initialState);
-  const [QuizInfo, dispatchQuizInfo] = useReducer(reducer, initialState);
+  const [quizInfo, dispatchQuizInfo] = useReducer(reducer, initialState);
   const { callApi } = useApi();
   const fetchQuizzes = async () => {
     dispatchQuizzes({ type: ACTION_TYPE_LOADING });
@@ -52,14 +52,14 @@ const QuizProvider = ({ children }) => {
       });
     }
   };
-  const fetchQuizInfo = async (QuizId) => {
+  const fetchQuizInfo = async (quizId) => {
     dispatchQuizInfo({ type: ACTION_TYPE_LOADING });
 
     try {
-      const result = await callApi("get", `quizzes/${QuizId}`, false);
+      const result = await callApi("get", `quizzes/${quizId}`, false);
       dispatchQuizInfo({
         type: ACTION_TYPE_SUCCESS,
-        payload: result.data.Quiz,
+        payload: result.data.quiz,
       });
     } catch (err) {
       dispatchQuizInfo({
@@ -68,13 +68,13 @@ const QuizProvider = ({ children }) => {
       });
     }
   };
-  const addQuiz = async (Quiz) => {
+  const addQuiz = async (quiz) => {
     dispatchQuizzes({ type: ACTION_TYPE_LOADING });
     try {
-      const result = await callApi("post", "quizzes", false, Quiz);
+      const result = await callApi("post", "quizzes", false, quiz);
       dispatchQuizzes({
         type: ACTION_TYPE_SUCCESS,
-        payload: [...quizzes.payload, result.data.Quiz],
+        payload: [...quizzes.payload, result.data.quiz],
       });
     } catch (err) {
       dispatchQuizzes({
@@ -84,13 +84,13 @@ const QuizProvider = ({ children }) => {
     }
   };
 
-  const deleteQuiz = async (QuizId) => {
+  const deleteQuiz = async (quizId) => {
     dispatchQuizzes({ type: ACTION_TYPE_LOADING });
     try {
-      await callApi("delete", `quizzes/${QuizId}`, false);
+      await callApi("delete", `quizzes/${quizId}`, false);
       dispatchQuizzes({
         type: ACTION_TYPE_SUCCESS,
-        payload: quizzes.payload.filter((Quiz) => Quiz.id !== QuizId),
+        payload: quizzes.payload.filter((quiz) => quiz.id !== quizId),
       });
     } catch (err) {
       dispatchQuizzes({
@@ -99,14 +99,14 @@ const QuizProvider = ({ children }) => {
       });
     }
   };
-  const updateQuiz = async (QuizId, Quiz) => {
+  const updateQuiz = async (quizId, quiz) => {
     dispatchQuizzes({ type: ACTION_TYPE_LOADING });
     try {
-      const result = await callApi("put", `quizzes/${QuizId}`, false, Quiz);
+      const result = await callApi("put", `quizzes/${quizId}`, false, quiz);
       dispatchQuizzes({
         type: ACTION_TYPE_SUCCESS,
-        payload: quizzes.payload.map((Quiz) =>
-          Quiz.id === QuizId ? result.data.Quiz : Quiz
+        payload: quizzes.payload.map((quiz) =>
+          quiz.id === quizId ? result.data.Quiz : quiz
         ),
       });
     } catch (err) {
@@ -166,7 +166,12 @@ const QuizProvider = ({ children }) => {
       });
     }
   };
-
+  const clearQuizInfo = () => {
+    dispatchQuizInfo({
+      type: ACTION_TYPE_SUCCESS,
+      payload: [],
+    });
+  };
   return (
     <QuizContext.Provider
       value={{
@@ -184,9 +189,10 @@ const QuizProvider = ({ children }) => {
         searchQuizzes,
         yourQuizzes,
         dispatchYourQuizzes,
-        QuizInfo,
+        quizInfo,
         dispatchQuizInfo,
         fetchQuizzesByCategoryId,
+        clearQuizInfo,
       }}
     >
       {children}

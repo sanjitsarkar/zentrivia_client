@@ -118,3 +118,8 @@
   background: rgba(0, 0, 0, 0.24);
   backdrop-filter: blur(10px);
 }
+
+.btn-error {
+  background-color: var(--error-color);
+  color: var(--light-color);
+}

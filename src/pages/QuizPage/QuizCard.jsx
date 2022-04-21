@@ -1,12 +1,14 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useQuiz } from "../../context/QuizContext";
 import { useToast } from "../../context/ToastContext";
 
 const QuizCard = ({ quiz }) => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
   const { setToast } = useToast();
+  const { setActiveQuiz } = useQuiz();
   return (
     <div className="quiz-card cursor-pointer row  gap-1  text-light p-2 br-sm">
       <img
@@ -27,6 +29,7 @@ const QuizCard = ({ quiz }) => {
                   show: true,
                 });
               } else {
+                setActiveQuiz(quiz.title);
                 navigate(`/rules/${quiz._id}`);
               }
             }}

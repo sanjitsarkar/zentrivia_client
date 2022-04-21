@@ -1,0 +1,10 @@
+button .button-error {
+  background-color: red !important;
+}
+button .button-success {
+  background-color: rgb(40, 200, 0) !important;
+}
+
+button .button-light {
+  background-color: pink !important;
+}

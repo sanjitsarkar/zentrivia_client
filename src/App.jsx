@@ -9,6 +9,7 @@ import { Route, Routes } from "react-router-dom";
 import QuizPage from "./pages/QuizPage";
 import RulesPage from "./pages/RulesPage";
 import PrivateRoute from "./components/PrivateRoute";
+import QuestionPage from "./pages/QuestionPage";
 function App() {
   return (
     <>
@@ -23,6 +24,14 @@ function App() {
           element={
             <PrivateRoute>
               <RulesPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/quizzes/:id/questions"
+          element={
+            <PrivateRoute>
+              <QuestionPage />
             </PrivateRoute>
           }
         />
