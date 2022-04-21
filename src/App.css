@@ -63,7 +63,6 @@
   background-color: var(--dark-black-color);
   transform: scale(1);
   transition: all 0.1s linear;
-  box-shadow: 0 0 1rem var(--black-color-6);
 }
 .quiz-card:hover {
   transform: scale(1.01);
