@@ -2,21 +2,19 @@ import React from "react";
 
 const QuizCard = ({ quiz }) => {
   return (
-    <div className="quiz-card cursor-pointer row  gap-1 text-dark-2 p-2 br-sm">
+    <div className="quiz-card cursor-pointer row  gap-1  text-dark-2 p-2 br-sm">
       <img
-        className="w-32"
+        className="w-40 br-sm h-full"
         src={quiz.quizCoverImage}
         alt={quiz.title.substring(10)}
       />
-      <div className="col justify-center gap-1 h-full w-3-4">
-        <div className="col">
-          <h1 className="text-xl font-medium">{quiz.title}</h1>
-        </div>
-        <div className="row gap-1 justify-between items-center">
-          <button className="p-1 pl-3 text-light text-md pr-3 bg-dark">
+      <div className="col  gap-1 h-full  quiz-card-bottom justify-center items-center">
+        <h1 className="text-xl font-medium">{quiz.title}</h1>
+        <div className="row gap-2 justify-center items-center">
+          <button className="quiz-play-button p-1 pl-3 text-light text-md pr-3 bg-dark">
             Play
           </button>
-          <div className="row gap-2">
+          <div className="row quiz-bottom-bar justify-center">
             <span>
               {quiz.totalQuestion} question
               {quiz.totalQuestion.length > 1 && "s"}

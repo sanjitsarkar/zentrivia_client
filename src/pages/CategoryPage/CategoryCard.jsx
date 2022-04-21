@@ -5,7 +5,7 @@ import { useQuiz } from "../../context/QuizContext";
 const CategoryCard = ({ category }) => {
   const { setActiveQuiz } = useQuiz();
   return (
-    <div className="card w-60 bg-primary">
+    <div className="card  bg-primary" id="category-card">
       <div className="card-header">
         <img
           src={category.img}
@@ -23,7 +23,7 @@ const CategoryCard = ({ category }) => {
             className="w-full"
             onClick={() => setActiveQuiz(category.name)}
           >
-            <button className="btn btn-dark w-full">Play</button>
+            <button className="btn btn-dark w-full">Exlore Quizzes</button>
           </Link>
         </div>
       </div>
