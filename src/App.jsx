@@ -7,6 +7,8 @@ import CategoryPage from "./pages/CategoryPage";
 import HomePage from "./pages/HomePage";
 import { Route, Routes } from "react-router-dom";
 import QuizPage from "./pages/QuizPage";
+import RulesPage from "./pages/RulesPage";
+import PrivateRoute from "./components/PrivateRoute";
 function App() {
   return (
     <>
@@ -16,6 +18,14 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/categories" element={<CategoryPage />} />
         <Route path="/quizzes/:id" element={<QuizPage />} />
+        <Route
+          path="/rules/:id"
+          element={
+            <PrivateRoute>
+              <RulesPage />
+            </PrivateRoute>
+          }
+        />
       </Routes>
       <Toast />
     </>
