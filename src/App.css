@@ -1,5 +1,6 @@
 :root {
   --primary-light-color: hsl(180, 23%, 95%);
+  --dark-black-color: hsl(180, 3%, 6%);
 }
 /* Category Page */
 .card:hover img {
@@ -59,9 +60,10 @@
 /* Quiz Page */
 .quiz-card {
   height: 10rem;
-  background-color: var(--primary-light-color);
+  background-color: var(--dark-black-color);
   transform: scale(1);
   transition: all 0.1s linear;
+  box-shadow: 0 0 1rem var(--black-color-6);
 }
 .quiz-card:hover {
   transform: scale(1.01);
@@ -88,7 +90,11 @@
   column-gap: 2rem;
   row-gap: 1rem;
 }
+.quiz-play-button {
+  padding: 0.45rem 1.5rem;
+  background-color: var(--primary-light-color);
+}
 .quiz-play-button:hover {
-  opacity: 0.9;
+  opacity: 0.7;
   transition: all 0.1s linear;
 }
