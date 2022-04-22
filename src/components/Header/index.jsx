@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../hooks";
 import "./Header.css";
 const Header = () => {
   const { isLoggedIn, logOut, user } = useAuth();
@@ -44,17 +44,19 @@ const Header = () => {
               </Link>
             </li>
           ) : (
-            <>
-              <li className=" col items-center justify-center">
-                <img
-                  src={user.data.profilePictureURL}
-                  className="avatar avatar-xsm"
-                  id="avatar"
-                  alt={user.data.name}
-                  onClick={() => setShowProfileMenu(!showProfileMenu)}
-                />
-              </li>
-            </>
+            <li className=" col items-center justify-center">
+              <img
+                src={user.data.profilePictureURL}
+                className="avatar avatar-xsm"
+                id="avatar"
+                alt={user.data.name}
+                onClick={() =>
+                  setShowProfileMenu(
+                    (prevShowProfileMenu) => !prevShowProfileMenu
+                  )
+                }
+              />
+            </li>
           )}
         </ul>
       </div>

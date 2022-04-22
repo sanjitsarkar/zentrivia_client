@@ -1,14 +1,17 @@
 import React from "react";
 import "./App.css";
-import SignupPage from "./pages/AuthPage/SignupPage";
-import LoginPage from "./pages/AuthPage/Login";
-import Toast from "./components/Toast";
-import CategoryPage from "./pages/CategoryPage";
-import HomePage from "./pages/HomePage";
 import { Route, Routes } from "react-router-dom";
-import QuizPage from "./pages/QuizPage";
-import RulesPage from "./pages/RulesPage";
-import PrivateRoute from "./components/PrivateRoute";
+import { Toast, PrivateRoute } from "./components";
+import {
+  HomePage,
+  LoginPage,
+  SignupPage,
+  CategoryPage,
+  QuizPage,
+  RulesPage,
+  QuestionPage,
+} from "./pages";
+
 function App() {
   return (
     <>
@@ -23,6 +26,14 @@ function App() {
           element={
             <PrivateRoute>
               <RulesPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/quizzes/:id/questions"
+          element={
+            <PrivateRoute>
+              <QuestionPage />
             </PrivateRoute>
           }
         />

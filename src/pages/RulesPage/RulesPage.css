@@ -1,0 +1,20 @@
+/* Rules Page */
+.rules-section {
+  z-index: 2;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.52);
+}
+@media screen and (max-width: 480px) {
+  .rules-section {
+    margin: 1rem;
+  }
+}
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(10px);
+}

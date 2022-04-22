@@ -5,7 +5,7 @@ import React, {
   useReducer,
   useEffect,
 } from "react";
-import { useApi } from "../hooks/useApi";
+import { useApi } from "../hooks";
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,

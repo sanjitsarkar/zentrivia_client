@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { useToast } from "../context/ToastContext";
+import { useAuth, useToast } from "../../hooks";
 
 const PrivateRoute = ({ children }) => {
   const { isLoggedIn } = useAuth();
@@ -15,6 +14,6 @@ const PrivateRoute = ({ children }) => {
       });
     }
   }, [isLoggedIn]);
-  return isLoggedIn === true ? children : <Navigate to="/" replace />;
+  return isLoggedIn ? children : <Navigate to="/" replace />;
 };
 export default PrivateRoute;

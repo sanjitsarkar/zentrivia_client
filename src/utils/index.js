@@ -16,3 +16,12 @@ export const GUEST_CREDENTIAL = {
   email: "johndoe@gmail.com",
   password: "123456",
 };
+
+export const initialSignupCredState = {
+  email: "",
+  password: "",
+  confirmPassword: "",
+  name: "",
+};
+
+export const initialLoginCredState = { email: "", password: "" };

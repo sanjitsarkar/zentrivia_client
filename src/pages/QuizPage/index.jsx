@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Layout from "../../components/Layout";
-import Loader from "../../components/Loader";
-import NotAvailable from "../../components/NotAvailable";
-import { useCategory } from "../../context/CategoryContext";
-import { useQuiz } from "../../context/QuizContext";
+import { Layout, Loader, NotAvailable } from "../../components";
+import { useCategory, useQuiz } from "../../hooks";
 import QuizCard from "./QuizCard";
+import "./QuizPage.css";
 
 const QuizPage = () => {
   const { quizzes, fetchQuizzesByCategoryId } = useQuiz();
@@ -19,11 +17,21 @@ const QuizPage = () => {
   const location = useLocation();
   let pathName = location.pathname.split("/");
   let categoryId = pathName[pathName.length - 1];
+  const isQuestionIsOfcategoryId = (quizzes, categoryId) => {
+    return quizzes.data.findIndex((quiz) => quiz.categoryId === categoryId) ===
+      -1
+      ? false
+      : true;
+  };
   useEffect(() => {
     clearCategoryInfo();
   }, []);
   useEffect(() => {
-    fetchQuizzesByCategoryId(categoryId);
+    if (
+      quizzes.data.length === 0 ||
+      !isQuestionIsOfcategoryId(quizzes, categoryId)
+    )
+      fetchQuizzesByCategoryId(categoryId);
   }, [location]);
   useEffect(() => {
     if (activeCategory === "") fetchCategoryInfo(categoryId);
@@ -33,6 +41,7 @@ const QuizPage = () => {
       setActiveCategory(categoryInfo.data.name);
     }
   }, [categoryInfo]);
+
   return (
     <Layout>
       <main className="col items-center mt-4">
