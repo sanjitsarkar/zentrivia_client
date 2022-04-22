@@ -6,9 +6,15 @@ import "./QuestionPage.css";
 
 const QuestionPage = () => {
   const navigate = useNavigate();
-  const { questions, fetchQuestions } = useQuestion();
-  const { activeQuiz, setActiveQuiz, clearQuizInfo, fetchQuizInfo, quizInfo } =
-    useQuiz();
+  const { questions, fetchQuestions, isQuestionIsOfQuizId } = useQuestion();
+  const {
+    activeQuiz,
+    setActiveQuiz,
+    clearQuizInfo,
+    fetchQuizInfo,
+    quizInfo,
+    isQuizInfoIsOfQuizId,
+  } = useQuiz();
   const location = useLocation();
 
   let pathName = location.pathname.split("/");
@@ -34,7 +40,7 @@ const QuestionPage = () => {
   }, [activeQuestionNo, timeLeft]);
 
   useEffect(() => {
-    if (questions.data.length === 0 || !isQuizInfoIsOfQuizId(questions, quizId))
+    if (questions.data.length === 0 || !isQuestionIsOfQuizId(questions, quizId))
       fetchQuestions(quizId);
   }, [quizId]);
 
@@ -63,9 +69,6 @@ const QuestionPage = () => {
     }
   }, [timeLeft]);
 
-  const isQuizInfoIsOfQuizId = (quizInfo, quizId) => {
-    return quizInfo["_id"] === quizId;
-  };
   const handleOptionClick = (option, i) => {
     {
       setOptionColor("success");

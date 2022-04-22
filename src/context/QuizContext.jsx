@@ -166,6 +166,9 @@ const QuizProvider = ({ children }) => {
       payload: [],
     });
   };
+  const isQuizInfoIsOfQuizId = (quizInfo, quizId) => {
+    return quizInfo["_id"] === quizId;
+  };
   return (
     <QuizContext.Provider
       value={{
@@ -187,6 +190,7 @@ const QuizProvider = ({ children }) => {
         dispatchQuizInfo,
         fetchQuizzesByCategoryId,
         clearQuizInfo,
+        isQuizInfoIsOfQuizId,
       }}
     >
       {children}
