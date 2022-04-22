@@ -1,6 +1,8 @@
 :root {
   --primary-light-color: hsl(180, 23%, 95%);
   --dark-black-color: hsl(180, 3%, 6%);
+--box-shadow-1:0 0 1rem rgba(0, 0, 0, 0.52);
+---lighter-dark-color:rgba(0, 0, 0, 0.24);
 }
 /* Category Page */
 .card:hover img {
@@ -96,4 +98,25 @@
 .quiz-play-button:hover {
   opacity: 0.7;
   transition: all 0.1s linear;
+}
+
+/* Rules Page */
+.rules-section {
+  z-index: 2;
+  box-shadow:var(--box-shadow-1);
+}
+@media screen and (max-width: 480px) {
+  .rules-section {
+    margin: 1rem;
+  }
+}
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background:var(---lighter-dark-color) ;
+  backdrop-filter: blur(10px);
 }
