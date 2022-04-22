@@ -4,7 +4,6 @@
   transition: all 0.1s linear;
   background-color: var(--primary-color);
   transform: scale(0.9);
-  object-fit: cover;
 }
 .category-section {
   min-height: 90vh;

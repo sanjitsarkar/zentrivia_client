@@ -26,6 +26,50 @@ const QuestionPage = () => {
   const [activeOption, setActiveOption] = useState(-1);
   const timeRef = useRef();
   const [timeLeft, setTimeLeft] = useState(15);
+  const questionRef = useRef(null);
+
+  const scrollToQuestion = () => {
+    questionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleOptionClick = (option, i) => {
+    {
+      setOptionColor("success");
+      if (option.isCorrect) {
+        switch (activeOption.quizDifficulty) {
+          case "Easy": {
+            setScore((prevScore) => prevScore + 5);
+            break;
+          }
+          case "Medium": {
+            setScore((prevScore) => prevScore + 10);
+            break;
+          }
+          case "Hard": {
+            setScore((prevScore) => prevScore + 15);
+            break;
+          }
+        }
+      } else setActiveOption(i);
+
+      setTimeout(() => {
+        setTimeLeft(15);
+        clearInterval(timeRef.current);
+
+        if (activeQuestionNo < questions.data.length - 1) {
+          setOptionColor("light");
+          setActiveOption(-1);
+          setActiveQuestionNo(
+            (prevActiveQuestionNo) => prevActiveQuestionNo + 1
+          );
+        }
+
+        if (activeQuestionNo === questions.data.length - 1) {
+          navigate("/result");
+        }
+      }, 1000);
+    }
+  };
 
   useEffect(() => {
     clearInterval(timeRef.current);
@@ -71,55 +115,21 @@ const QuestionPage = () => {
     }
   }, [timeLeft]);
 
-  const handleOptionClick = (option, i) => {
-    {
-      setOptionColor("success");
-      if (option.isCorrect) {
-        switch (activeOption.quizDifficulty) {
-          case "Easy": {
-            setScore((prevScore) => prevScore + 5);
-            break;
-          }
-          case "Medium": {
-            setScore((prevScore) => prevScore + 10);
-            break;
-          }
-          case "Hard": {
-            setScore((prevScore) => prevScore + 15);
-            break;
-          }
-        }
-      } else setActiveOption(i);
+  useEffect(() => {
+    scrollToQuestion();
+  }, [questionRef]);
 
-      setTimeout(() => {
-        setTimeLeft(15);
-        clearInterval(timeRef.current);
-
-        if (activeQuestionNo < questions.data.length - 1) {
-          setOptionColor("light");
-          setActiveOption(-1);
-          setActiveQuestionNo(
-            (prevActiveQuestionNo) => prevActiveQuestionNo + 1
-          );
-        }
-
-        if (activeQuestionNo === questions.data.length - 1) {
-          navigate("/result");
-        }
-      }, 1000);
-    }
-  };
   return (
     <Layout>
-      <section className="question-section w-5-6 text-light mt-5">
+      <section className="question-section w-5-6 text-light mt-4 mb-3">
         {questions.loading && <Loader />}
         {!questions.loading && questions.data.length > 0 && (
           <>
-            <h1 className="text-3xl text-bold mb-4 text-center text-primary">
+            <h1 className="text-2xl text-bold mb-3  text-primary">
               {activeQuiz.title}
             </h1>
             <div className="col gap-2 ">
-              <div className="row justify-between items-center">
+              <div className="row justify-between items-center gap-05">
                 <h3 className="text-xl ">
                   Question:{" "}
                   <span className="text-medium  text-primary ml-05">
@@ -130,7 +140,7 @@ const QuestionPage = () => {
                   <h3 className="text-xl " ref={timeRef}>
                     Time Left:
                     <span className="text-medium  text-primary ml-05">
-                      {timeLeft} Seconds
+                      {timeLeft} Second{timeLeft > 1 && "s"}
                     </span>
                   </h3>
                   <h3 className="text-xl ">
@@ -142,10 +152,10 @@ const QuestionPage = () => {
                 </div>
               </div>
               <div className="col gap-1">
-                <h3 className="text-light text-medium font-normal">
+                <h3 className="text-light text-xl font-normal">
                   {questions.data[activeQuestionNo].title}
                 </h3>
-                <div className="col options gap-1 ">
+                <div className="col options gap-1 " ref={questionRef}>
                   {questions.data[activeQuestionNo].options.map((option, i) => (
                     <button
                       className={`btn  ${

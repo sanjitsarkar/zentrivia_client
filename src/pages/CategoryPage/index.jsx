@@ -9,7 +9,7 @@ const CategoryPage = () => {
 
   return (
     <Layout>
-      <main className="category-section">
+      <main className="category-section mb-3">
         <h1 className="text-3xl text-bold mb-3 mt-4 text-center">
           Choose <span className="text-primary">Trivia</span> Category
         </h1>
