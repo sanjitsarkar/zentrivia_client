@@ -5,7 +5,7 @@ import React, {
   useContext,
   useReducer,
 } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useApi } from "../hooks";
 
 import { initialState, reducer } from "../reducers/reducer";
@@ -25,6 +25,7 @@ const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { setToast } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState();
   const [loginCred, setLoginCred] = useState(initialLoginCredState);
@@ -117,7 +118,7 @@ const AuthProvider = ({ children }) => {
       setToken(localStorage.getItem("token"));
       localStorage.setItem("user", JSON.stringify(state.data));
       localStorage.setItem("token", state.data.token);
-      navigate(-1, { replace: true });
+      if (location.pathname !== "/") navigate(-1, { replace: true });
     }
   }, [isLoggedIn]);
   useEffect(() => {
