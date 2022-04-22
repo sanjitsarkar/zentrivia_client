@@ -4,9 +4,9 @@ import Header from "../Header";
 
 const Layout = ({ children }) => {
   return (
-    <div className="bg-dark  overflow-x-hidden text-light h-screen ">
+    <div className="bg-dark text-light ">
       <Header />
-      <div className="main  h-full grid place-content-center">{children}</div>
+      <div className="main row justify-center">{children}</div>
       <Footer />
     </div>
   );
