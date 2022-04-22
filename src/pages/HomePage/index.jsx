@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "../../components";
@@ -27,3 +29,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
