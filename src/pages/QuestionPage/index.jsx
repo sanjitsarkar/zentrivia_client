@@ -62,6 +62,8 @@ const QuestionPage = () => {
         setOptionColor("light");
         setActiveOption(-1);
         setActiveQuestionNo((prevActiveQuestionNo) => prevActiveQuestionNo + 1);
+      } else {
+        navigate("/result");
       }
 
       setTimeLeft(15);
