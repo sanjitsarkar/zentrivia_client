@@ -10,6 +10,7 @@ const RulesPage = () => {
   let quizId = pathName[pathName.length - 1];
   return (
     <Layout>
+      <div className="backdrop"></div>
       <section className="rules-section  bg-light br-sm text-dark mt-5">
         <h1 className="text-xl p-2 bg-dark-2 br-sm text-light ">
           Some rules for this quiz
@@ -40,7 +41,6 @@ const RulesPage = () => {
           </Link>
         </div>
       </section>
-      <div className="backdrop"></div>
     </Layout>
   );
 };

@@ -10,11 +10,11 @@
 }
 .backdrop {
   position: absolute;
-  top: 0;
+  top: -10vh;
   left: 0;
   width: 100vw;
   height: 100vh;
   z-index: 1;
-  background: rgba(0, 0, 0, 0.24);
+  background: rgba(0, 0, 0, 0.137);
   backdrop-filter: blur(10px);
 }
