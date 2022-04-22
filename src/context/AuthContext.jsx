@@ -117,7 +117,7 @@ const AuthProvider = ({ children }) => {
       setToken(localStorage.getItem("token"));
       localStorage.setItem("user", JSON.stringify(state.data));
       localStorage.setItem("token", state.data.token);
-      navigate("/", { replace: true });
+      navigate(-1, { replace: true });
     }
   }, [isLoggedIn]);
   useEffect(() => {

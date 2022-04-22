@@ -8,7 +8,7 @@ const QuizCard = ({ quiz }) => {
   const { setToast } = useToast();
   const { setActiveQuiz } = useQuiz();
   return (
-    <div className="quiz-card cursor-pointer row  gap-1  text-light p-2 br-sm">
+    <div className="quiz-card row  gap-1  text-light p-2 br-sm">
       <img
         className="w-40 br-sm h-full"
         src={quiz.quizCoverImage}

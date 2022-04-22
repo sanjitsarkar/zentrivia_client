@@ -1,11 +1,26 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Footer, Header } from "..";
 import "./Layout.css";
 const Layout = ({ children }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   return (
     <div className="bg-dark text-light ">
       <Header />
-      <div className="main row justify-center">{children}</div>
+      <div className="main relative row justify-center">
+        {location.pathname !== "/" && (
+          <button
+            className="back-button fixed  z-10  br-full w-12 h-12 bg-primary text-2xl bx-sh-primary-2"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            &#10140;
+          </button>
+        )}
+        {children}
+      </div>
       <Footer />
     </div>
   );
