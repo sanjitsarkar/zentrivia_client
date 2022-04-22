@@ -1,6 +1,8 @@
 :root {
   --primary-light-color: hsl(180, 23%, 95%);
   --dark-black-color: hsl(180, 3%, 6%);
+--box-shadow-1:0 0 1rem rgba(0, 0, 0, 0.52);
+---lighter-dark-color:rgba(0, 0, 0, 0.24);
 }
 
 /* Form Styling */
