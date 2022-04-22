@@ -6,7 +6,7 @@ import Toast from "./Toast";
 import NotAvailable from "./NotAvailable";
 import PrivateRoute from "./PrivateRoute";
 import ProviderWrapper from "./ProviderWrapper";
-
+import ScrollToTop from "./ScrollToTop";
 export {
   Header,
   Footer,
@@ -16,4 +16,5 @@ export {
   PrivateRoute,
   ProviderWrapper,
   Toast,
+  ScrollToTop,
 };

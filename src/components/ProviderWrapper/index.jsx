@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import ScrollToTop from "../ScrollToTop";
 import {
   AuthProvider,
   CategoryProvider,
@@ -11,6 +12,7 @@ import {
 const ProviderWrapper = ({ children }) => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <ToastProvider>
         <AuthProvider>
           <CategoryProvider>

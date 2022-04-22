@@ -117,7 +117,7 @@ const QuestionPage = () => {
 
   useEffect(() => {
     scrollToQuestion();
-  }, [questionRef]);
+  }, [questionRef, activeQuestionNo]);
 
   return (
     <Layout>
