@@ -1,6 +1,8 @@
 :root {
   --primary-light-color: hsl(180, 23%, 95%);
   --dark-black-color: hsl(180, 3%, 6%);
+--box-shadow-1:0 0 1rem rgba(0, 0, 0, 0.52);
+---lighter-dark-color:rgba(0, 0, 0, 0.24);
 }
 /* Category Page */
 .card:hover img {
@@ -101,7 +103,7 @@
 /* Rules Page */
 .rules-section {
   z-index: 2;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.52);
+  box-shadow:var(--box-shadow-1);
 }
 @media screen and (max-width: 480px) {
   .rules-section {
@@ -115,6 +117,6 @@
   width: 100vw;
   height: 100vh;
   z-index: 1;
-  background: rgba(0, 0, 0, 0.24);
+  background:var(---lighter-dark-color) ;
   backdrop-filter: blur(10px);
 }
