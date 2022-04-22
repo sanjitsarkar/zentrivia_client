@@ -37,11 +37,11 @@ const QuizCard = ({ quiz }) => {
           <div className="row quiz-bottom-bar ">
             <span>
               {quiz.totalQuestion} question
-              {quiz.totalQuestion.length > 1 && "s"}
+              {quiz.totalQuestion > 1 && "s"}
             </span>
             <span>
               {quiz.totalPlayedUser} player
-              {quiz.totalPlayedUser.length > 1 && "s"} played
+              {quiz.totalPlayedUser > 1 && "s"} played
             </span>
             <span
               className={`p-05  pl-2 br-sm pr-2 text-sm text-light ${
