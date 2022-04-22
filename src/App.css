@@ -1,38 +1,99 @@
+:root {
+  --primary-light-color: hsl(180, 23%, 95%);
+  --dark-black-color: hsl(180, 3%, 6%);
+}
+/* Category Page */
 .card:hover img {
   box-shadow: none;
   transition: all 0.1s linear;
   background-color: var(--primary-color);
   transform: scale(0.9);
-  object-fit: contain;
+  object-fit: cover;
+}
+.category-section {
+  min-height: 90vh;
 }
 .category-section img {
   background-color: var(--dark-color-7);
   object-fit: contain;
 }
-
-::marker {
-  color: var(--dark-color-2);
-  font-weight: bold;
+#category-card {
+  width: 15rem;
+}
+@media only screen and (max-width: 500px) {
+  #category-card {
+    width: 90vw;
+  }
 }
 
-.options .btn {
-  padding: 0.75rem 0;
-  font-size: 1rem;
-}
-
+/* Home Page  */
 .hero-section-button {
   padding: 0.5rem 1.5rem;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
 @media only screen and (max-width: 470px) {
   .hero-section-title {
     font-size: 4rem;
-  }
-  .rules-section {
-    margin: 2rem;
   }
 }
 @media only screen and (max-width: 315px) {
   .hero-section-title {
     font-size: 3.5rem;
   }
+}
+@media only screen and (max-width: 535px) {
+  form.form {
+    padding: 1rem;
+  }
+}
+
+/* Body Section */
+.main {
+  padding-top: 1rem;
+  --main-top-margin: 9.8vh;
+  margin-top: var(--main-top-margin);
+  min-height: calc(100vh - var(--main-top-margin));
+}
+
+/* Quiz Page */
+.quiz-card {
+  height: 10rem;
+  background-color: var(--dark-black-color);
+  transform: scale(1);
+  transition: all 0.1s linear;
+}
+.quiz-card:hover {
+  transform: scale(1.01);
+}
+.quiz-card:active {
+  transform: scale(0.99);
+}
+.quiz-card-bottom {
+  min-width: 40vw;
+}
+@media screen and (max-width: 710px) {
+  .quiz-card {
+    text-align: center;
+    height: auto;
+    width: 90vw;
+  }
+  .quiz-card img {
+    object-fit: cover;
+    width: 100%;
+    height: 35vh;
+  }
+}
+.quiz-bottom-bar {
+  column-gap: 2rem;
+  row-gap: 1rem;
+}
+.quiz-play-button {
+  padding: 0.45rem 1.5rem;
+  background-color: var(--primary-light-color);
+}
+.quiz-play-button:hover {
+  opacity: 0.7;
+  transition: all 0.1s linear;
 }

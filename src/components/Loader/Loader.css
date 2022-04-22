@@ -1,0 +1,109 @@
+.loader {
+  display: inline-block;
+  position: relative;
+  width: 5rem;
+  height: 0.7rem;
+
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+.loader div {
+  position: absolute;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--primary-color);
+  -webkit-animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loader div:nth-child(1) {
+  left: 8px;
+  -webkit-animation: loader1 0.6s infinite;
+  animation: loader1 0.6s infinite;
+}
+
+.loader div:nth-child(2) {
+  left: 8px;
+  -webkit-animation: loader2 0.6s infinite;
+  animation: loader2 0.6s infinite;
+}
+
+.loader div:nth-child(3) {
+  left: 2rem;
+  -webkit-animation: loader2 0.6s infinite;
+  animation: loader2 0.6s infinite;
+}
+
+.loader div:nth-child(4) {
+  left: 3.5rem;
+  -webkit-animation: loader3 0.6s infinite;
+  animation: loader3 0.6s infinite;
+}
+
+@-webkit-keyframes loader1 {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes loader1 {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@-webkit-keyframes loader3 {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+}
+
+@keyframes loader3 {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+}
+
+@-webkit-keyframes loader2 {
+  0% {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+  100% {
+    -webkit-transform: translate(2rem, 0);
+    transform: translate(2rem, 0);
+  }
+}
+
+@keyframes loader2 {
+  0% {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+  100% {
+    -webkit-transform: translate(2rem, 0);
+    transform: translate(2rem, 0);
+  }
+}

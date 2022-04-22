@@ -24,3 +24,9 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   opacity: 0.3;
   pointer-events: all;
 }
+
+@media screen and (max-width: 450px) {
+  header .hide {
+    display: none;
+  }
+}
