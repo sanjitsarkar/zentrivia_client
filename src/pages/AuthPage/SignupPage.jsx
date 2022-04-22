@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Layout from "../../components/Layout";
-import Loader from "../../components/Loader";
-import { useAuth } from "../../context/AuthContext";
+import { Layout, Loader } from "../../components";
+import { useAuth } from "../../hooks";
 
 const SignupPage = () => {
   const { signUp, signupCred, setSignupCred, user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   return (
     <Layout>
       <form

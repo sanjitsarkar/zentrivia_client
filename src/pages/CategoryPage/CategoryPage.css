@@ -1,0 +1,28 @@
+/* Category Page */
+.card:hover img {
+  box-shadow: none;
+  transition: all 0.1s linear;
+  background-color: var(--primary-color);
+  transform: scale(0.9);
+  object-fit: cover;
+}
+.category-section {
+  min-height: 90vh;
+}
+.category-section img {
+  background-color: var(--dark-color-7);
+  object-fit: contain;
+}
+.category-card {
+  width: 15rem;
+}
+.category-button {
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+}
+@media only screen and (max-width: 500px) {
+  .category-card {
+    width: 90vw;
+  }
+}

@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Layout from "../../components/Layout";
-import Loader from "../../components/Loader";
-import { useAuth } from "../../context/AuthContext";
+import { Layout, Loader } from "../../components";
+import { useAuth } from "../../hooks";
 import { GUEST_CREDENTIAL } from "../../utils";
-
 const LoginPage = () => {
   const { logIn, loginCred, setLoginCred, user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);

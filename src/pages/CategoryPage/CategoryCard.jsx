@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useQuiz } from "../../context/QuizContext";
+import { useCategory, useQuiz } from "../../hooks";
 
 const CategoryCard = ({ category }) => {
-  const { setActiveQuiz } = useQuiz();
+  const { setActiveCategory } = useCategory();
   return (
-    <div className="card  bg-primary" id="category-card">
+    <div className="card  bg-primary category-card">
       <div className="card-header">
         <img
           src={category.img}
@@ -21,9 +21,11 @@ const CategoryCard = ({ category }) => {
           <Link
             to={`/quizzes/${category._id}`}
             className="w-full"
-            onClick={() => setActiveQuiz(category.name)}
+            onClick={() => setActiveCategory(category.name)}
           >
-            <button className="btn btn-dark w-full">Exlore Quizzes</button>
+            <button className="btn btn-dark w-full category-button">
+              Exlore Quizzes
+            </button>
           </Link>
         </div>
       </div>

@@ -6,24 +6,21 @@ import React, {
   useReducer,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { useApi } from "../hooks/useApi";
+import { useApi } from "../hooks";
+
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
   formatError,
+  initialLoginCredState,
+  initialSignupCredState,
 } from "../utils";
 import { useToast } from "./ToastContext";
 
 const AuthContext = createContext();
-const initialSignupCredState = {
-  email: "",
-  password: "",
-  confirmPassword: "",
-  name: "",
-};
-const initialLoginCredState = { email: "", password: "" };
+
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { setToast } = useToast();
@@ -131,7 +128,6 @@ const AuthProvider = ({ children }) => {
         type: ACTION_TYPE_SUCCESS,
         payload: JSON.parse(localStorage.getItem("user")),
       });
-
       navigate("/", { replace: true });
     }
   }, []);

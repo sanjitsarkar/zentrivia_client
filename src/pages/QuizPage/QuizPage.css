@@ -1,0 +1,51 @@
+/* Quiz Page */
+.quiz-card {
+  height: 10rem;
+  background-color: var(--dark-black-color);
+  transform: scale(1);
+  transition: all 0.1s linear;
+}
+.quiz-card:hover {
+  transform: scale(1.01);
+}
+.quiz-card:active {
+  transform: scale(0.99);
+}
+.quiz-card-bottom {
+  min-width: 45vw;
+}
+@media screen and (max-width: 723px) {
+  .quiz-card-bottom {
+    min-width: 100%;
+  }
+  .quiz-card {
+    height: auto;
+    width: 90vw;
+  }
+  .quiz-card img {
+    object-fit: cover;
+    width: 100%;
+    height: 35vh;
+  }
+}
+.quiz-bottom-bar {
+  column-gap: 2rem;
+  row-gap: 0.5rem;
+}
+.bottom-quiz-info {
+  column-gap: 2rem;
+  row-gap: 2rem;
+}
+.quiz-play-button {
+  padding: 0.45rem 1.5rem;
+  background-color: var(--primary-light-color);
+}
+.quiz-play-button:hover {
+  opacity: 0.7;
+  transition: all 0.1s linear;
+}
+@media all and (max-width: 534px) {
+  .quiz-play-button {
+    width: 100%;
+  }
+}

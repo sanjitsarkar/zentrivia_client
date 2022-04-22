@@ -1,0 +1,9 @@
+.option-button {
+  padding: 1rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.btn-error {
+  background-color: var(--error-color);
+  color: var(--light-color);
+}

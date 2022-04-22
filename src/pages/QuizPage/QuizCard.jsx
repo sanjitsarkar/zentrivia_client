@@ -1,8 +1,6 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
-import { useQuiz } from "../../context/QuizContext";
-import { useToast } from "../../context/ToastContext";
+import { useNavigate } from "react-router-dom";
+import { useAuth, useQuiz, useToast } from "../../hooks";
 
 const QuizCard = ({ quiz }) => {
   const { isLoggedIn } = useAuth();
@@ -16,9 +14,9 @@ const QuizCard = ({ quiz }) => {
         src={quiz.quizCoverImage}
         alt={quiz.title.substring(10)}
       />
-      <div className="col  gap-1 h-full  quiz-card-bottom justify-center items-center">
-        <h1 className="text-xl font-medium">{quiz.title}</h1>
-        <div className="row gap-2 justify-center items-center">
+      <div className="col  gap-1 h-full  quiz-card-bottom justify-center ">
+        <h1 className="text-xl font-medium text-left">{quiz.title}</h1>
+        <div className="row bottom-quiz-info items-center ">
           <button
             className="quiz-play-button  pl-3 text-dark text-md pr-3 "
             onClick={() => {
@@ -36,7 +34,7 @@ const QuizCard = ({ quiz }) => {
           >
             Play
           </button>
-          <div className="row quiz-bottom-bar justify-center">
+          <div className="row quiz-bottom-bar ">
             <span>
               {quiz.totalQuestion} question
               {quiz.totalQuestion.length > 1 && "s"}

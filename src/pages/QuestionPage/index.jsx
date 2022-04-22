@@ -1,44 +1,47 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import Layout from "../../components/Layout";
-import Loader from "../../components/Loader";
-import NotAvailable from "../../components/NotAvailable";
-import { useQuestion } from "../../context/QuestionContext";
-import { useQuiz } from "../../context/QuizContext";
+import React, { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Layout, Loader, NotAvailable } from "../../components";
+import { useQuestion, useQuiz } from "../../hooks";
+import "./QuestionPage.css";
 
 const QuestionPage = () => {
+  const navigate = useNavigate();
   const { questions, fetchQuestions } = useQuestion();
   const { activeQuiz, setActiveQuiz, clearQuizInfo, fetchQuizInfo, quizInfo } =
     useQuiz();
   const location = useLocation();
+
   let pathName = location.pathname.split("/");
   let quizId = pathName[pathName.length - 2];
+
   const [activeQuestionNo, setActiveQuestionNo] = useState(0);
   const [optionStateColor, setOptionColor] = useState("light");
   const [score, setScore] = useState(0);
   const [activeOption, setActiveOption] = useState(-1);
-  const [timer, setTimer] = useState();
+  const timeRef = useRef();
   const [timeLeft, setTimeLeft] = useState(15);
 
   useEffect(() => {
-    clearInterval(timer);
-    setTimer(
-      setInterval(() => {
-        timeLeft > 0 && setTimeLeft(timeLeft - 1);
-      }, 1000)
-    );
-  }, [activeQuestionNo]);
+    clearInterval(timeRef.current);
+
+    timeRef.current = setInterval(() => {
+      setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(timeRef.current);
+    };
+  }, [activeQuestionNo, timeLeft]);
+
   useEffect(() => {
-    fetchQuestions(quizId);
+    if (questions.data.length === 0 || !isQuizInfoIsOfQuizId(questions, quizId))
+      fetchQuestions(quizId);
   }, [quizId]);
 
   useEffect(() => {
-    fetchQuizInfo(quizId);
-
+    if (quizInfo.data.length === 0 || !isQuizInfoIsOfQuizId(quizInfo, quizId))
+      fetchQuizInfo(quizId);
     clearQuizInfo();
-    return () => {
-      clearInterval(timer);
-    };
   }, []);
 
   useEffect(() => {
@@ -46,16 +49,61 @@ const QuestionPage = () => {
       setActiveQuiz(quizInfo.data);
     }
   }, [quizInfo]);
+
   useEffect(() => {
     if (timeLeft === 0) {
       if (activeQuestionNo < questions.data.length - 1) {
         setOptionColor("light");
         setActiveOption(-1);
-        setActiveQuestionNo(activeQuestionNo + 1);
+        setActiveQuestionNo((prevActiveQuestionNo) => prevActiveQuestionNo + 1);
       }
-      clearInterval(timer);
+
+      setTimeLeft(15);
+      clearInterval(timeRef.current);
     }
   }, [timeLeft]);
+
+  const isQuizInfoIsOfQuizId = (quizInfo, quizId) => {
+    return quizInfo["_id"] === quizId;
+  };
+  const handleOptionClick = (option, i) => {
+    {
+      setOptionColor("success");
+      if (option.isCorrect) {
+        switch (activeOption.quizDifficulty) {
+          case "Easy": {
+            setScore((prevScore) => prevScore + 5);
+            break;
+          }
+          case "Medium": {
+            setScore((prevScore) => prevScore + 10);
+            break;
+          }
+          case "Hard": {
+            setScore((prevScore) => prevScore + 15);
+            break;
+          }
+        }
+      } else setActiveOption(i);
+
+      setTimeout(() => {
+        setTimeLeft(15);
+        clearInterval(timeRef.current);
+
+        if (activeQuestionNo < questions.data.length - 1) {
+          setOptionColor("light");
+          setActiveOption(-1);
+          setActiveQuestionNo(
+            (prevActiveQuestionNo) => prevActiveQuestionNo + 1
+          );
+        }
+
+        if (activeQuestionNo === questions.data.length - 1) {
+          navigate("/result");
+        }
+      }, 1000);
+    }
+  };
   return (
     <Layout>
       <section className="question-section w-5-6 text-light mt-5">
@@ -65,7 +113,7 @@ const QuestionPage = () => {
             <h1 className="text-3xl text-bold mb-4 text-center text-primary">
               {activeQuiz.title}
             </h1>
-            <div className="col gap-2">
+            <div className="col gap-2 ">
               <div className="row justify-between items-center">
                 <h3 className="text-xl ">
                   Question:{" "}
@@ -74,7 +122,7 @@ const QuestionPage = () => {
                   </span>
                 </h3>
                 <div className="row gap-1">
-                  <h3 className="text-xl ">
+                  <h3 className="text-xl " ref={timeRef}>
                     Time Left:
                     <span className="text-medium  text-primary ml-05">
                       {timeLeft} Seconds
@@ -100,30 +148,9 @@ const QuestionPage = () => {
                           ? "btn-error"
                           : ""
                       }  btn-${option.isCorrect ? optionStateColor : "light"} 
-                     `}
+                     option-button`}
                       key={option.value}
-                      onClick={() => {
-                        setOptionColor("success");
-                        if (option.isCorrect) {
-                          if (activeQuiz.quizDifficulty === "Easy") {
-                            setScore(score + 5);
-                          } else if (activeQuiz.quizDifficulty === "Medium") {
-                            setScore(score + 10);
-                          } else if (activeQuiz.quizDifficulty === "Hard") {
-                            setScore(score + 15);
-                          }
-                        } else setActiveOption(i);
-                        setTimeout(() => {
-                          if (activeQuestionNo < questions.data.length - 1) {
-                            setOptionColor("light");
-                            setActiveOption(-1);
-                            setActiveQuestionNo(activeQuestionNo + 1);
-                          }
-                          if (activeQuestionNo === questions.data.length - 1) {
-                            alert("Quiz is over");
-                          }
-                        }, 1000);
-                      }}
+                      onClick={() => handleOptionClick(option, i)}
                     >
                       {option.value}
                     </button>

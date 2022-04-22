@@ -1,11 +1,5 @@
-import React, {
-  useState,
-  createContext,
-  useContext,
-  useReducer,
-  useEffect,
-} from "react";
-import { useApi } from "../hooks/useApi";
+import React, { useState, createContext, useContext, useReducer } from "react";
+import { useApi } from "../hooks";
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
@@ -112,6 +106,13 @@ const QuestionProvider = ({ children }) => {
       });
     }
   };
+  const isQuestionIsOfQuizId = (questions, quizId) => {
+    return questions.data.findIndex(
+      (question) => question.quizId === quizId
+    ) === -1
+      ? false
+      : true;
+  };
 
   return (
     <QuestionContext.Provider
@@ -127,6 +128,7 @@ const QuestionProvider = ({ children }) => {
         updateQuestion,
         questionInfo,
         dispatchQuestionInfo,
+        isQuestionIsOfQuizId,
       }}
     >
       {children}

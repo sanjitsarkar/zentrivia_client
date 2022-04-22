@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect } from "react";
-import Layout from "../../components/Layout";
-import Loader from "../../components/Loader";
-import NotAvailable from "../../components/NotAvailable";
-import { useCategory } from "../../context/CategoryContext";
+import React from "react";
+import { Layout, Loader, NotAvailable } from "../../components";
+import { useCategory } from "../../hooks";
 import CategoryCard from "./CategoryCard";
+import "./CategoryPage.css";
 
 const CategoryPage = () => {
   const { categories } = useCategory();

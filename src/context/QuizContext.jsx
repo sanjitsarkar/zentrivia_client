@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  createContext,
-  useContext,
-  useReducer,
-  useEffect,
-} from "react";
+import React, { useState, createContext, useContext, useReducer } from "react";
 import { useApi } from "../hooks/useApi";
 import { initialState, reducer } from "../reducers/reducer";
 import {
