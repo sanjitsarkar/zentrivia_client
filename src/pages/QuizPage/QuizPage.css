@@ -11,9 +11,7 @@
 .quiz-card:active {
   transform: scale(0.99);
 }
-.quiz-card-bottom {
-  min-width: 45vw;
-}
+
 @media screen and (max-width: 723px) {
   .quiz-card-bottom {
     min-width: 100%;

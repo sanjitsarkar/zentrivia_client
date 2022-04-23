@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth, useQuiz, useToast } from "../../hooks";
 
 const QuizCard = ({ quiz }) => {
+  let title = quiz.title;
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
   const { setToast } = useToast();
@@ -15,7 +16,7 @@ const QuizCard = ({ quiz }) => {
         alt={quiz.title.substring(10)}
       />
       <div className="col  gap-1 h-full  quiz-card-bottom justify-center ">
-        <h1 className="text-xl font-medium text-left">{quiz.title}</h1>
+        <h1 className="text-xl font-medium text-left">{title}</h1>
         <div className="row bottom-quiz-info items-center ">
           <button
             className="quiz-play-button  pl-3 text-dark text-md pr-3 "
@@ -26,6 +27,7 @@ const QuizCard = ({ quiz }) => {
                   type: "error",
                   show: true,
                 });
+                navigate("/login");
               } else {
                 setActiveQuiz(quiz.title);
                 navigate(`/rules/${quiz._id}`);

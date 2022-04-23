@@ -125,7 +125,7 @@ const QuestionPage = () => {
         {questions.loading && <Loader />}
         {!questions.loading && questions.data.length > 0 && (
           <>
-            <h1 className="text-2xl text-bold mb-3  text-primary">
+            <h1 className="text-3xl text-bold mb-3  text-primary">
               {activeQuiz.title}
             </h1>
             <div className="col gap-2 ">
@@ -152,10 +152,10 @@ const QuestionPage = () => {
                 </div>
               </div>
               <div className="col gap-1">
-                <h3 className="text-light text-xl font-normal">
+                <h3 className="text-light text-2xl font-medium">
                   {questions.data[activeQuestionNo].title}
                 </h3>
-                <div className="col options gap-1 " ref={questionRef}>
+                <div className="col options gap-2 mt-2" ref={questionRef}>
                   {questions.data[activeQuestionNo].options.map((option, i) => (
                     <button
                       className={`btn  ${
