@@ -12,6 +12,7 @@ import {
   RulesPage,
   SignupPage,
 } from "./pages";
+import ResultPage from "./pages/ResultPage";
 
 function App() {
   const { theme } = useTheme();
@@ -36,6 +37,14 @@ function App() {
           element={
             <PrivateRoute>
               <QuestionPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/result"
+          element={
+            <PrivateRoute>
+              <ResultPage />
             </PrivateRoute>
           }
         />

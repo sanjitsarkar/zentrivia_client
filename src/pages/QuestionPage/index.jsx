@@ -1,12 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Layout, Loader, NotAvailable } from "../../components";
+import { useScore } from "../../context/ScoreContext";
 import { useQuestion, useQuiz } from "../../hooks";
 import "./QuestionPage.css";
 
 const QuestionPage = () => {
   const navigate = useNavigate();
-  const { questions, fetchQuestions, isQuestionIsOfQuizId } = useQuestion();
+  const {
+    questions,
+    fetchQuestions,
+    isQuestionIsOfQuizId,
+    wrongQuestions,
+    setWrongQuestions,
+  } = useQuestion();
+  const { addScore, fetchScoreInfo } = useScore();
   const {
     activeQuiz,
     setActiveQuiz,
@@ -14,6 +22,7 @@ const QuestionPage = () => {
     fetchQuizInfo,
     quizInfo,
     isQuizInfoIsOfQuizId,
+    updateQuiz,
   } = useQuiz();
   const location = useLocation();
 
@@ -27,30 +36,48 @@ const QuestionPage = () => {
   const timeRef = useRef();
   const [timeLeft, setTimeLeft] = useState(15);
   const questionRef = useRef(null);
-
+  const [isClicked, setIsClicked] = useState(false);
+  const [points, setPoints] = useState(0);
   const scrollToQuestion = () => {
     questionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+  const navigateToResultPage = async (_wrongQuestions, _score) => {
+    const _scoreInfo = await fetchScoreInfo(activeQuiz._id);
+    if (_scoreInfo.data.score === null) {
+      await updateQuiz(activeQuiz._id, { $inc: { totalPlayedUser: 1 } });
+    }
 
+    await addScore(
+      _score,
+      activeQuiz._id,
+      _wrongQuestions.map((wrongQuestion) => wrongQuestion.questionId)
+    );
+    navigate("/result", {
+      state: {
+        score: _score,
+        totalScore: questions.data.length * points,
+        activeQuiz,
+      },
+    });
+  };
   const handleOptionClick = (option, i) => {
     {
+      setIsClicked(true);
+
       setOptionColor("success");
+
       if (option.isCorrect) {
-        switch (activeOption.quizDifficulty) {
-          case "Easy": {
-            setScore((prevScore) => prevScore + 5);
-            break;
-          }
-          case "Medium": {
-            setScore((prevScore) => prevScore + 10);
-            break;
-          }
-          case "Hard": {
-            setScore((prevScore) => prevScore + 15);
-            break;
-          }
-        }
-      } else setActiveOption(i);
+        setScore((prevScore) => prevScore + points);
+      } else {
+        setActiveOption(i);
+        setWrongQuestions((prevWrongQuestions) => [
+          ...prevWrongQuestions,
+          {
+            questionId: questions.data[activeQuestionNo]._id,
+            optionId: option._id,
+          },
+        ]);
+      }
 
       setTimeout(() => {
         setTimeLeft(15);
@@ -63,11 +90,27 @@ const QuestionPage = () => {
             (prevActiveQuestionNo) => prevActiveQuestionNo + 1
           );
         }
-
-        if (activeQuestionNo === questions.data.length - 1) {
-          navigate("/result");
-        }
+        setIsClicked(false);
       }, 1000);
+
+      if (activeQuestionNo === questions.data.length - 1) {
+        let _score = score,
+          _wrongQuestions = wrongQuestions;
+        if (option.isCorrect) {
+          _score += points;
+        } else {
+          _wrongQuestions = [
+            ...wrongQuestions,
+            {
+              questionId: questions.data[activeQuestionNo]._id,
+              optionId: option._id,
+            },
+          ];
+        }
+        (async () => {
+          await navigateToResultPage(_wrongQuestions, _score);
+        })();
+      }
     }
   };
 
@@ -92,6 +135,8 @@ const QuestionPage = () => {
     if (quizInfo.data.length === 0 || !isQuizInfoIsOfQuizId(quizInfo, quizId))
       fetchQuizInfo(quizId);
     clearQuizInfo();
+    setPoints(0);
+    setWrongQuestions([]);
   }, []);
 
   useEffect(() => {
@@ -99,21 +144,44 @@ const QuestionPage = () => {
       setActiveQuiz(quizInfo.data);
     }
   }, [quizInfo]);
+  useEffect(() => {
+    switch (activeQuiz.quizDifficulty) {
+      case "Easy": {
+        setPoints(5);
+        break;
+      }
+      case "Medium": {
+        setPoints(10);
 
+        break;
+      }
+      case "Hard": {
+        setPoints(15);
+
+        break;
+      }
+    }
+  }, [activeQuiz]);
   useEffect(() => {
     if (timeLeft === 0) {
       if (activeQuestionNo < questions.data.length - 1) {
+        setWrongQuestions((prevWronQuestions) => [
+          ...prevWronQuestions,
+          questions.data[activeQuestionNo]._id,
+        ]);
         setOptionColor("light");
         setActiveOption(-1);
         setActiveQuestionNo((prevActiveQuestionNo) => prevActiveQuestionNo + 1);
       } else {
-        navigate("/result");
+        (async () => {
+          await navigateToResultPage(wrongQuestions, score);
+        })();
       }
 
       setTimeLeft(15);
       clearInterval(timeRef.current);
     }
-  }, [timeLeft]);
+  }, [timeLeft, wrongQuestions, score]);
 
   useEffect(() => {
     scrollToQuestion();
@@ -165,7 +233,8 @@ const QuestionPage = () => {
                       }  btn-${option.isCorrect ? optionStateColor : "light"} 
                      option-button`}
                       key={option.value}
-                      onClick={() => handleOptionClick(option, i)}
+                      disabled={isClicked}
+                      onClick={() => !isClicked && handleOptionClick(option, i)}
                     >
                       {option.value}
                     </button>
