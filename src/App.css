@@ -74,5 +74,5 @@ form {
 }
 
 * {
-  transition: color, background-color 0.5s linear;
+  transition: color, background-color 0.2s linear;
 }
