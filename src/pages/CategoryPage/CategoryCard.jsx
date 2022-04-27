@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useCategory, useQuiz } from "../../hooks";
+import { useCategory } from "../../hooks";
 
 const CategoryCard = ({ category }) => {
   const { setActiveCategory } = useCategory();
   return (
-    <div className="card  bg-primary category-card">
+    <div className="card category-card">
       <div className="card-header">
         <img
           src={category.img}

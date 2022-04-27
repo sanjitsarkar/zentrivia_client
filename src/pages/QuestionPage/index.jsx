@@ -155,7 +155,7 @@ const QuestionPage = () => {
                 <h3 className="text-light text-2xl font-medium">
                   {questions.data[activeQuestionNo].title}
                 </h3>
-                <div className="col options gap-2 mt-2" ref={questionRef}>
+                <div className="col options gap-1 mt-2" ref={questionRef}>
                   {questions.data[activeQuestionNo].options.map((option, i) => (
                     <button
                       className={`btn  ${

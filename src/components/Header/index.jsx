@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
 import { useAuth } from "../../hooks";
 import "./Header.css";
 const Header = () => {
   const { isLoggedIn, logOut, user } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const { toggleTheme, theme } = useTheme();
   return (
     <header
       id="header"
-      className="p-3 t-0 bx-sh-primary-2 pt-2 pb-2 fixed  bg-dark w-full  row justify-between items-center"
+      className="p-3 t-0 bx-sh-primary-2 pt-2 pb-2 fixed   w-full  row justify-between items-center"
     >
       <div className="row items-center justify-between w-full gap-1 flex-nowrap">
         <div className="row gap-1 items-center  flex-nowrap">
@@ -37,6 +39,24 @@ const Header = () => {
          
         }`}
         >
+          <button
+            onClick={toggleTheme}
+            className={`${theme === "" ? "text-light" : "text-dark-black"}`}
+          >
+            {theme !== "light" ? (
+              <img
+                src="https://assets.codepen.io/210284/sun.png"
+                alt="light"
+                className="w-8"
+              />
+            ) : (
+              <img
+                src="https://assets.codepen.io/210284/moon.png"
+                alt="dark"
+                className="w-8"
+              />
+            )}
+          </button>
           {!isLoggedIn ? (
             <li>
               <Link to="/login">
@@ -61,7 +81,7 @@ const Header = () => {
         </ul>
       </div>
       {isLoggedIn && showProfileMenu && (
-        <ul className="absolute text-dark t-5 mt-2  bg-light z-55 br-sm  col items-center gap-05 p-2 r-1 ">
+        <ul className="menu absolute text-dark t-5 mt-2  bg-light z-55 br-sm  col items-center gap-05 p-2 r-1 ">
           <Link to="/">Home</Link>
           <Link to="/profile">Profile</Link>
           <li>
