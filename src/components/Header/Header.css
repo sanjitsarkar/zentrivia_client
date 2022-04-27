@@ -1,5 +1,6 @@
 header#header {
   z-index: 1;
+  background: var(--dark-color);
 }
 
 header .input-box {
@@ -25,9 +26,9 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   pointer-events: all;
 }
 .auth-button {
-  padding: 0.7rem 1rem;
+  padding: 0.5rem 0.8rem;
   border-radius: 2rem;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
 }
 @media screen and (max-width: 450px) {
   header .hide {

@@ -1,20 +1,20 @@
 import React from "react";
-import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import { Toast, PrivateRoute } from "./components";
+import "./App.css";
+import { PrivateRoute, Toast } from "./components";
 import {
+  CategoryPage,
   HomePage,
   LoginPage,
-  SignupPage,
-  CategoryPage,
+  QuestionPage,
   QuizPage,
   RulesPage,
-  QuestionPage,
+  SignupPage,
 } from "./pages";
 
 function App() {
   return (
-    <>
+    <div className="dark">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -39,7 +39,7 @@ function App() {
         />
       </Routes>
       <Toast />
-    </>
+    </div>
   );
 }
 

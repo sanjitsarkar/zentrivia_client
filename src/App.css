@@ -11,3 +11,62 @@
     padding: 1rem;
   }
 }
+
+.dark {
+  --d-color: var(--dark-color);
+  --dark-color: var(--light-color);
+  --light-color: var(--d-color);
+  --dark-black-color: hsl(0, 0%, 100%);
+  --primary-light-color: hsl(180, 3%, 6%);
+  --lighter-dark-color: rgb(255, 255, 255);
+  --dark-color-2: var(--light-color-2);
+}
+
+.dark #header {
+  background: white;
+  box-shadow: 0 0 1rem var(--black-color-7);
+}
+.dark .card,
+.quiz-card,
+form {
+  box-shadow: 0 0 1rem var(--black-color-7);
+}
+.dark button,
+.quiz-difficulty {
+  color: white;
+}
+/* .dark .category-button {
+  background: var(--);
+} */
+
+.dark .hero-section-button,
+.category-button {
+  background: var(--primary-light-color);
+}
+
+.dark .input-box {
+  background: var(--dark-color-8);
+  color: var(--dark-color);
+}
+.dark .menu {
+  background: white;
+  box-shadow: 0 4px 0.5rem var(--black-color-7);
+}
+
+.dark .input-box i {
+  color: var(--dark-color-3);
+}
+.dark .btn-outline-error {
+  color: var(--error-color);
+}
+.dark .btn-outline-error:hover {
+  color: white;
+}
+.dark .btn-dark,
+.btn-light {
+  background: black;
+}
+
+.dark form {
+  border: none;
+}

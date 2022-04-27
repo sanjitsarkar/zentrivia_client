@@ -25,7 +25,7 @@ const QuestionPage = () => {
   const [score, setScore] = useState(0);
   const [activeOption, setActiveOption] = useState(-1);
   const timeRef = useRef();
-  const [timeLeft, setTimeLeft] = useState(15);
+  const [timeLeft, setTimeLeft] = useState(15000);
   const questionRef = useRef(null);
 
   const scrollToQuestion = () => {
@@ -46,14 +46,14 @@ const QuestionPage = () => {
             break;
           }
           case "Hard": {
-            setScore((prevScore) => prevScore + 15);
+            setScore((prevScore) => prevScore + 15000);
             break;
           }
         }
       } else setActiveOption(i);
 
       setTimeout(() => {
-        setTimeLeft(15);
+        setTimeLeft(15000000);
         clearInterval(timeRef.current);
 
         if (activeQuestionNo < questions.data.length - 1) {
@@ -110,7 +110,7 @@ const QuestionPage = () => {
         navigate("/result");
       }
 
-      setTimeLeft(15);
+      setTimeLeft(15000);
       clearInterval(timeRef.current);
     }
   }, [timeLeft]);
@@ -155,7 +155,7 @@ const QuestionPage = () => {
                 <h3 className="text-light text-2xl font-medium">
                   {questions.data[activeQuestionNo].title}
                 </h3>
-                <div className="col options gap-2 mt-2" ref={questionRef}>
+                <div className="col options gap-1 mt-2" ref={questionRef}>
                   {questions.data[activeQuestionNo].options.map((option, i) => (
                     <button
                       className={`btn  ${

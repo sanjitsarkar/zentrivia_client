@@ -46,7 +46,7 @@ const QuizCard = ({ quiz }) => {
               {quiz.totalPlayedUser > 1 && "s"} played
             </span>
             <span
-              className={`p-05  pl-2 br-sm pr-2 text-sm text-light ${
+              className={`p-05 quiz-difficulty pl-2 br-sm pr-2 text-sm text-light ${
                 quiz.quizDifficulty === "Hard" ? "bg-tertiary" : ""
               } ${quiz.quizDifficulty === "Medium" ? "bg-secondary" : ""} ${
                 quiz.quizDifficulty === "Easy" ? "bg-primary" : ""
