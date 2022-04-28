@@ -43,7 +43,7 @@ const QuestionPage = () => {
   };
   const navigateToResultPage = async (_wrongQuestions, _score) => {
     const _scoreInfo = await fetchScoreInfo(activeQuiz._id);
-    if (_scoreInfo.data.score === null) {
+    if (_scoreInfo === undefined || _scoreInfo.data.score === null) {
       await updateQuiz(activeQuiz._id, { $inc: { totalPlayedUser: 1 } });
     }
 
