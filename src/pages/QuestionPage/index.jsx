@@ -38,20 +38,20 @@ const QuestionPage = () => {
   const questionRef = useRef(null);
   const [isClicked, setIsClicked] = useState(false);
   const [points, setPoints] = useState(0);
+  const [loading, setLoading] = useState(false);
   const scrollToQuestion = () => {
     questionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   const navigateToResultPage = async (_wrongQuestions, _score) => {
-    const _scoreInfo = await fetchScoreInfo(activeQuiz._id);
-    if (_scoreInfo === undefined || _scoreInfo.data.score === null) {
-      await updateQuiz(activeQuiz._id, { $inc: { totalPlayedUser: 1 } });
-    }
+    setLoading(true);
 
     await addScore(
       _score,
       activeQuiz._id,
       _wrongQuestions.map((wrongQuestion) => wrongQuestion.questionId)
     );
+    setLoading(false);
+
     navigate("/result", {
       state: {
         score: _score,
@@ -184,14 +184,23 @@ const QuestionPage = () => {
   }, [timeLeft, wrongQuestions, score]);
 
   useEffect(() => {
+    if (loading) {
+      setTimeLeft(15);
+      clearInterval(timeRef.current);
+    }
+  }, [loading]);
+  useEffect(() => {
     scrollToQuestion();
   }, [questionRef, activeQuestionNo]);
 
   return (
     <Layout>
       <section className="question-section w-5-6 text-light mt-4 mb-3">
-        {questions.loading && <Loader />}
-        {!questions.loading && questions.data.length > 0 && (
+        {loading && (
+          <h1 className="text-center mb-2 mt-5">Submitting Answers...</h1>
+        )}
+        {questions.loading || (loading && <Loader />)}
+        {!loading && !questions.loading && questions.data.length > 0 && (
           <>
             <h1 className="text-3xl text-bold mb-3  text-primary">
               {activeQuiz.title}
