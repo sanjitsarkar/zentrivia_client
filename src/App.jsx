@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { PrivateRoute, Toast } from "./components";
+import { useTheme } from "./context/ThemeContext";
 import {
   CategoryPage,
   HomePage,
@@ -13,8 +14,9 @@ import {
 } from "./pages";
 
 function App() {
+  const { theme } = useTheme();
   return (
-    <div className="dark">
+    <div className={theme}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />

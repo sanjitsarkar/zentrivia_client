@@ -10,8 +10,8 @@ const LoginPage = () => {
   return (
     <Layout>
       <form
-        className="form  p-3 mt-5  br-sm text-dark b-solid b-1 bg-light  br-light bx-sh-light-3 "
         onSubmit={logIn}
+        className="form  p-3 mt-5  br-sm text-dark b-solid b-1 bg-light  br-light bx-sh-light-3 "
       >
         <label className="text-2xl mb-2 block text-center  font-normal">
           Login

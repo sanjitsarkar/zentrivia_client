@@ -1,8 +1,11 @@
 header#header {
   z-index: 1;
   background: var(--dark-color);
+  color: var(--light-color);
 }
-
+button.text-dark-black {
+  color: black;
+}
 header .input-box {
   min-width: 40vw;
 }

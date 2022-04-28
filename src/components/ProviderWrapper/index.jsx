@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import ScrollToTop from "../ScrollToTop";
 import {
   AuthProvider,
   CategoryProvider,
@@ -8,6 +7,8 @@ import {
   QuizProvider,
   ToastProvider,
 } from "../../context";
+import { ThemeProvider } from "../../context/ThemeContext";
+import ScrollToTop from "../ScrollToTop";
 
 const ProviderWrapper = ({ children }) => {
   return (
@@ -17,7 +18,9 @@ const ProviderWrapper = ({ children }) => {
         <AuthProvider>
           <CategoryProvider>
             <QuizProvider>
-              <QuestionProvider>{children}</QuestionProvider>
+              <QuestionProvider>
+                <ThemeProvider>{children}</ThemeProvider>
+              </QuestionProvider>
             </QuizProvider>
           </CategoryProvider>
         </AuthProvider>

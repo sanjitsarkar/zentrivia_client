@@ -4,6 +4,7 @@
   --main-top-margin: 8vh;
   margin-top: var(--main-top-margin);
   min-height: calc(100vh - var(--main-top-margin));
+  color: var(--light-color);
 }
 .back-button {
   left: 1rem;

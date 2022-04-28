@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
 import { useAuth } from "../../hooks";
 import "./Header.css";
 const Header = () => {
   const { isLoggedIn, logOut, user } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const { toggleTheme, theme } = useTheme();
   return (
     <header
       id="header"
@@ -37,6 +39,24 @@ const Header = () => {
          
         }`}
         >
+          <button
+            onClick={toggleTheme}
+            className={`${theme === "" ? "text-light" : "text-dark-black"}`}
+          >
+            {theme !== "light" ? (
+              <img
+                src="https://assets.codepen.io/210284/sun.png"
+                alt="light"
+                className="w-8"
+              />
+            ) : (
+              <img
+                src="https://assets.codepen.io/210284/moon.png"
+                alt="dark"
+                className="w-8"
+              />
+            )}
+          </button>
           {!isLoggedIn ? (
             <li>
               <Link to="/login">
