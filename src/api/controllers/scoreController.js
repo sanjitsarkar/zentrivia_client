@@ -18,24 +18,14 @@ const updateScore = async (req, res) => {
   try {
     const { id: quizId } = req.params;
     const { points, inCorrectQuestionsId } = req.body;
-
-    const isScoreExists = await Score.findOne({
-      quizId,
-      userId: req.user.id,
-    });
-    if (isScoreExists) {
-      const score = await Score.updateOne(
-        { quizId },
-        { points, inCorrectQuestionsId },
-        {
-          upsert: true,
-        }
-      );
-      res.json({ score });
-    } else
-      res
-        .status(404)
-        .json({ errors: ["You are not authorized to perform this action"] });
+    const score = await Score.findOneAndUpdate(
+      { quizId },
+      { points, inCorrectQuestionsId },
+      {
+        upsert: true,
+      }
+    );
+    res.json({ score });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
   }

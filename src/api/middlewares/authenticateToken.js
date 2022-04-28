@@ -5,13 +5,15 @@ const authenticateToken = (req, res, next) => {
     req.body.token || req.query.token || req.headers["authorization"];
 
   if (!token) return res.sendStatus(401);
+  else {
+    jwt.verify(token, process.env.JWT_TOKEN_KEY, (err, user) => {
+      if (err) return res.sendStatus(404).send("Forbidden");
+      else {
+        req.user = user;
 
-  jwt.verify(token, process.env.JWT_TOKEN_KEY, (err, user) => {
-    if (err) return res.sendStatus(404).send("Forbidden");
-
-    req.user = user;
-
-    next();
-  });
+        next();
+      }
+    });
+  }
 };
 module.exports = authenticateToken;

@@ -7,6 +7,7 @@ const loginController = async (req, res) => {
     if (user) {
       res.json({
         _id: user._id,
+
         profilePictureURL: user.profilePictureURL,
         email: user.email,
         name: user.name,

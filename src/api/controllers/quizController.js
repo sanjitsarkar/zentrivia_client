@@ -14,6 +14,7 @@ const addQuiz = async (req, res) => {
       categoryId,
       quizDesc,
       creatorId,
+      totalPlayedUser,
     });
 
     res.json({ quiz });
@@ -24,8 +25,15 @@ const addQuiz = async (req, res) => {
 const updateQuiz = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, quizCoverImage, quizDifficulty, categoryId, quizDesc } =
-      req.body;
+    const {
+      title,
+      quizCoverImage,
+      quizDifficulty,
+      categoryId,
+      quizDesc,
+      totalQuestion,
+      totalPlayedUser,
+    } = req.body;
     const creatorId = req.user.id;
     const isQuizExists = await Quiz.findOne({ _id: id, creatorId });
     if (isQuizExists) {
@@ -41,6 +49,8 @@ const updateQuiz = async (req, res) => {
           categoryId,
           quizDesc,
           creatorId,
+          totalQuestion,
+          totalPlayedUser,
         }
       );
       res.json({ quiz });

@@ -8,7 +8,6 @@ const {
   deleteQuiz,
   updateQuiz,
   fetchAllQuestionByQuizId,
-  searchQuiz,
 } = require("../controllers/quizController");
 const router = express.Router();
 
