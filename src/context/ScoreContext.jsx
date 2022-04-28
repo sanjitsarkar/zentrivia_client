@@ -1,6 +1,5 @@
 import { createContext, useContext } from "react";
 import { useApi } from "../hooks";
-import { formatError } from "../utils";
 
 const ScoreContext = createContext();
 const ScoreProvider = ({ children }) => {
@@ -14,17 +13,13 @@ const ScoreProvider = ({ children }) => {
         inCorrectQuestionsId,
       });
       return res;
-    } catch (err) {
-      console.log(formatError(err));
-    }
+    } catch (err) {}
   };
   const fetchScoreInfo = async (id) => {
     try {
       const res = await callApi("get", `user/scores/${id}`, true);
       return res;
-    } catch (err) {
-      console.log(formatError(err));
-    }
+    } catch (err) {}
   };
   return (
     <ScoreContext.Provider value={{ addScore, fetchScoreInfo }}>
