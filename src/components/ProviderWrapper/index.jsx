@@ -7,6 +7,7 @@ import {
   QuizProvider,
   ToastProvider,
 } from "../../context";
+import { ScoreProvider } from "../../context/ScoreContext";
 import { ThemeProvider } from "../../context/ThemeContext";
 import ScrollToTop from "../ScrollToTop";
 
@@ -19,7 +20,9 @@ const ProviderWrapper = ({ children }) => {
           <CategoryProvider>
             <QuizProvider>
               <QuestionProvider>
-                <ThemeProvider>{children}</ThemeProvider>
+                <ThemeProvider>
+                  <ScoreProvider>{children}</ScoreProvider>
+                </ThemeProvider>
               </QuestionProvider>
             </QuizProvider>
           </CategoryProvider>

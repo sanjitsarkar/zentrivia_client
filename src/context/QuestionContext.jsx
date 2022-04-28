@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useState } from "react";
 import { useApi } from "../hooks";
 import { initialState, reducer } from "../reducers/reducer";
 import {
@@ -13,6 +13,7 @@ const QuestionContext = createContext();
 const QuestionProvider = ({ children }) => {
   const [activeQuestion, setActiveQuestion] = useState("");
   const [questions, dispatchQuestions] = useReducer(reducer, initialState);
+  const [wrongQuestions, setWrongQuestions] = useState([]);
 
   const [questionInfo, dispatchQuestionInfo] = useReducer(
     reducer,
@@ -129,6 +130,8 @@ const QuestionProvider = ({ children }) => {
         questionInfo,
         dispatchQuestionInfo,
         isQuestionIsOfQuizId,
+        wrongQuestions,
+        setWrongQuestions,
       }}
     >
       {children}
