@@ -2,17 +2,18 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { PrivateRoute, Toast } from "./components";
-import { useTheme } from "./context/ThemeContext";
+import { useTheme } from "./hooks";
 import {
   CategoryPage,
   HomePage,
   LoginPage,
+  ProfilePage,
   QuestionPage,
   QuizPage,
+  ResultPage,
   RulesPage,
   SignupPage,
 } from "./pages";
-import ResultPage from "./pages/ResultPage";
 
 function App() {
   const { theme } = useTheme();
@@ -45,6 +46,14 @@ function App() {
           element={
             <PrivateRoute>
               <ResultPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <ProfilePage />
             </PrivateRoute>
           }
         />

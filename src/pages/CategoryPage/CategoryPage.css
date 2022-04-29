@@ -8,6 +8,10 @@
 .category-section {
   min-height: 90vh;
 }
+.category-section img,
+.category-card {
+  cursor: default;
+}
 .category-section img {
   background-color: var(--dark-color-7);
   object-fit: contain;

@@ -21,6 +21,7 @@ const ScoreProvider = ({ children }) => {
       return res;
     } catch (err) {}
   };
+
   return (
     <ScoreContext.Provider value={{ addScore, fetchScoreInfo }}>
       {children}

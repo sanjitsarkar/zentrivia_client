@@ -3,6 +3,8 @@
   --dark-black-color: hsl(180, 3%, 6%);
   --black-color: var(--dark-color);
   --white-color: var(--light-color);
+  --light-color-2: hsl(0, 0%, 85%);
+
   --box-shadow-1: 0 0 1rem rgba(0, 0, 0, 0.52);
   ---lighter-dark-color: rgba(0, 0, 0, 0.24);
 }
@@ -75,4 +77,11 @@ form {
 
 * {
   transition: color, background-color 0.2s linear;
+}
+
+.bg-light-2 {
+  background-color: var(--light-color-2);
+}
+.text-white {
+  color: var(--white-color);
 }

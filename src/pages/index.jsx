@@ -1,10 +1,12 @@
-import HomePage from "./HomePage";
 import LoginPage from "./AuthPage/Login";
 import SignupPage from "./AuthPage/SignupPage";
 import CategoryPage from "./CategoryPage";
-import QuizPage from "./QuizPage";
-import RulesPage from "./RulesPage";
+import HomePage from "./HomePage";
+import ProfilePage from "./ProfilePage";
 import QuestionPage from "./QuestionPage";
+import QuizPage from "./QuizPage";
+import ResultPage from "./ResultPage";
+import RulesPage from "./RulesPage";
 
 export {
   HomePage,
@@ -14,4 +16,6 @@ export {
   QuizPage,
   RulesPage,
   QuestionPage,
+  ResultPage,
+  ProfilePage,
 };
