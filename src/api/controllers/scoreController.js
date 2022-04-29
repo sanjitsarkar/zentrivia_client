@@ -1,4 +1,4 @@
-const { Score } = require("../models");
+const { Score, User } = require("../models");
 
 const addScore = async (req, res) => {
   try {
@@ -15,18 +15,42 @@ const addScore = async (req, res) => {
   }
 };
 const updateScore = async (req, res) => {
+  const { points, inCorrectQuestionsId } = req.body;
   try {
     const { id: quizId } = req.params;
-    const { points, inCorrectQuestionsId } = req.body;
-    const score = await Score.findOneAndUpdate(
-      { quizId },
-      { points, inCorrectQuestionsId },
-      {
-        upsert: true,
-      }
-    );
+    let score = await Score.findOne({ quizId, userId: req.user.id });
+    if (score === null || score === undefined) {
+      score = await Score.create({
+        userId: req.user.id,
+        points,
+        quizId,
+        inCorrectQuestionsId,
+      });
+    } else {
+      score = await Score.updateOne(
+        { quizId, userId: req.user.id },
+        {
+          userId: req.user.id,
+          points,
+          quizId,
+          inCorrectQuestionsId,
+        }
+      );
+    }
+    await User.findByIdAndUpdate(req.user.id, {
+      $inc: {
+        totalScore: points,
+      },
+    });
     res.json({ score });
   } catch (err) {
+    if (err) {
+      await User.findByIdAndUpdate(req.user.id, {
+        $inc: {
+          totalScore: -points,
+        },
+      });
+    }
     res.status(404).json({ errors: [err.message.split(",")] });
   }
 };
@@ -65,10 +89,23 @@ const fetchAllScore = async (req, res) => {
     res.status(404).json({ errors: [err.message.split(",")] });
   }
 };
+const getRank = async (req, res) => {
+  try {
+    let user = await User.findById(req.user.id);
+    rank = await User.count({
+      totalScore: { $gt: user.totalScore },
+    });
+    rank += 1;
+    res.json({ rank });
+  } catch (err) {
+    res.status(404).json({ errors: [err.message.split(",")] });
+  }
+};
 module.exports = {
   addScore,
   updateScore,
   deleteScore,
   fetchScore,
   fetchAllScore,
+  getRank,
 };

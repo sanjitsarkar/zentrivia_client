@@ -1,3 +1,4 @@
+const req = require("express/lib/request");
 const { User } = require("../models");
 const loginController = async (req, res) => {
   const { email, password } = req.body;
@@ -11,6 +12,7 @@ const loginController = async (req, res) => {
         profilePictureURL: user.profilePictureURL,
         email: user.email,
         name: user.name,
+        totalScore: user.totalScore,
         updatedAt: user.updatedAt,
         createdAt: user.createdAt,
         token: user.token,
@@ -31,11 +33,28 @@ const signupController = async (req, res) => {
       profilePictureURL: user.profilePictureURL,
       updatedAt: user.updatedAt,
       createdAt: user.createdAt,
+      totalScore: user.totalScore,
       token: user.token,
     });
   } catch (err) {
     res.status(401).json({ errors: [err.message.split(",")] });
   }
 };
+const getUserInfo = async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.user.id });
+    res.json({
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      profilePictureURL: user.profilePictureURL,
+      updatedAt: user.updatedAt,
+      createdAt: user.createdAt,
+      totalScore: user.totalScore,
+    });
+  } catch (err) {
+    res.status(401).json({ errors: [err.message.split(",")] });
+  }
+};
 
-module.exports = { loginController, signupController };
+module.exports = { loginController, signupController, getUserInfo };

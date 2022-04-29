@@ -12,7 +12,10 @@ const {
   deleteScore,
   fetchAllScore,
   fetchScore,
+  getRank,
 } = require("../controllers/scoreController");
+const res = require("express/lib/response");
+const { getUserInfo } = require("../controllers/authController");
 const router = express.Router();
 
 router.get("/quizzes", auth, fetchAllQuizByCreatorId);
@@ -23,6 +26,8 @@ router.get("/scores", auth, fetchAllScore);
 router.get("/scores/:id", auth, fetchScore);
 router.post("/scores/", auth, addScore);
 router.put("/scores/:id", auth, updateScore);
+router.get("/rank", auth, getRank);
+router.get("/", auth, getUserInfo);
 router.delete("/scores/:id", auth, deleteScore);
 
 module.exports = router;

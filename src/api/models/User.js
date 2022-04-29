@@ -29,6 +29,10 @@ const userSchema = new Schema(
     token: {
       type: String,
     },
+    totalScore: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
