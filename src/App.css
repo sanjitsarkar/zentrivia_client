@@ -82,3 +82,6 @@ form {
 .bg-light-2 {
   background-color: var(--light-color-2);
 }
+.text-white {
+  color: var(--white-color);
+}
