@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import { ScrollToTop } from "..";
 import {
   AuthProvider,
   CategoryProvider,
   QuestionProvider,
   QuizProvider,
+  ScoreProvider,
+  ThemeProvider,
   ToastProvider,
 } from "../../context";
-import { ScoreProvider } from "../../context/ScoreContext";
-import { ThemeProvider } from "../../context/ThemeContext";
-import ScrollToTop from "../ScrollToTop";
 
 const ProviderWrapper = ({ children }) => {
   return (

@@ -199,7 +199,7 @@ const QuestionPage = () => {
         {loading && (
           <h1 className="text-center mb-2 mt-5">Submitting Answers...</h1>
         )}
-        {questions.loading || (loading && <Loader />)}
+        {(questions.loading || loading) && <Loader />}
         {!loading && !questions.loading && questions.data.length > 0 && (
           <>
             <h1 className="text-3xl text-bold mb-3  text-primary">

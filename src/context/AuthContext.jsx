@@ -1,13 +1,12 @@
 import React, {
-  useEffect,
-  useState,
   createContext,
   useContext,
+  useEffect,
   useReducer,
+  useState,
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useApi } from "../hooks";
-
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
@@ -69,7 +68,7 @@ const AuthProvider = ({ children }) => {
         type: "error",
       });
 
-      dispatch({ type: ACTION_TYPE_FAILURE, payload: err.message });
+      dispatch({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
     }
   };
   const logIn = async (e) => {
@@ -98,7 +97,25 @@ const AuthProvider = ({ children }) => {
         type: "error",
       });
 
-      dispatch({ type: ACTION_TYPE_FAILURE, payload: err.message });
+      dispatch({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
+    }
+  };
+  const getUserInfo = async () => {
+    try {
+      const result = await callApi("get", "user", true);
+
+      const data = ({
+        _id,
+        email,
+        name,
+        profilePictureURL,
+        updatedAt,
+        createdAt,
+        totalScore,
+      } = result.data);
+      dispatch({ type: ACTION_TYPE_SUCCESS, payload: { ...data, token } });
+    } catch (err) {
+      dispatch({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
     }
   };
   const logOut = () => {
@@ -113,6 +130,7 @@ const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
     dispatch({ type: ACTION_TYPE_SUCCESS, payload: [] });
   };
+
   useEffect(() => {
     if (isLoggedIn) {
       setToken(localStorage.getItem("token"));
@@ -120,7 +138,7 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem("token", state.data.token);
       if (location.pathname !== "/") navigate(-1, { replace: true });
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, state]);
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
@@ -146,6 +164,7 @@ const AuthProvider = ({ children }) => {
         setLoginCred,
         signupCred,
         setSignupCred,
+        getUserInfo,
       }}
     >
       {children}

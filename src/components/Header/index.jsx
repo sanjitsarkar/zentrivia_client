@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useTheme } from "../../context/ThemeContext";
-import { useAuth } from "../../hooks";
+import { useAuth, useTheme } from "../../hooks";
 import "./Header.css";
 const Header = () => {
   const { isLoggedIn, logOut, user } = useAuth();
