@@ -8,26 +8,23 @@ import {
   QuizProvider,
   ScoreProvider,
   ThemeProvider,
-  ToastProvider,
 } from "../../context";
 
 const ProviderWrapper = ({ children }) => {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <ToastProvider>
-        <AuthProvider>
-          <CategoryProvider>
-            <QuizProvider>
-              <QuestionProvider>
-                <ThemeProvider>
-                  <ScoreProvider>{children}</ScoreProvider>
-                </ThemeProvider>
-              </QuestionProvider>
-            </QuizProvider>
-          </CategoryProvider>
-        </AuthProvider>
-      </ToastProvider>
+      <AuthProvider>
+        <CategoryProvider>
+          <QuizProvider>
+            <QuestionProvider>
+              <ThemeProvider>
+                <ScoreProvider>{children}</ScoreProvider>
+              </ThemeProvider>
+            </QuestionProvider>
+          </QuizProvider>
+        </CategoryProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 };

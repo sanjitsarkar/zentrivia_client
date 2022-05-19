@@ -1,8 +1,7 @@
-import Header from "./Header";
 import Footer from "./Footer";
+import Header from "./Header";
 import Layout from "./Layout";
 import Loader from "./Loader";
-import Toast from "./Toast";
 import NotAvailable from "./NotAvailable";
 import PrivateRoute from "./PrivateRoute";
 import ProviderWrapper from "./ProviderWrapper";
@@ -15,6 +14,5 @@ export {
   NotAvailable,
   PrivateRoute,
   ProviderWrapper,
-  Toast,
   ScrollToTop,
 };

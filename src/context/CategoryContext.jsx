@@ -1,16 +1,16 @@
 import React, {
-  useState,
   createContext,
   useContext,
-  useReducer,
   useEffect,
+  useReducer,
+  useState,
 } from "react";
-import { useApi } from "../hooks";
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
+  callApi,
   formatError,
 } from "../utils";
 
@@ -27,7 +27,7 @@ const CategoryProvider = ({ children }) => {
     reducer,
     initialState
   );
-  const { callApi } = useApi();
+
   const fetchCategories = async () => {
     dispatchCategories({ type: ACTION_TYPE_LOADING });
     try {

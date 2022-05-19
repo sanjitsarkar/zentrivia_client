@@ -1,10 +1,10 @@
-import React, { useState, createContext, useContext, useReducer } from "react";
-import { useApi } from "../hooks/useApi";
+import React, { createContext, useContext, useReducer, useState } from "react";
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
+  callApi,
   formatError,
 } from "../utils";
 
@@ -15,7 +15,6 @@ const QuizProvider = ({ children }) => {
   const [quizzes, dispatchQuizzes] = useReducer(reducer, initialState);
   const [yourQuizzes, dispatchYourQuizzes] = useReducer(reducer, initialState);
   const [quizInfo, dispatchQuizInfo] = useReducer(reducer, initialState);
-  const { callApi } = useApi();
   const fetchQuizzes = async () => {
     dispatchQuizzes({ type: ACTION_TYPE_LOADING });
     try {

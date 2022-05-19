@@ -6,40 +6,36 @@ import React, {
   useState,
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useApi } from "../hooks";
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
+  callApi,
   formatError,
   initialLoginCredState,
   initialSignupCredState,
+  notify,
 } from "../utils";
-import { useToast } from "./ToastContext";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { setToast } = useToast();
+
   const navigate = useNavigate();
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState();
   const [loginCred, setLoginCred] = useState(initialLoginCredState);
   const [signupCred, setSignupCred] = useState(initialSignupCredState);
-  const { callApi } = useApi();
+
   const signUp = async (e) => {
     e.preventDefault();
     dispatch({ type: ACTION_TYPE_LOADING });
     try {
       if (signupCred.password !== signupCred.confirmPassword) {
-        setToast({
-          show: true,
-          content: "Passwords do not match",
-          type: "info",
-        });
+        notify("Passwords do not match", "error");
         dispatch({ type: ACTION_TYPE_SUCCESS, payload: [] });
 
         return;
@@ -51,22 +47,14 @@ const AuthProvider = ({ children }) => {
         password: signupCred.password,
       });
 
-      setToast({
-        show: true,
-        content: `Welcome, ${result.data.name}`,
-        type: "info",
-      });
+      notify(`Welcome, ${result.data.name}`);
       setLoginCred(initialLoginCredState);
       setSignupCred(initialSignupCredState);
       dispatch({ type: ACTION_TYPE_SUCCESS, payload: result.data });
 
       setIsLoggedIn(true);
     } catch (err) {
-      setToast({
-        show: true,
-        content: formatError(err),
-        type: "error",
-      });
+      notify(formatError(err), "error");
 
       dispatch({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
     }
@@ -80,22 +68,15 @@ const AuthProvider = ({ children }) => {
         password: loginCred.password,
       });
 
-      setToast({
-        show: true,
-        content: `Welcome, ${result.data.name}`,
-        type: "info",
-      });
+      notify(`Welcome, ${result.data.name}`);
+
       setLoginCred(initialLoginCredState);
       setSignupCred(initialSignupCredState);
       dispatch({ type: ACTION_TYPE_SUCCESS, payload: result.data });
 
       setIsLoggedIn(true);
     } catch (err) {
-      setToast({
-        show: true,
-        content: formatError(err),
-        type: "error",
-      });
+      notify(formatError(err), "error");
 
       dispatch({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
     }
@@ -104,7 +85,7 @@ const AuthProvider = ({ children }) => {
     try {
       const result = await callApi("get", "user", true);
 
-      const data = ({
+      const {
         _id,
         email,
         name,
@@ -112,21 +93,27 @@ const AuthProvider = ({ children }) => {
         updatedAt,
         createdAt,
         totalScore,
-      } = result.data);
-      dispatch({ type: ACTION_TYPE_SUCCESS, payload: { ...data, token } });
+      } = result.data;
+      dispatch({
+        type: ACTION_TYPE_SUCCESS,
+        payload: {
+          _id,
+          email,
+          name,
+          profilePictureURL,
+          updatedAt,
+          createdAt,
+          totalScore,
+        },
+      });
     } catch (err) {
       dispatch({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
     }
   };
   const logOut = () => {
-    setToast({
-      show: true,
-      content: `Goodbye, ${state.data.name}`,
-      type: "warning",
-    });
+    notify(`Goodbye, ${state.data.name}`);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
     setIsLoggedIn(false);
     dispatch({ type: ACTION_TYPE_SUCCESS, payload: [] });
   };

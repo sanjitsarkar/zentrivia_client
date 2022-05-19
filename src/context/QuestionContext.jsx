@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useReducer, useState } from "react";
-import { useApi } from "../hooks";
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
+  callApi,
   formatError,
 } from "../utils";
 
@@ -19,7 +19,7 @@ const QuestionProvider = ({ children }) => {
     reducer,
     initialState
   );
-  const { callApi } = useApi();
+
   const fetchQuestions = async (quizId) => {
     dispatchQuestions({ type: ACTION_TYPE_LOADING });
     try {

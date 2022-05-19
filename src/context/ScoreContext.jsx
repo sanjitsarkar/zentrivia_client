@@ -1,10 +1,8 @@
 import { createContext, useContext } from "react";
-import { useApi } from "../hooks";
+import { callApi } from "../utils";
 
 const ScoreContext = createContext();
 const ScoreProvider = ({ children }) => {
-  const { callApi } = useApi();
-
   const addScore = async (points, id, inCorrectQuestionsId) => {
     try {
       const res = await callApi("put", `user/scores/${id}`, true, {
