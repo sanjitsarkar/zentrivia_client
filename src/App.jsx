@@ -1,7 +1,8 @@
 import React from "react";
+import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { PrivateRoute, Toast } from "./components";
+import { PrivateRoute } from "./components";
 import { useTheme } from "./hooks";
 import {
   CategoryPage,
@@ -25,40 +26,14 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/categories" element={<CategoryPage />} />
         <Route path="/quizzes/:id" element={<QuizPage />} />
-        <Route
-          path="/rules/:id"
-          element={
-            <PrivateRoute>
-              <RulesPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/quizzes/:id/questions"
-          element={
-            <PrivateRoute>
-              <QuestionPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/result"
-          element={
-            <PrivateRoute>
-              <ResultPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <PrivateRoute>
-              <ProfilePage />
-            </PrivateRoute>
-          }
-        />
+        <Route element={<PrivateRoute />}>
+          <Route path="/rules/:id" element={<RulesPage />} />
+          <Route path="/quizzes/:id/questions" element={<QuestionPage />} />
+          <Route path="/result" element={<ResultPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+        </Route>
       </Routes>
-      <Toast />
+      <Toaster />
     </div>
   );
 }

@@ -1,12 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth, useQuiz, useToast } from "../../hooks";
+import { useAuth, useQuiz } from "../../hooks";
+import { notify } from "../../utils";
 
 const QuizCard = ({ quiz }) => {
   let title = quiz.title;
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
-  const { setToast } = useToast();
+
   const { setActiveQuiz } = useQuiz();
   return (
     <div className="quiz-card row  gap-1  text-light p-2 br-sm">
@@ -22,11 +23,7 @@ const QuizCard = ({ quiz }) => {
             className="quiz-play-button  pl-3 text-dark text-md pr-3 "
             onClick={() => {
               if (!isLoggedIn) {
-                setToast({
-                  content: "You must be logged in to play a quiz",
-                  type: "error",
-                  show: true,
-                });
+                notify("You must be logged in to play a quiz", "error");
                 navigate("/login");
               } else {
                 setActiveQuiz(quiz.title);

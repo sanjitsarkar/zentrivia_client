@@ -1,7 +1,7 @@
 import React from "react";
 import { FaHistory, FaUserEdit } from "react-icons/fa";
 import { IoIosCreate } from "react-icons/io";
-import { MdExplore, MdLeaderboard } from "react-icons/md";
+import { MdExplore, MdLaptop } from "react-icons/md";
 import { Layout, Loader } from "../../components";
 import { useAuth } from "../../hooks";
 import "./ProfilePage.css";
@@ -58,7 +58,7 @@ const ProfilePage = () => {
               <ProfileTab
                 title="Leaderboard"
                 to="leaderboard"
-                icon={<MdLeaderboard size={20} />}
+                icon={<MdLaptop size={20} />}
               />
             </div>
           </>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth, useTheme } from "../../hooks";
+import { PROFILE_PIC_PLACEHOLDER } from "../../utils";
 import "./Header.css";
 const Header = () => {
   const { isLoggedIn, logOut, user } = useAuth();
@@ -65,7 +66,7 @@ const Header = () => {
           ) : (
             <li className=" col items-center justify-center">
               <img
-                src={user.data.profilePictureURL}
+                src={user.data.profilePictureURL ?? PROFILE_PIC_PLACEHOLDER}
                 className="avatar avatar-xsm"
                 id="avatar"
                 alt={user.data.name}

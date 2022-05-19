@@ -1,3 +1,4 @@
+@import url("https: //xendesign.netlify.app/css/index.css");
 :root {
   --primary-light-color: hsl(180, 23%, 95%);
   --dark-black-color: hsl(180, 3%, 6%);
@@ -39,7 +40,10 @@ form {
 .light button {
   color: var(--white-color);
 }
-
+.light .quiz-difficulty
+{
+  color:var(--white-color);
+}
 .light .hero-section-button,
 .light .category-button {
   background: var(--primary-light-color);
