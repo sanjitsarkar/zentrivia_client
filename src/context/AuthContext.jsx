@@ -123,7 +123,9 @@ const AuthProvider = ({ children }) => {
       setToken(localStorage.getItem("token"));
       localStorage.setItem("user", JSON.stringify(state.data));
       localStorage.setItem("token", state.data.token);
-      if (location.pathname !== "/") navigate(-1, { replace: true });
+
+      if (location.pathname === "/signup") navigate("/", { replace: true });
+      else if (location.pathname !== "/") navigate(-1, { replace: true });
     }
   }, [isLoggedIn, state]);
   useEffect(() => {

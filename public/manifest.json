@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "ZenTrivia",
+  "name": "It's a simple trivia app for music lovers",
   "icons": [
     {
       "src": "favicon.ico",
