@@ -1,14 +1,14 @@
 ## ZenGram
 
-#### It's a Social Media Site.
+#### It's a Quiz app where you can take your musical knowledge to test.
 
-![Forks](https://img.shields.io/github/forks/sanjitsarkar/zengram)
+![Forks](https://img.shields.io/github/forks/sanjitsarkar/zentriviax)
 &emsp;
-![Stars](https://img.shields.io/github/stars/sanjitsarkar/zengram)
+![Stars](https://img.shields.io/github/stars/sanjitsarkar/zentriviax)
 
 ---
 
-## Live Website: [ZenGram](https://zengram.netlify.app/)
+## Live Website: [ZenGram](https://zentriviax.netlify.app/)
 
 ## Video Demo:
 
@@ -18,13 +18,13 @@
 
 ### Here are the links for different pages of `ZenGram`
 
-- [Home Page](https://zengram.netlify.app/)
-- [Explore](https://zengram.netlify.app/explore)
-- [Bookmarks](https://zengram.netlify.app/bookmarks)
-- [Profile](https://zengram.netlify.app/profile)
-- [User Searching Page](https://zengram.netlify.app/users?search=John)
-- [Login](https://zengram.netlify.app/login)
-- [Signup](https://zengram.netlify.app/signup)
+- [Home Page](https://zentriviax.netlify.app/)
+- [Quiz Categories Page](https://zentriviax.netlify.app/categories)
+- [Bookmarks](https://zentriviax.netlify.app/bookmarks)
+- [Profile](https://zentriviax.netlify.app/profile)
+- [User Searching Page](https://zentriviax.netlify.app/users?search=John)
+- [Login](https://zentriviax.netlify.app/login)
+- [Signup](https://zentriviax.netlify.app/signup)
 
 ### It has following features
 
