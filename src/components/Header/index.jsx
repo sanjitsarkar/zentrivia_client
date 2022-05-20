@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth, useTheme } from "../../hooks";
 import { PROFILE_PIC_PLACEHOLDER } from "../../utils";
 import "./Header.css";
 const Header = () => {
-  const { isLoggedIn, logOut, user } = useAuth();
+  const { isLoggedIn, logOut } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { toggleTheme, theme } = useTheme();
+  const { profile, getUserInfo } = useAuth();
+  useEffect(() => {
+    (async () => await getUserInfo())();
+  }, []);
   return (
     <header
       id="header"
@@ -66,10 +70,10 @@ const Header = () => {
           ) : (
             <li className=" col items-center justify-center">
               <img
-                src={user.data.profilePictureURL ?? PROFILE_PIC_PLACEHOLDER}
+                src={profile.data.profilePictureURL ?? PROFILE_PIC_PLACEHOLDER}
                 className="avatar avatar-xsm"
                 id="avatar"
-                alt={user.data.name}
+                alt={profile.data.name}
                 onClick={() =>
                   setShowProfileMenu(
                     (prevShowProfileMenu) => !prevShowProfileMenu

@@ -6,6 +6,7 @@ import {
   ACTION_TYPE_SUCCESS,
   callApi,
   formatError,
+  notify,
 } from "../utils";
 
 const QuestionContext = createContext();
@@ -56,9 +57,10 @@ const QuestionProvider = ({ children }) => {
     dispatchQuestions({ type: ACTION_TYPE_LOADING });
     try {
       const result = await callApi("post", "questions", false, question);
+      notify("Question added successfully");
       dispatchQuestions({
         type: ACTION_TYPE_SUCCESS,
-        payload: [...questions.payload, result.data.question],
+        payload: [...questions.data, result.data.question],
       });
     } catch (err) {
       dispatchQuestions({
@@ -68,14 +70,15 @@ const QuestionProvider = ({ children }) => {
     }
   };
 
-  const deleteQuestion = async (questionId) => {
+  const deleteQuestion = async (quizId, questionId) => {
     dispatchQuestions({ type: ACTION_TYPE_LOADING });
     try {
-      await callApi("delete", `questions/${questionId}`, false);
+      notify("Question deleted successfully");
+      await callApi("delete", `questions/${questionId}/${quizId}`, false);
       dispatchQuestions({
         type: ACTION_TYPE_SUCCESS,
-        payload: questions.payload.filter(
-          (question) => question.id !== questionId
+        payload: questions.data.filter(
+          (question) => question._id !== questionId
         ),
       });
     } catch (err) {
@@ -94,10 +97,11 @@ const QuestionProvider = ({ children }) => {
         false,
         question
       );
+      notify("Question updated successfully");
       dispatchQuestions({
         type: ACTION_TYPE_SUCCESS,
-        payload: questions.payload.map((question) =>
-          question.id === questionId ? result.data.Question : question
+        payload: questions.data.map((question) =>
+          question._id === questionId ? result.data.Question : question
         ),
       });
     } catch (err) {

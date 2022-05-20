@@ -1,18 +1,14 @@
-import Footer from "./Footer";
-import Header from "./Header";
-import Layout from "./Layout";
-import Loader from "./Loader";
-import NotAvailable from "./NotAvailable";
-import PrivateRoute from "./PrivateRoute";
-import ProviderWrapper from "./ProviderWrapper";
-import ScrollToTop from "./ScrollToTop";
-export {
-  Header,
-  Footer,
-  Layout,
-  Loader,
-  NotAvailable,
-  PrivateRoute,
-  ProviderWrapper,
-  ScrollToTop,
-};
+export { default as AddQuestionForm } from "./AddQuestionForm";
+export { default as AddQuizForm } from "./AddQuizForm";
+export { default as Footer } from "./Footer";
+export { default as Header } from "./Header";
+export { default as Layout } from "./Layout";
+export { default as Loader } from "./Loader";
+export { default as NotAvailable } from "./NotAvailable";
+export { default as Option } from "./Option";
+export { default as PrivateRoute } from "./PrivateRoute";
+export { default as ProviderWrapper } from "./ProviderWrapper";
+export { default as Question } from "./Question";
+export { default as QuizCard } from "./QuizCard";
+export { default as ScrollToTop } from "./ScrollToTop";
+export { default as UpdateQuizForm } from "./UpdateQuizForm";

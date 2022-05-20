@@ -6,6 +6,7 @@ import {
   ACTION_TYPE_SUCCESS,
   callApi,
   formatError,
+  notify,
 } from "../utils";
 
 const QuizContext = createContext();
@@ -63,15 +64,16 @@ const QuizProvider = ({ children }) => {
     }
   };
   const addQuiz = async (quiz) => {
-    dispatchQuizzes({ type: ACTION_TYPE_LOADING });
+    dispatchYourQuizzes({ type: ACTION_TYPE_LOADING });
     try {
       const result = await callApi("post", "quizzes", false, quiz);
-      dispatchQuizzes({
+      notify("Quiz added successfully");
+      dispatchYourQuizzes({
         type: ACTION_TYPE_SUCCESS,
-        payload: [...quizzes.payload, result.data.quiz],
+        payload: [...yourQuizzes.data, result.data.quiz],
       });
     } catch (err) {
-      dispatchQuizzes({
+      dispatchYourQuizzes({
         type: ACTION_TYPE_FAILURE,
         payload: formatError(err),
       });
@@ -79,32 +81,34 @@ const QuizProvider = ({ children }) => {
   };
 
   const deleteQuiz = async (quizId) => {
-    dispatchQuizzes({ type: ACTION_TYPE_LOADING });
+    dispatchYourQuizzes({ type: ACTION_TYPE_LOADING });
     try {
       await callApi("delete", `quizzes/${quizId}`, false);
-      dispatchQuizzes({
+      notify("Quiz deleted successfully");
+      dispatchYourQuizzes({
         type: ACTION_TYPE_SUCCESS,
-        payload: quizzes.payload.filter((quiz) => quiz.id !== quizId),
+        payload: yourQuizzes.data.filter((quiz) => quiz._id !== quizId),
       });
     } catch (err) {
-      dispatchQuizzes({
+      dispatchYourQuizzes({
         type: ACTION_TYPE_FAILURE,
         payload: formatError(err),
       });
     }
   };
   const updateQuiz = async (quizId, quiz) => {
-    dispatchQuizzes({ type: ACTION_TYPE_LOADING });
+    dispatchYourQuizzes({ type: ACTION_TYPE_LOADING });
     try {
       const result = await callApi("put", `quizzes/${quizId}`, false, quiz);
-      dispatchQuizzes({
+      notify("Quiz updated successfully");
+      dispatchYourQuizzes({
         type: ACTION_TYPE_SUCCESS,
-        payload: quizzes.payload.map((quiz) =>
-          quiz.id === quizId ? result.data.Quiz : quiz
+        payload: yourQuizzes.data.map((quiz) =>
+          quiz._id === quizId ? result.data.Quiz : quiz
         ),
       });
     } catch (err) {
-      dispatchQuizzes({
+      dispatchYourQuizzes({
         type: ACTION_TYPE_FAILURE,
         payload: formatError(err),
       });

@@ -65,7 +65,7 @@ const CategoryProvider = ({ children }) => {
       const result = await callApi("post", "categories", false, category);
       dispatchCategories({
         type: ACTION_TYPE_SUCCESS,
-        payload: [...categories.payload, result.data.category],
+        payload: [...categories.data, result.data.category],
       });
     } catch (err) {
       dispatchCategories({
@@ -81,8 +81,8 @@ const CategoryProvider = ({ children }) => {
       await callApi("delete", `categories/${categoryId}`, false);
       dispatchCategories({
         type: ACTION_TYPE_SUCCESS,
-        payload: categories.payload.filter(
-          (category) => category.id !== categoryId
+        payload: categories.data.filter(
+          (category) => category._id !== categoryId
         ),
       });
     } catch (err) {
@@ -103,8 +103,8 @@ const CategoryProvider = ({ children }) => {
       );
       dispatchCategories({
         type: ACTION_TYPE_SUCCESS,
-        payload: categories.payload.map((category) =>
-          category.id === categoryId ? result.data.category : category
+        payload: categories.data.map((category) =>
+          category._id === categoryId ? result.data.category : category
         ),
       });
     } catch (err) {

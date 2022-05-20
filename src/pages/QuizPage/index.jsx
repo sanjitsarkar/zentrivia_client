@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Layout, Loader, NotAvailable } from "../../components";
 import { useCategory, useQuiz } from "../../hooks";
-import QuizCard from "./QuizCard";
+import QuizCard from "../../components/QuizCard";
 import "./QuizPage.css";
 
 const QuizPage = () => {

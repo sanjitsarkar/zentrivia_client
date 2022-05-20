@@ -22,7 +22,6 @@ const QuestionPage = () => {
     fetchQuizInfo,
     quizInfo,
     isQuizInfoIsOfQuizId,
-    updateQuiz,
   } = useQuiz();
   const location = useLocation();
 
@@ -213,10 +212,14 @@ const QuestionPage = () => {
                     {activeQuestionNo + 1}/{questions.data.length}
                   </span>
                 </h3>
-                <div className="row gap-1">
+                <div className="row gap-1 ">
                   <h3 className="text-xl " ref={timeRef}>
                     Time Left:
-                    <span className="text-medium  text-primary ml-05">
+                    <span
+                      className={`text-medium inline-block  ${
+                        timeLeft > 5 ? "text-primary " : "text-tertiary scaleUp"
+                      } ml-05`}
+                    >
                       {timeLeft} Second{timeLeft > 1 && "s"}
                     </span>
                   </h3>

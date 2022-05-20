@@ -14,6 +14,8 @@ import {
   ResultPage,
   RulesPage,
   SignupPage,
+  YourQuestionPage,
+  YourQuizPage,
 } from "./pages";
 
 function App() {
@@ -31,6 +33,11 @@ function App() {
           <Route path="/quizzes/:id/questions" element={<QuestionPage />} />
           <Route path="/result" element={<ResultPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="profile/user/quizzes" element={<YourQuizPage />} />
+          <Route
+            path="profile/user/quizzes/:id"
+            element={<YourQuestionPage />}
+          />
         </Route>
       </Routes>
       <Toaster />
