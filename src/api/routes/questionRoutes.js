@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get("/", fetchAllQuestion);
 router.post("/", auth, addQuestion);
-router.delete("/:id", auth, deleteQuestion);
+router.delete("/:id/:quizId", auth, deleteQuestion);
 router.get("/:id", fetchQuestion);
 router.put("/:id", auth, updateQuestion);
 

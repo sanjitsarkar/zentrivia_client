@@ -6,7 +6,6 @@ const questionSchema = new Schema(
       type: String,
       index: true,
       required: [true, "Question title can't be empty."],
-      unique: [true, "Question title is already taken."],
     },
     quizId: {
       type: Schema.Types.ObjectId,
@@ -20,6 +19,6 @@ const questionSchema = new Schema(
   { timestamps: true }
 );
 
-questionSchema.index({ title: "text" });
+questionSchema.index({ title: "text" }, { sparse: true, unique: false });
 
 module.exports = question = model("question", questionSchema);

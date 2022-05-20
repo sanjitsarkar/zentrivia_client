@@ -14,7 +14,6 @@ const addQuiz = async (req, res) => {
       categoryId,
       quizDesc,
       creatorId,
-      totalPlayedUser,
     });
 
     res.json({ quiz });

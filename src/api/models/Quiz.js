@@ -11,7 +11,6 @@ const quizSchema = new Schema(
     quizCoverImage: {
       type: String,
       validate: (val) => isURL(val),
-      default: "https://via.placeholder.com/150",
     },
 
     creatorId: {

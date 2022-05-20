@@ -50,10 +50,7 @@ userSchema.statics.login = async function (email, password) {
     if (isValid) {
       const token = jwt.sign(
         { id: user._id, email },
-        process.env.JWT_TOKEN_KEY,
-        {
-          expiresIn: "2h",
-        }
+        process.env.JWT_TOKEN_KEY
       );
       user.token = token;
       return user;
@@ -78,10 +75,7 @@ userSchema.statics.signup = async function (name, email, password) {
 
   const token = jwt.sign(
     { id: user._id, email: email.toLowerCase() },
-    process.env.JWT_TOKEN_KEY,
-    {
-      expiresIn: "2h",
-    }
+    process.env.JWT_TOKEN_KEY
   );
   user.token = token;
   return user;

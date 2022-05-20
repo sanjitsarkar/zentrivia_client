@@ -13,6 +13,9 @@ const addQuestion = async (req, res) => {
       quizId,
       options,
     });
+    await Quiz.findByIdAndUpdate(quizId, {
+      $inc: { totalQuestion: 1 },
+    });
 
     res.json({ question });
   } catch (err) {
@@ -44,9 +47,12 @@ const updateQuestion = async (req, res) => {
 };
 const deleteQuestion = async (req, res) => {
   try {
-    const { id } = req.params;
-    const Question = await Question.deleteOne({ _id: id });
-    res.json({ Question });
+    const { id, quizId } = req.params;
+    const question = await Question.deleteOne({ _id: id });
+    await Quiz.findByIdAndUpdate(quizId, {
+      $inc: { totalQuestion: -1 },
+    });
+    res.json({ question });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
   }

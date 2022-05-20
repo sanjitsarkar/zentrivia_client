@@ -56,5 +56,35 @@ const getUserInfo = async (req, res) => {
     res.status(401).json({ errors: [err.message.split(",")] });
   }
 };
+const updateUserInfo = async (req, res) => {
+  try {
+    const { name, profilePictureURL } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        name,
+        profilePictureURL,
+      },
+      { new: true }
+    );
+    res.json({
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      profilePictureURL: user.profilePictureURL,
+      updatedAt: user.updatedAt,
+      createdAt: user.createdAt,
+      totalScore: user.totalScore,
+      token: user.token,
+    });
+  } catch (err) {
+    res.status(401).json({ errors: [err.message.split(",")] });
+  }
+};
 
-module.exports = { loginController, signupController, getUserInfo };
+module.exports = {
+  loginController,
+  signupController,
+  getUserInfo,
+  updateUserInfo,
+};
