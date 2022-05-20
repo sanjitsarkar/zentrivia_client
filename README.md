@@ -1,4 +1,4 @@
-## ZenGram
+## ZenGTrivia
 
 #### It's a Quiz app where you can take your musical knowledge to test.
 
@@ -8,7 +8,7 @@
 
 ---
 
-## Live Website: [ZenGram](https://zentriviax.netlify.app/)
+## Live Website: [ZenTrivia](https://zentriviax.netlify.app/)
 
 ## Video Demo:
 
@@ -16,7 +16,7 @@
 
 ## Get started
 
-### Here are the links for different pages of `ZenGram`
+### Here are the links for different pages of `ZenTrivia`
 
 - [Home Page](https://zentriviax.netlify.app/)
 - [Quiz Categories Page](https://zentriviax.netlify.app/categories)
