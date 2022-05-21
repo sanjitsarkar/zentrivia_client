@@ -11,7 +11,6 @@ const categorySchema = new Schema(
     img: {
       type: String,
       validate: (val) => isURL(val),
-      required: [true, "Category image can't be empty."],
     },
     description: { type: String, default: "" },
     creatorId: {
