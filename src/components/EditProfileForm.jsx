@@ -46,7 +46,7 @@ const EditProfileForm = ({ profile, toggleModal }) => {
       </label>
       <div className="col gap-1 mb-2">
         <div className="col gap-1">
-          <label htmlFor="name">Fullname</label>
+          <label htmlFor="name">Full name</label>
           <input
             type="text"
             placeholder="Enter full name"
