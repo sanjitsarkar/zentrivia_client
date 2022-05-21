@@ -21,7 +21,11 @@
 - [Home Page](https://zentrivia.vercel.app/)
 - [Quiz Categories Page](https://zentrivia.vercel.app/categories)
 - [Quiz Page](https://zentrivia.vercel.app/quizzes)
-- [Profile Page](https://zentrivia.vercel.app/quizzes)
+- [Profile Page](https://zentrivia.vercel.app/profile)
+- [User Created Quiz Category Page](https://zentrivia.vercel.app/profile/user/categories)
+- [Quiz Search Page](https://zentrivia.vercel.app/quizzes?search="Jazz")
+- [Login Page](https://zentrivia.vercel.app/login)
+- [Signup Page](https://zentrivia.vercel.app/signup)
 
 ### It has following features
 
@@ -29,7 +33,7 @@
 - Creating,Updating and Deleting Quiz,Category and Questions.
 - Searching Quiz by name.
 - Updating Profile Information.
-- Image uploading feature for quiz cover picture.
+- Image uploading feature for quiz cover picture and profile picture.
 - Dark and Light Theme
-- Timer for each question
+- 15 seconds timer for each question
 - Responsive design for both Mobile,Tablet and Desktop.
