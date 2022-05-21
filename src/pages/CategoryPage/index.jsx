@@ -1,15 +1,17 @@
-import React from "react";
-import { Layout, Loader, NotAvailable } from "../../components";
+import React, { useEffect } from "react";
+import { CategoryCard, Layout, Loader, NotAvailable } from "../../components";
 import { useCategory } from "../../hooks";
-import CategoryCard from "./CategoryCard";
 import "./CategoryPage.css";
 
 const CategoryPage = () => {
-  const { categories } = useCategory();
+  const { categories, fetchCategories } = useCategory();
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <Layout>
-      <main className="category-section mb-3">
+      <main className="category-section mb-3 col justify-center items-center ">
         <h1 className="text-3xl text-bold mb-3 mt-4 text-center">
           Choose <span className="text-primary">Trivia</span> Category
         </h1>

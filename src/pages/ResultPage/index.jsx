@@ -1,8 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { Layout } from "../../components";
+import { Layout, Question } from "../../components";
 import { useQuestion } from "../../hooks";
-import Question from "./Question";
 
 const ResultPage = () => {
   const { questions } = useQuestion();

@@ -60,15 +60,15 @@ const CategoryProvider = ({ children }) => {
     }
   };
   const addCategory = async (category) => {
-    dispatchCategories({ type: ACTION_TYPE_LOADING });
+    dispatchYourCategories({ type: ACTION_TYPE_LOADING });
     try {
       const result = await callApi("post", "categories", false, category);
-      dispatchCategories({
+      dispatchYourCategories({
         type: ACTION_TYPE_SUCCESS,
-        payload: [...categories.payload, result.data.category],
+        payload: [...yourCategories.data, result.data.category],
       });
     } catch (err) {
-      dispatchCategories({
+      dispatchYourCategories({
         type: ACTION_TYPE_FAILURE,
         payload: formatError(err),
       });
@@ -76,24 +76,24 @@ const CategoryProvider = ({ children }) => {
   };
 
   const deleteCategory = async (categoryId) => {
-    dispatchCategories({ type: ACTION_TYPE_LOADING });
+    dispatchYourCategories({ type: ACTION_TYPE_LOADING });
     try {
       await callApi("delete", `categories/${categoryId}`, false);
-      dispatchCategories({
+      dispatchYourCategories({
         type: ACTION_TYPE_SUCCESS,
-        payload: categories.payload.filter(
-          (category) => category.id !== categoryId
+        payload: yourCategories.data.filter(
+          (category) => category._id !== categoryId
         ),
       });
     } catch (err) {
-      dispatchCategories({
+      dispatchYourCategories({
         type: ACTION_TYPE_FAILURE,
         payload: formatError(err),
       });
     }
   };
   const updateCategory = async (categoryId, category) => {
-    dispatchCategories({ type: ACTION_TYPE_LOADING });
+    dispatchYourCategories({ type: ACTION_TYPE_LOADING });
     try {
       const result = await callApi(
         "put",
@@ -101,14 +101,14 @@ const CategoryProvider = ({ children }) => {
         false,
         category
       );
-      dispatchCategories({
+      dispatchYourCategories({
         type: ACTION_TYPE_SUCCESS,
-        payload: categories.payload.map((category) =>
-          category.id === categoryId ? result.data.category : category
+        payload: yourCategories.data.map((category) =>
+          category._id === categoryId ? result.data.category : category
         ),
       });
     } catch (err) {
-      dispatchCategories({
+      dispatchYourCategories({
         type: ACTION_TYPE_FAILURE,
         payload: formatError(err),
       });
@@ -164,6 +164,7 @@ const CategoryProvider = ({ children }) => {
       });
     }
   };
+
   const clearCategoryInfo = () => {
     dispatchCategoryInfo({ type: ACTION_TYPE_SUCCESS, payload: [] });
   };

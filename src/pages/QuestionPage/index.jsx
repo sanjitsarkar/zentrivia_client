@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Layout, Loader, NotAvailable } from "../../components";
-import { useScore } from "../../context/ScoreContext";
-import { useQuestion, useQuiz } from "../../hooks";
+import { useAuth, useQuestion, useQuiz } from "../../hooks";
 import "./QuestionPage.css";
 
 const QuestionPage = () => {
@@ -14,7 +13,7 @@ const QuestionPage = () => {
     wrongQuestions,
     setWrongQuestions,
   } = useQuestion();
-  const { addScore, fetchScoreInfo } = useScore();
+  const { addScore } = useAuth();
   const {
     activeQuiz,
     setActiveQuiz,
@@ -22,7 +21,6 @@ const QuestionPage = () => {
     fetchQuizInfo,
     quizInfo,
     isQuizInfoIsOfQuizId,
-    updateQuiz,
   } = useQuiz();
   const location = useLocation();
 
@@ -50,6 +48,7 @@ const QuestionPage = () => {
       activeQuiz._id,
       _wrongQuestions.map((wrongQuestion) => wrongQuestion.questionId)
     );
+
     setLoading(false);
 
     navigate("/result", {
@@ -127,8 +126,7 @@ const QuestionPage = () => {
   }, [activeQuestionNo, timeLeft]);
 
   useEffect(() => {
-    if (questions.data.length === 0 || !isQuestionIsOfQuizId(questions, quizId))
-      fetchQuestions(quizId);
+    fetchQuestions(quizId);
   }, [quizId]);
 
   useEffect(() => {
@@ -213,10 +211,14 @@ const QuestionPage = () => {
                     {activeQuestionNo + 1}/{questions.data.length}
                   </span>
                 </h3>
-                <div className="row gap-1">
+                <div className="row gap-1 ">
                   <h3 className="text-xl " ref={timeRef}>
                     Time Left:
-                    <span className="text-medium  text-primary ml-05">
+                    <span
+                      className={`text-medium inline-block  ${
+                        timeLeft > 5 ? "text-primary " : "text-tertiary scaleUp"
+                      } ml-05`}
+                    >
                       {timeLeft} Second{timeLeft > 1 && "s"}
                     </span>
                   </h3>

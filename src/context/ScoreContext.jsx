@@ -3,16 +3,6 @@ import { callApi } from "../utils";
 
 const ScoreContext = createContext();
 const ScoreProvider = ({ children }) => {
-  const addScore = async (points, id, inCorrectQuestionsId) => {
-    try {
-      const res = await callApi("put", `user/scores/${id}`, true, {
-        points,
-        id,
-        inCorrectQuestionsId,
-      });
-      return res;
-    } catch (err) {}
-  };
   const fetchScoreInfo = async (id) => {
     try {
       const res = await callApi("get", `user/scores/${id}`, true);
@@ -21,7 +11,7 @@ const ScoreProvider = ({ children }) => {
   };
 
   return (
-    <ScoreContext.Provider value={{ addScore, fetchScoreInfo }}>
+    <ScoreContext.Provider value={{ fetchScoreInfo }}>
       {children}
     </ScoreContext.Provider>
   );

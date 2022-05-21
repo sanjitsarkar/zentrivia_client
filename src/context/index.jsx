@@ -1,14 +1,7 @@
-import { AuthProvider } from "./AuthContext";
-import { CategoryProvider } from "./CategoryContext";
-import { QuestionProvider } from "./QuestionContext";
-import { QuizProvider } from "./QuizContext";
-import { ScoreProvider } from "./ScoreContext";
-import { ThemeProvider } from "./ThemeContext";
-export {
-  AuthProvider,
-  CategoryProvider,
-  QuestionProvider,
-  QuizProvider,
-  ThemeProvider,
-  ScoreProvider,
-};
+export { AuthProvider } from "./AuthContext";
+export { CategoryProvider } from "./CategoryContext";
+export { QuestionProvider } from "./QuestionContext";
+export { QuizProvider } from "./QuizContext";
+export { ScoreProvider } from "./ScoreContext";
+export { ThemeProvider } from "./ThemeContext";
+export { ModalProvider } from "./ModalContext";

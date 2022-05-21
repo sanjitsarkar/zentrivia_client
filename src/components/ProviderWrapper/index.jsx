@@ -4,6 +4,7 @@ import { ScrollToTop } from "..";
 import {
   AuthProvider,
   CategoryProvider,
+  ModalProvider,
   QuestionProvider,
   QuizProvider,
   ScoreProvider,
@@ -19,7 +20,9 @@ const ProviderWrapper = ({ children }) => {
           <QuizProvider>
             <QuestionProvider>
               <ThemeProvider>
-                <ScoreProvider>{children}</ScoreProvider>
+                <ScoreProvider>
+                  <ModalProvider>{children}</ModalProvider>
+                </ScoreProvider>
               </ThemeProvider>
             </QuestionProvider>
           </QuizProvider>

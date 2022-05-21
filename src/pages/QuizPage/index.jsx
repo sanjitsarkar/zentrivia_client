@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Layout, Loader, NotAvailable } from "../../components";
+import QuizCard from "../../components/QuizCard";
 import { useCategory, useQuiz } from "../../hooks";
-import QuizCard from "./QuizCard";
 import "./QuizPage.css";
 
 const QuizPage = () => {
@@ -27,11 +27,7 @@ const QuizPage = () => {
     clearCategoryInfo();
   }, []);
   useEffect(() => {
-    if (
-      quizzes.data.length === 0 ||
-      !isQuestionIsOfcategoryId(quizzes, categoryId)
-    )
-      fetchQuizzesByCategoryId(categoryId);
+    fetchQuizzesByCategoryId(categoryId);
   }, [location]);
   useEffect(() => {
     if (activeCategory === "") fetchCategoryInfo(categoryId);
@@ -46,16 +42,15 @@ const QuizPage = () => {
     <Layout>
       <main className="col items-center mt-4">
         <h1 className="text-3xl text-bold mb-3  text-center">
-          Quizzes on <span className="text-primary">{activeCategory}</span>
+          {quizzes.data.length} Quiz{quizzes.data.length > 1 && "zes"} on{" "}
+          <span className="text-primary">{activeCategory}</span>
         </h1>
         {quizzes.loading && <Loader />}
         <div className="col gap-2 justify-center mb-4">
           {!quizzes.loading &&
             quizzes.data.length > 0 &&
             quizzes.data.map((quiz) => <QuizCard quiz={quiz} key={quiz._id} />)}
-          {!quizzes.loading && quizzes.data.length === 0 && (
-            <NotAvailable title="Quiz is empty" />
-          )}
+          {!quizzes.loading && quizzes.data.length === 0 && <NotAvailable />}
         </div>
       </main>
     </Layout>

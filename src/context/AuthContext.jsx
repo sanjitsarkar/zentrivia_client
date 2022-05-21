@@ -22,6 +22,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [profile, dispatchProfile] = useReducer(reducer, initialState);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -59,6 +60,16 @@ const AuthProvider = ({ children }) => {
       dispatch({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
     }
   };
+  const updateUserInfo = async (user) => {
+    try {
+      dispatchProfile({ type: ACTION_TYPE_LOADING });
+      const result = await callApi("put", "user", true, user);
+      dispatchProfile({ type: ACTION_TYPE_SUCCESS, payload: result.data });
+    } catch (err) {
+      notify(formatError(err), "error");
+      dispatchProfile({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
+    }
+  };
   const logIn = async (e) => {
     e.preventDefault();
     dispatch({ type: ACTION_TYPE_LOADING });
@@ -83,6 +94,8 @@ const AuthProvider = ({ children }) => {
   };
   const getUserInfo = async () => {
     try {
+      dispatchProfile({ type: ACTION_TYPE_LOADING });
+
       const result = await callApi("get", "user", true);
 
       const {
@@ -94,7 +107,7 @@ const AuthProvider = ({ children }) => {
         createdAt,
         totalScore,
       } = result.data;
-      dispatch({
+      dispatchProfile({
         type: ACTION_TYPE_SUCCESS,
         payload: {
           _id,
@@ -107,7 +120,41 @@ const AuthProvider = ({ children }) => {
         },
       });
     } catch (err) {
-      dispatch({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
+      dispatchProfile({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
+    }
+  };
+  const addScore = async (points, id, inCorrectQuestionsId) => {
+    try {
+      dispatchProfile({ type: ACTION_TYPE_LOADING });
+
+      const result = await callApi("put", `user/scores/${id}`, true, {
+        points,
+        id,
+        inCorrectQuestionsId,
+      });
+      const {
+        _id,
+        email,
+        name,
+        profilePictureURL,
+        updatedAt,
+        createdAt,
+        totalScore,
+      } = result.data;
+      dispatchProfile({
+        type: ACTION_TYPE_SUCCESS,
+        payload: {
+          _id,
+          email,
+          name,
+          profilePictureURL,
+          updatedAt,
+          createdAt,
+          totalScore,
+        },
+      });
+    } catch (err) {
+      dispatchProfile({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
     }
   };
   const logOut = () => {
@@ -150,10 +197,14 @@ const AuthProvider = ({ children }) => {
         logIn,
         logOut,
         loginCred,
+        addScore,
         setLoginCred,
         signupCred,
         setSignupCred,
+        dispatchProfile,
+        profile,
         getUserInfo,
+        updateUserInfo,
       }}
     >
       {children}

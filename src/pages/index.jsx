@@ -1,21 +1,13 @@
-import LoginPage from "./AuthPage/Login";
-import SignupPage from "./AuthPage/SignupPage";
-import CategoryPage from "./CategoryPage";
-import HomePage from "./HomePage";
-import ProfilePage from "./ProfilePage";
-import QuestionPage from "./QuestionPage";
-import QuizPage from "./QuizPage";
-import ResultPage from "./ResultPage";
-import RulesPage from "./RulesPage";
-
-export {
-  HomePage,
-  LoginPage,
-  SignupPage,
-  CategoryPage,
-  QuizPage,
-  RulesPage,
-  QuestionPage,
-  ResultPage,
-  ProfilePage,
-};
+export { default as LoginPage } from "./AuthPage/Login";
+export { default as SignupPage } from "./AuthPage/SignupPage";
+export { default as CategoryPage } from "./CategoryPage";
+export { default as HomePage } from "./HomePage";
+export { default as ProfilePage } from "./ProfilePage";
+export { default as QuestionPage } from "./QuestionPage";
+export { default as QuizPage } from "./QuizPage";
+export { default as ResultPage } from "./ResultPage";
+export { default as RulesPage } from "./RulesPage";
+export { default as SearchedQuizPage } from "./SearchedQuizPage";
+export { default as UserCategoryPage } from "./UserCategoryPage";
+export { default as UserQuestionPage } from "./UserQuestionPage";
+export { default as UserQuizPage } from "./UserQuizPage";
