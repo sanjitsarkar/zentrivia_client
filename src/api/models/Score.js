@@ -8,11 +8,11 @@ const scoreSchema = new Schema(
     points: {
       type: Number,
       required: [true, "Points can't be empty."],
+      unique: false,
     },
     quizId: {
       type: Schema.Types.ObjectId,
       required: [true, "quizId can't be empty."],
-      unique: [true, "quizId is already taken."],
     },
     inCorrectQuestionsId: {
       type: [Schema.Types.ObjectId],

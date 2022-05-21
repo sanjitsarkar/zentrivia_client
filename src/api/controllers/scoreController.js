@@ -3,54 +3,84 @@ const { Score, User } = require("../models");
 const addScore = async (req, res) => {
   try {
     const { points, id: quizId, inCorrectQuestionsId } = req.body;
-    const score = await Score.create({
-      userId: req.user.id,
-      points,
-      quizId,
-      inCorrectQuestionsId,
-    });
-    res.json({ score });
+    const score = await Score.create(
+      {
+        userId: req.user.id,
+        points,
+        quizId,
+        inCorrectQuestionsId,
+      },
+      { new: true }
+    );
+    let user = await User.findByIdAndUpdate(
+      { _id: req.user.id },
+      {
+        $inc: {
+          totalScore: points,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+    user = {
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      profilePictureURL: user.profilePictureURL,
+      updatedAt: user.updatedAt,
+      createdAt: user.createdAt,
+      totalScore: user.totalScore,
+      token: user.token,
+    };
+    res.json({ score, user });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
   }
 };
 const updateScore = async (req, res) => {
   const { points, inCorrectQuestionsId } = req.body;
+  const { id: quizId } = req.params;
+  let user;
+  let score = await Score.findOne({ quizId, userId: req.user.id });
   try {
-    const { id: quizId } = req.params;
-    let score = await Score.findOne({ quizId, userId: req.user.id });
-    if (score === null || score === undefined) {
+    if (!score) {
       score = await Score.create({
         userId: req.user.id,
         points,
         quizId,
         inCorrectQuestionsId,
       });
+      (user = await User.findByIdAndUpdate(req.user.id, {
+        $inc: {
+          totalScore: points,
+        },
+      })),
+        { new: true };
     } else {
-      score = await Score.updateOne(
+      user = await User.findByIdAndUpdate(
+        req.user.id,
+        {
+          $inc: {
+            totalScore: points - score.points,
+          },
+        },
+        { new: true }
+      );
+      score = await Score.findOneAndUpdate(
         { quizId, userId: req.user.id },
         {
           userId: req.user.id,
           points,
           quizId,
           inCorrectQuestionsId,
-        }
+        },
+        { new: true }
       );
     }
-    await User.findByIdAndUpdate(req.user.id, {
-      $inc: {
-        totalScore: points,
-      },
-    });
-    res.json({ score });
+    res.json({ score, user });
   } catch (err) {
-    if (err) {
-      await User.findByIdAndUpdate(req.user.id, {
-        $inc: {
-          totalScore: -points,
-        },
-      });
-    }
+    console.log(err);
     res.status(404).json({ errors: [err.message.split(",")] });
   }
 };

@@ -23,9 +23,12 @@ const updateCategory = async (req, res) => {
       creatorId: req.user.id,
     });
     if (isCategoryExists) {
-      const category = await Category.updateOne(
-        { _id: id },
-        { name, img, description }
+      const category = await Category.findByIdAndUpdate(
+        id,
+        { name, img, description },
+        {
+          new: true,
+        }
       );
       res.json({ category });
     } else
@@ -96,6 +99,7 @@ const fetchAllCategoryByCreatorId = async (req, res) => {
     res.status(404).json({ errors: [err.message.split(",")] });
   }
 };
+
 
 module.exports = {
   addCategory,
