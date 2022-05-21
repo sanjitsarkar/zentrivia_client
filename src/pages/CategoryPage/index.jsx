@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CategoryCard, Layout, Loader, NotAvailable } from "../../components";
 import { useCategory } from "../../hooks";
 import "./CategoryPage.css";
 
 const CategoryPage = () => {
-  const { categories } = useCategory();
+  const { categories, fetchCategories } = useCategory();
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <Layout>
