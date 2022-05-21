@@ -19,9 +19,9 @@ const QuizCard = ({ quiz, type }) => {
           <UpdateQuizForm quiz={quiz} toggleModal={toggleModal} />
         </Modal>
       )}
-      <div className="quiz-card row  gap-1  text-light p-2 br-sm relative">
+      <div className="quiz-card z-5 row  gap-1  text-light p-2 br-sm relative">
         {type === "user" && (
-          <div className="row gap-1 absolute  t-2 r-2">
+          <div className="row gap-1 absolute text-white t-2 r-2">
             <i
               onClick={async () => {
                 await deleteQuiz(quiz._id);
@@ -51,6 +51,8 @@ const QuizCard = ({ quiz, type }) => {
                   if (!isLoggedIn) {
                     notify("You must be logged in to play a quiz", "error");
                     navigate("/login");
+                  } else if (quiz.totalQuestion === 0) {
+                    notify("There's no any question", "error");
                   } else {
                     setActiveQuiz(quiz.title);
                     navigate(`/rules/${quiz._id}`);
@@ -62,7 +64,7 @@ const QuizCard = ({ quiz, type }) => {
             ) : (
               <Link
                 to={`/profile/user/quizzes/${quiz._id}`}
-                className="quiz-play-button  pl-3 text-dark text-md pr-3 "
+                className="quiz-play-button  pl-3 text-dark  text-md pr-3 "
               >
                 Add Questions
               </Link>

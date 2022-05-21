@@ -57,6 +57,7 @@ export function validURL(str) {
 }
 export const initialLoginCredState = { email: "", password: "" };
 export const initialProfileState = { name: "", profilePictureURL: "" };
+export const initialCategoryState = { name: "", img: "", description: "" };
 export const notify = (content, type = "success") => toast(content, { type });
 export const PROFILE_PIC_PLACEHOLDER =
   "https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-7.jpg";

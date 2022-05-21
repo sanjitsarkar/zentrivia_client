@@ -164,6 +164,26 @@ const QuizProvider = ({ children }) => {
       });
     }
   };
+  const fetchYourQuizzesByCategoryId = async (categoryId) => {
+    dispatchYourQuizzes({ type: ACTION_TYPE_LOADING });
+    try {
+      const result = await callApi(
+        "get",
+        `categories/${categoryId}/quizzes`,
+        true
+      );
+      dispatchYourQuizzes({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data.quizzes,
+      });
+    } catch (err) {
+      dispatchYourQuizzes({
+        type: ACTION_TYPE_FAILURE,
+        payload: formatError(err),
+      });
+    }
+  };
+
   const clearQuizInfo = () => {
     dispatchQuizInfo({
       type: ACTION_TYPE_SUCCESS,
@@ -195,6 +215,7 @@ const QuizProvider = ({ children }) => {
         fetchQuizzesByCategoryId,
         clearQuizInfo,
         isQuizInfoIsOfQuizId,
+        fetchYourQuizzesByCategoryId,
       }}
     >
       {children}

@@ -35,7 +35,12 @@
   box-shadow: none;
   height: auto;
 }
-
+.z-50{
+  z-index: 50;
+}
+.z-5{
+  z-index: 5;
+}
 /* Form Styling */
 @media only screen and (max-width: 535px) {
   form.form {
@@ -54,7 +59,7 @@
   --lighter-dark-color: rgb(255, 255, 255);
   --dark-color-2: var(--light-color-2);
 }
-.input{
+.modal-form .input{
   background: var(--primary-lighter-color);
 }
 .light #header {
@@ -66,9 +71,16 @@
 form.form {
   box-shadow: 0 0 1rem var(--black-color-7);
 }
+.light .quiz-play-button{
+  color:var(--white-color);
+  background-color: var(--primary-light-color);
+}
 .modal-content{
   padding: 0;
   margin: 3rem auto;
+}
+.light .avatar{
+  box-shadow: none;
 }
 .light .modal-content
 {

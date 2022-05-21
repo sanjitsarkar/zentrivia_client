@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   AddQuizForm,
   Layout,
@@ -9,12 +10,20 @@ import {
 import Modal from "../../components/Modal";
 import { useQuiz } from "../../hooks";
 
-const YourQuizPage = () => {
-  const { yourQuizzes, fetchYourQuizzes } = useQuiz();
+const UserQuizPage = ({ type }) => {
+  const { id: categoryId } = useParams();
+  const { yourQuizzes, fetchYourQuizzes, fetchYourQuizzesByCategoryId } =
+    useQuiz();
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
   useEffect(() => {
-    fetchYourQuizzes();
+    (async () => {
+      if (type === "category") {
+        await fetchYourQuizzesByCategoryId(categoryId);
+      } else {
+        await fetchYourQuizzes();
+      }
+    })();
   }, []);
   return (
     <Layout>
@@ -23,16 +32,16 @@ const YourQuizPage = () => {
       </Modal>
 
       <main className="col items-center mt-4">
-        <h1 className="text-3xl text-bold mb-3  text-center">Your Quizzes</h1>
+        <h1 className="text-3xl text-bold mb-3  text-center">User Quizzes</h1>
         {yourQuizzes.loading && <Loader />}
         <div className="col gap-2 justify-center mb-4">
           {!yourQuizzes.loading &&
             yourQuizzes.data.length > 0 &&
             yourQuizzes.data.map((quiz) => (
-              <QuizCard  type="user" quiz={quiz} key={quiz._id} />
+              <QuizCard type="user" quiz={quiz} key={quiz._id} />
             ))}
           {!yourQuizzes.loading && yourQuizzes.data.length === 0 && (
-            <NotAvailable title="Quiz is empty" />
+            <NotAvailable title="Quiz is empty, Please add your own quiz" />
           )}
         </div>
         <button
@@ -46,4 +55,4 @@ const YourQuizPage = () => {
   );
 };
 
-export default YourQuizPage;
+export default UserQuizPage;

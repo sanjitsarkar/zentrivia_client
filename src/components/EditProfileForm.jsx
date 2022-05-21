@@ -17,7 +17,7 @@ const EditProfileForm = ({ profile, toggleModal }) => {
   const [profileInfo, setProfileInfo] = useState(profile);
   return (
     <form
-      className="p-3  text-dark bg-light"
+      className="p-3 modal-form text-dark bg-light"
       onSubmit={async (e) => {
         e.preventDefault();
         setLoading(true);

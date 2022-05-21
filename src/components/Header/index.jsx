@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useAuth, useTheme } from "../../hooks";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth, useQuiz, useTheme } from "../../hooks";
 import { PROFILE_PIC_PLACEHOLDER } from "../../utils";
 import "./Header.css";
 const Header = () => {
@@ -8,13 +8,16 @@ const Header = () => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { toggleTheme, theme } = useTheme();
   const { profile, getUserInfo } = useAuth();
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+  const { searchQuizzes } = useQuiz();
   useEffect(() => {
     (async () => await getUserInfo())();
   }, []);
   return (
     <header
       id="header"
-      className="p-3 t-0 bx-sh-primary-2 pt-2 pb-2 fixed   w-full  row justify-between items-center"
+      className="z-50 p-3 t-0 bx-sh-primary-2 pt-2 pb-2 fixed   w-full  row justify-between items-center"
     >
       <div className="row items-center justify-between w-full gap-1 flex-nowrap">
         <div className="row gap-1 items-center  flex-nowrap">
@@ -24,17 +27,23 @@ const Header = () => {
             </Link>
           </div>
           {isLoggedIn && (
-            <div className="input-box input input-dark">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault(e);
+                searchQuizzes(search);
+                navigate("/quizzes?search=" + search);
+              }}
+              className="input-box input input-dark"
+            >
               <i className="fa fa-search"></i>
               <input
                 type="search"
                 placeholder="Search quiz..."
                 className="input"
                 defaultValue=""
-                onClick={(e) => {}}
-                onChange={(e) => {}}
+                onChange={(e) => setSearch(e.target.value)}
               />
-            </div>
+            </form>
           )}
         </div>
 

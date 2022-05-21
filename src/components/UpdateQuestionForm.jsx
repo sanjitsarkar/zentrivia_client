@@ -16,7 +16,7 @@ const UpdateQuestionForm = ({ question, toggleModal }) => {
 
   return (
     <form
-      className="p-3  text-dark bg-light"
+      className="p-3 modal-form text-dark bg-light"
       onSubmit={async (e) => {
         e.preventDefault();
         setLoading(true);

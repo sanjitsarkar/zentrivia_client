@@ -5,7 +5,7 @@ import AddQuestionsForm from "../../components/AddQuestionForm";
 import Modal from "../../components/Modal";
 import { useQuestion } from "../../hooks";
 
-const YourQuestionsPage = () => {
+const UserQuestionsPage = () => {
   const { questions, fetchQuestions } = useQuestion();
   const { id: quizId } = useParams();
   const [showModal, setShowModal] = useState(false);
@@ -39,7 +39,10 @@ const YourQuestionsPage = () => {
             ))}
         </div>
         {!questions.loading && questions.data.length === 0 && (
-          <NotAvailable title="There is no any question" />
+          <NotAvailable
+            title="There is no any question,
+           Please add your own question"
+          />
         )}
         <button
           className="create-quiz-btn btn btn-float-right-lg btn-light"
@@ -52,4 +55,4 @@ const YourQuestionsPage = () => {
   );
 };
 
-export default YourQuestionsPage;
+export default UserQuestionsPage;

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Layout, Loader, NotAvailable } from "../../components";
-import { useScore } from "../../context/ScoreContext";
-import { useQuestion, useQuiz } from "../../hooks";
+import { useAuth, useQuestion, useQuiz } from "../../hooks";
 import "./QuestionPage.css";
 
 const QuestionPage = () => {
@@ -14,7 +13,7 @@ const QuestionPage = () => {
     wrongQuestions,
     setWrongQuestions,
   } = useQuestion();
-  const { addScore, fetchScoreInfo } = useScore();
+  const { addScore } = useAuth();
   const {
     activeQuiz,
     setActiveQuiz,
@@ -49,6 +48,7 @@ const QuestionPage = () => {
       activeQuiz._id,
       _wrongQuestions.map((wrongQuestion) => wrongQuestion.questionId)
     );
+
     setLoading(false);
 
     navigate("/result", {

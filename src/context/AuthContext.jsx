@@ -123,6 +123,40 @@ const AuthProvider = ({ children }) => {
       dispatchProfile({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
     }
   };
+  const addScore = async (points, id, inCorrectQuestionsId) => {
+    try {
+      dispatchProfile({ type: ACTION_TYPE_LOADING });
+
+      const result = await callApi("put", `user/scores/${id}`, true, {
+        points,
+        id,
+        inCorrectQuestionsId,
+      });
+      const {
+        _id,
+        email,
+        name,
+        profilePictureURL,
+        updatedAt,
+        createdAt,
+        totalScore,
+      } = result.data;
+      dispatchProfile({
+        type: ACTION_TYPE_SUCCESS,
+        payload: {
+          _id,
+          email,
+          name,
+          profilePictureURL,
+          updatedAt,
+          createdAt,
+          totalScore,
+        },
+      });
+    } catch (err) {
+      dispatchProfile({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
+    }
+  };
   const logOut = () => {
     notify(`Goodbye, ${state.data.name}`);
     localStorage.removeItem("token");
@@ -163,6 +197,7 @@ const AuthProvider = ({ children }) => {
         logIn,
         logOut,
         loginCred,
+        addScore,
         setLoginCred,
         signupCred,
         setSignupCred,

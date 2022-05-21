@@ -13,9 +13,11 @@ import {
   QuizPage,
   ResultPage,
   RulesPage,
+  SearchedQuizPage,
   SignupPage,
-  YourQuestionPage,
-  YourQuizPage,
+  UserCategoryPage,
+  UserQuestionPage,
+  UserQuizPage,
 } from "./pages";
 
 function App() {
@@ -27,16 +29,25 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/categories" element={<CategoryPage />} />
+        <Route path="/quizzes" element={<SearchedQuizPage />} />
         <Route path="/quizzes/:id" element={<QuizPage />} />
         <Route element={<PrivateRoute />}>
           <Route path="/rules/:id" element={<RulesPage />} />
           <Route path="/quizzes/:id/questions" element={<QuestionPage />} />
           <Route path="/result" element={<ResultPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="profile/user/quizzes" element={<YourQuizPage />} />
+          <Route
+            path="profile/user/categories/:id/quizzes"
+            element={<UserQuizPage type="category" />}
+          />
+          <Route path="profile/user/quizzes" element={<UserQuizPage />} />
           <Route
             path="profile/user/quizzes/:id"
-            element={<YourQuestionPage />}
+            element={<UserQuestionPage />}
+          />
+          <Route
+            path="profile/user/categories"
+            element={<UserCategoryPage />}
           />
         </Route>
       </Routes>
