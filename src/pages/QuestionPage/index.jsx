@@ -126,8 +126,7 @@ const QuestionPage = () => {
   }, [activeQuestionNo, timeLeft]);
 
   useEffect(() => {
-    if (questions.data.length === 0 || !isQuestionIsOfQuizId(questions, quizId))
-      fetchQuestions(quizId);
+    fetchQuestions(quizId);
   }, [quizId]);
 
   useEffect(() => {

@@ -27,11 +27,7 @@ const QuizPage = () => {
     clearCategoryInfo();
   }, []);
   useEffect(() => {
-    if (
-      quizzes.data.length === 0 ||
-      !isQuestionIsOfcategoryId(quizzes, categoryId)
-    )
-      fetchQuizzesByCategoryId(categoryId);
+    fetchQuizzesByCategoryId(categoryId);
   }, [location]);
   useEffect(() => {
     if (activeCategory === "") fetchCategoryInfo(categoryId);
