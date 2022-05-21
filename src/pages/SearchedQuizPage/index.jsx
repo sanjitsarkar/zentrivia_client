@@ -6,7 +6,6 @@ import { useQuiz } from "../../hooks";
 const SearchedQuizPage = () => {
   const [searchParams] = useSearchParams();
   const search = searchParams.get("search");
-  console.log("search", search);
   const { searchQuizzes, quizzes } = useQuiz();
   useEffect(() => {
     searchQuizzes(search);

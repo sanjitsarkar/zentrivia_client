@@ -77,7 +77,7 @@ const EditProfileForm = ({ profile, toggleModal }) => {
                       : URL.createObjectURL(profileImage)
                   }
                   alt="profileImage"
-                  className="object-cover"
+                  className="object-cover w-52"
                 />
               </div>
             )}

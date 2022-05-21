@@ -32,7 +32,7 @@ const UserQuizPage = ({ type }) => {
       </Modal>
 
       <main className="col items-center mt-4">
-        <h1 className="text-3xl text-bold mb-3  text-center">User Quizzes</h1>
+        <h1 className="text-3xl text-bold mb-3  text-center">Your Quizzes</h1>
         {yourQuizzes.loading && <Loader />}
         <div className="col gap-2 justify-center mb-4">
           {!yourQuizzes.loading &&

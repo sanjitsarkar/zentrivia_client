@@ -22,7 +22,11 @@ const RulesPage = () => {
             <li>Once you select your answer, it can't be undone.</li>
             <li>You can't select any option once time goes off.</li>
             <li>You can't exit from the Quiz while you're playing.</li>
-            <li>You'll get points on the basis of your correct answers.</li>
+            <li>You'll get points on the basis of your correct answers</li>
+            <li>
+              You'll get 5 points for Easy, 10 points for Medium and 15 points
+              for Hard Quiz.
+            </li>
           </ul>
         </div>
         <hr />

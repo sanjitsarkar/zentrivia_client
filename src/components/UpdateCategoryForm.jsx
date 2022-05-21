@@ -79,7 +79,7 @@ const UpdateCategoryForm = ({ category, toggleModal }) => {
               <img
                 src={validURL(img) ? img : URL.createObjectURL(img)}
                 alt="categoryoverImage"
-                className="object-cover"
+                className="object-cover w-52"
               />
             </div>
           )}

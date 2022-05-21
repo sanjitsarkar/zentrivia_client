@@ -24,7 +24,7 @@ const UserCategoryPage = ({}) => {
 
       <main className="col items-center mt-4">
         <h1 className="text-3xl text-bold mb-3  text-center">
-          User Categories
+          Your Categories
         </h1>
         {yourCategories.loading && <Loader />}
         <div className="row gap-2 justify-center mb-4">

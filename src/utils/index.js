@@ -63,3 +63,5 @@ export const PROFILE_PIC_PLACEHOLDER =
   "https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-7.jpg";
 export const QUIZ_COVER_PLACEHOLDER =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrTqWO5uNGlWvFPbTZ5D4louJmj10rApxkeA&usqp=CAU";
+export const CATEGORY_COVER_PLACEHOLDER =
+  "https://zerojackerzz.com/wp-content/uploads/2019/10/album-placeholder.png";
