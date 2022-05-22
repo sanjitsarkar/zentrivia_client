@@ -70,9 +70,12 @@ const QuizProvider = ({ children }) => {
       notify("Quiz added successfully");
       dispatchYourQuizzes({
         type: ACTION_TYPE_SUCCESS,
-        payload: [...yourQuizzes.data, result.data.quiz],
+        payload: [result.data.quiz, ...yourQuizzes.data],
       });
     } catch (err) {
+      if (formatError(err).includes("duplicate key")) {
+        notify("Quiz with this title already exists", "error");
+      }
       dispatchYourQuizzes({
         type: ACTION_TYPE_FAILURE,
         payload: formatError(err),
@@ -104,10 +107,13 @@ const QuizProvider = ({ children }) => {
       dispatchYourQuizzes({
         type: ACTION_TYPE_SUCCESS,
         payload: yourQuizzes.data.map((quiz) =>
-          quiz._id === quizId ? result.data.Quiz : quiz
+          quiz._id === quizId ? result.data.quiz : quiz
         ),
       });
     } catch (err) {
+      if (formatError(err).includes("duplicate key")) {
+        notify("Quiz with this title already exists", "error");
+      }
       dispatchYourQuizzes({
         type: ACTION_TYPE_FAILURE,
         payload: formatError(err),

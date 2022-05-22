@@ -33,15 +33,17 @@ export const initialQuizState = {
   categoryId: "",
   quizDesc: "",
 };
+export const initialOptionState = [
+  { value: "", isCorrect: true },
+  { value: "", isCorrect: false },
+  { value: "", isCorrect: false },
+  { value: "", isCorrect: false },
+];
+
 export const initialQuestionState = {
   title: "",
   quizId: "",
-  options: [
-    { value: "", isCorrect: true },
-    { value: "", isCorrect: false },
-    { value: "", isCorrect: false },
-    { value: "", isCorrect: false },
-  ],
+  options: initialOptionState,
 };
 export function validURL(str) {
   var pattern = new RegExp(

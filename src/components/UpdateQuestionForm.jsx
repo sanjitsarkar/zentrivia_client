@@ -1,19 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
 import { Loader } from ".";
 import { useQuestion } from "../hooks";
 import { initialQuestionState } from "../utils";
 import Option from "./Option";
 
 const UpdateQuestionForm = ({ question, toggleModal }) => {
-  const { id: quizId } = useParams();
   const { updateQuestion } = useQuestion();
   const [loading, setLoading] = useState(false);
   const [questionInfo, setQuestionInfo] = useState(question);
-  useEffect(() => {
-    setQuestionInfo({ ...questionInfo, quizId });
-  }, []);
-
   return (
     <form
       className="p-3 modal-form text-dark bg-light"
@@ -21,7 +15,7 @@ const UpdateQuestionForm = ({ question, toggleModal }) => {
         e.preventDefault();
         setLoading(true);
         await updateQuestion(question._id, questionInfo);
-        setQuestionInfo(initialQuestionState);
+        setQuestionInfo({ ...initialQuestionState, quizId: question.quizId });
         toggleModal();
         setLoading(false);
       }}

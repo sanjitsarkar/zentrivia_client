@@ -16,9 +16,12 @@ const CategoryCard = ({ category, type }) => {
           <UpdateCategoryForm toggleModal={toggleModal} category={category} />
         </Modal>
       )}
-      <div className="card category-card">
+      <div className="card category-card z-1">
         {type === "user" && (
-          <div className="row gap-1 absolute z-5 t-2 r-2 text-white">
+          <div
+            className="row gap-1 absolute  t-2 r-2 text-white"
+            style={{ zIndex: 1 }}
+          >
             <i
               onClick={async () => {
                 await deleteCategory(category._id);
@@ -53,7 +56,7 @@ const CategoryCard = ({ category, type }) => {
                 onClick={() => setActiveCategory(category.name)}
               >
                 <button className="btn btn-dark w-full category-button">
-                  Add Quiz
+                  View Quizzes
                 </button>
               </Link>
             ) : (

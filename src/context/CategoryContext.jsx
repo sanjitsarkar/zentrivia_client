@@ -12,6 +12,7 @@ import {
   ACTION_TYPE_SUCCESS,
   callApi,
   formatError,
+  notify,
 } from "../utils";
 
 const CategoryContext = createContext();
@@ -65,9 +66,12 @@ const CategoryProvider = ({ children }) => {
       const result = await callApi("post", "categories", false, category);
       dispatchYourCategories({
         type: ACTION_TYPE_SUCCESS,
-        payload: [...yourCategories.data, result.data.category],
+        payload: [result.data.category, ...yourCategories.data],
       });
     } catch (err) {
+      if (formatError(err).includes("duplicate key")) {
+        notify("Category with this name already exists", "error");
+      }
       dispatchYourCategories({
         type: ACTION_TYPE_FAILURE,
         payload: formatError(err),
@@ -108,6 +112,9 @@ const CategoryProvider = ({ children }) => {
         ),
       });
     } catch (err) {
+      if (formatError(err).includes("duplicate key")) {
+        notify("Category with this name already exists", "error");
+      }
       dispatchYourCategories({
         type: ACTION_TYPE_FAILURE,
         payload: formatError(err),

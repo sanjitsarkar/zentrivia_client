@@ -2,14 +2,14 @@ import React from "react";
 
 const Option = ({ i, setQuestionInfo, questionInfo }) => {
   return (
-    <div className="row gap-1 items-center">
+    <div className="row gap-1 items-center ">
       <label htmlFor="option">Option {i + 1}</label>
       <input
         type="text"
         placeholder={`Enter Option ${i + 1}`}
         className="input w-full"
-        id="option"
         defaultValue={questionInfo.options[i].value}
+        id="option"
         onChange={(e) => {
           let _question = questionInfo;
           _question.options[i].value = e.target.value;

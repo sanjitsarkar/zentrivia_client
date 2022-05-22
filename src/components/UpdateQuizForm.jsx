@@ -136,7 +136,7 @@ const UpdateQuizForm = ({ quiz, toggleModal }) => {
                     : URL.createObjectURL(quizCoverImage)
                 }
                 alt="quizoverImage"
-                className="object-cover  w-52"
+                className="object-cover cover-image"
               />
             </div>
           )}

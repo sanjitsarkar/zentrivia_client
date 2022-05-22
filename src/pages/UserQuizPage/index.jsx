@@ -28,7 +28,7 @@ const UserQuizPage = ({ type }) => {
   return (
     <Layout>
       <Modal showModal={showModal} toggleModal={toggleModal}>
-        <AddQuizForm toggleModal={toggleModal} />
+        <AddQuizForm toggleModal={toggleModal} categoryId={categoryId} />
       </Modal>
 
       <main className="col items-center mt-4">

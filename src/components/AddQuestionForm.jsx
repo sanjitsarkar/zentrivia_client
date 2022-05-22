@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Loader } from ".";
 import { useQuestion } from "../hooks";
-import { initialQuestionState } from "../utils";
+import { initialOptionState, initialQuestionState } from "../utils";
 import Option from "./Option";
 
 const AddQuestionForm = ({ toggleModal }) => {
@@ -10,17 +10,14 @@ const AddQuestionForm = ({ toggleModal }) => {
   const { addQuestion } = useQuestion();
   const [loading, setLoading] = useState(false);
   const [questionInfo, setQuestionInfo] = useState(initialQuestionState);
-  useEffect(() => {
-    setQuestionInfo({ ...questionInfo, quizId });
-  }, []);
-
   return (
     <form
       className="p-3 modal-form  text-dark bg-light"
       onSubmit={async (e) => {
         e.preventDefault();
         setLoading(true);
-        await addQuestion(questionInfo);
+        await addQuestion({ ...questionInfo, quizId });
+        initialQuestionState.options = initialOptionState;
         setQuestionInfo(initialQuestionState);
         toggleModal();
         setLoading(false);
@@ -37,6 +34,7 @@ const AddQuestionForm = ({ toggleModal }) => {
             placeholder="Enter question title"
             className="input"
             id="question-title"
+            value={questionInfo.title}
             onChange={(e) =>
               setQuestionInfo({ ...questionInfo, title: e.target.value })
             }
@@ -44,7 +42,7 @@ const AddQuestionForm = ({ toggleModal }) => {
           />
         </div>
 
-        <div className="col gap-2 w-full">
+        <div className="col gap-1 w-full">
           {[...Array(4)].map((_, i) => (
             <Option
               i={i}

@@ -44,7 +44,7 @@ const QuestionProvider = ({ children }) => {
       const result = await callApi("get", `questions/${questionId}`, false);
       dispatchQuestionInfo({
         type: ACTION_TYPE_SUCCESS,
-        payload: result.data.Question,
+        payload: result.data.question,
       });
     } catch (err) {
       dispatchQuestionInfo({
@@ -60,9 +60,12 @@ const QuestionProvider = ({ children }) => {
       notify("Question added successfully");
       dispatchQuestions({
         type: ACTION_TYPE_SUCCESS,
-        payload: [...questions.data, result.data.question],
+        payload: [result.data.question, ...questions.data],
       });
     } catch (err) {
+      if (formatError(err).includes("duplicate key")) {
+        notify("Question with this title already exists", "error");
+      }
       dispatchQuestions({
         type: ACTION_TYPE_FAILURE,
         payload: formatError(err),
@@ -101,10 +104,13 @@ const QuestionProvider = ({ children }) => {
       dispatchQuestions({
         type: ACTION_TYPE_SUCCESS,
         payload: questions.data.map((question) =>
-          question._id === questionId ? result.data.Question : question
+          question._id === questionId ? result.data.question : question
         ),
       });
     } catch (err) {
+      if (formatError(err).includes("duplicate key")) {
+        notify("Question with this title already exists", "error");
+      }
       dispatchQuestions({
         type: ACTION_TYPE_FAILURE,
         payload: formatError(err),

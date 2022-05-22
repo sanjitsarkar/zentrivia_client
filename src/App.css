@@ -20,6 +20,9 @@
   }
 }
 
+/* .cover-image{
+ min-width: 10rem;
+} */
 .scaleUp{
   animation: scaleUpAnim  .5s linear infinite alternate ;
 }
@@ -46,6 +49,15 @@
   form.form {
     padding: 1rem;
   }
+    form.modal-form{
+      margin: 0rem;
+    }
+    input{
+      width: 100% !important;
+    }
+        .modal-content {
+        width: 90% !important;
+        }
 }
 
 /* Theme Styling */

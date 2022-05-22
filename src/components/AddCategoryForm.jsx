@@ -79,7 +79,7 @@ const AddCategoryForm = ({ toggleModal }) => {
               <img
                 src={URL.createObjectURL(img)}
                 alt="categoryoverImage"
-                className="object-cover w-52"
+                className="object-cover cover-image"
               />
             </div>
           )}

@@ -3,17 +3,17 @@ import { useCategory, useQuiz } from "../hooks";
 import { initialQuizState, uploadImages } from "../utils";
 import Loader from "./Loader";
 
-const AddQuizForm = ({ toggleModal }) => {
+const AddQuizForm = ({ toggleModal, categoryId }) => {
   const { addQuiz } = useQuiz();
   const { fetchCategories, categories } = useCategory();
   const [quizCoverImage, setQuizCoverImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const [quizInfo, setQuizInfo] = useState(initialQuizState);
-
   useEffect(() => {
+    categoryId && setQuizInfo({ ...quizInfo, categoryId });
     fetchCategories();
-  }, []);
+  }, [categoryId]);
   return (
     <form
       className="p-3 modal-form  text-dark bg-light"
@@ -32,7 +32,7 @@ const AddQuizForm = ({ toggleModal }) => {
         } else {
           await addQuiz(quizInfo);
         }
-        setQuizInfo(initialQuizState);
+        setQuizInfo({ ...initialQuizState, categoryId });
         setLoading(false);
         toggleModal();
       }}
@@ -73,7 +73,7 @@ const AddQuizForm = ({ toggleModal }) => {
           <select
             className="input cursor-pointer"
             id="category"
-            value={quizInfo.categoryId}
+            defaultValue={categoryId ? categoryId : quizInfo.categoryId}
             required
             onChange={(e) =>
               setQuizInfo({ ...quizInfo, categoryId: e.target.value })
@@ -131,7 +131,7 @@ const AddQuizForm = ({ toggleModal }) => {
               <img
                 src={URL.createObjectURL(quizCoverImage)}
                 alt="quizoverImage"
-                className="object-cover  w-52"
+                className="object-cover  cover-image"
               />
             </div>
           )}
