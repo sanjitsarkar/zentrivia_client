@@ -32,13 +32,14 @@ const updateQuestion = async (req, res) => {
         .status(404)
         .json({ errors: ["You are not authorized to perform this action"] });
 
-    const question = await Question.updateOne(
-      { _id: id },
+    const question = await Question.findByIdAndUpdate(
+      id,
       {
         title,
         quizId,
         options,
-      }
+      },
+      { new: true }
     );
     res.json({ question });
   } catch (err) {
@@ -48,7 +49,7 @@ const updateQuestion = async (req, res) => {
 const deleteQuestion = async (req, res) => {
   try {
     const { id, quizId } = req.params;
-    const question = await Question.deleteOne({ _id: id });
+    const question = await Question.findByIdAndDelete(id);
     await Quiz.findByIdAndUpdate(quizId, {
       $inc: { totalQuestion: -1 },
     });
@@ -68,7 +69,7 @@ const fetchQuestion = async (req, res) => {
 };
 const fetchAllQuestion = async (req, res) => {
   try {
-    const questions = await Question.find();
+    const questions = await Question.find().sort({ updatedAt: -1 });
     res.json({ questions });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
@@ -82,7 +83,7 @@ const searchQuestion = async (req, res) => {
     const questions = await Question.find(
       { quizId, $text: { $search: search } },
       { score: { $meta: "textScore" } }
-    ).sort({ score: { $meta: "textScore" } });
+    ).sort({ score: { $meta: "textScore" }, updatedAt: -1 });
     res.json({ questions });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
