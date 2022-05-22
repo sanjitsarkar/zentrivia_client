@@ -74,8 +74,9 @@ const fetchAllCategory = async (req, res) => {
       categories = await Category.find(
         { $text: { $search: search } },
         { score: { $meta: "textScore" } }
-      ).sort({ score: { $meta: "textScore" }, updatedAt: -1 });
-    else categories = await Category.find().sort({ updatedAt: -1 });
+      ).sort({ score: { $meta: "textScore" }, updatedAt: -1, quizCount: -1 });
+    else
+      categories = await Category.find().sort({ updatedAt: -1, quizCount: -1 });
     res.json({ categories });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
@@ -92,10 +93,11 @@ const fetchAllCategoryByCreatorId = async (req, res) => {
           $text: { $search: search },
         },
         { score: { $meta: "textScore" } }
-      ).sort({ score: { $meta: "textScore" }, updatedAt: -1 });
+      ).sort({ score: { $meta: "textScore" }, updatedAt: -1, quizCount: -1 });
     else
       categories = await Category.find({ creatorId: req.user.id }).sort({
         updatedAt: -1,
+        quizCount: -1,
       });
     res.json({ categories });
   } catch (err) {

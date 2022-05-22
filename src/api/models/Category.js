@@ -17,6 +17,10 @@ const categorySchema = new Schema(
       type: Schema.Types.ObjectId,
       required: [true, "Creator Id can't be empty."],
     },
+    quizCount: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

@@ -15,7 +15,9 @@ const addQuiz = async (req, res) => {
       quizDesc,
       creatorId,
     });
-
+    await Category.findByIdAndUpdate(categoryId, {
+      $inc: { quizCount: 1 },
+    });
     res.json({ quiz });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
@@ -69,6 +71,9 @@ const deleteQuiz = async (req, res) => {
     const isQuizExists = await Quiz.findOne({ _id: id, creatorId });
     if (isQuizExists) {
       const quiz = await Quiz.deleteOne({ _id: id });
+      await Category.findByIdAndUpdate(isQuizExists.categoryId, {
+        $inc: { quizCount: -1 },
+      });
       res.json({ quiz });
     } else
       res
@@ -95,8 +100,12 @@ const fetchAllQuiz = async (req, res) => {
       quizzes = await Quiz.find(
         { $text: { $search: search } },
         { score: { $meta: "textScore" } }
-      ).sort({ score: { $meta: "textScore" }, updatedAt: -1 });
-    else quizzes = await Quiz.find().sort({ updatedAt: -1 });
+      ).sort({
+        score: { $meta: "textScore" },
+        updatedAt: -1,
+        totalQuestion: -1,
+      });
+    else quizzes = await Quiz.find().sort({ updatedAt: -1, totalQuestion: -1 });
     res.json({ quizzes });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
@@ -110,10 +119,15 @@ const fetchAllQuizByCreatorId = async (req, res) => {
       quizzes = await Quiz.find(
         { creatorId: req.user.id, $text: { $search: search } },
         { score: { $meta: "textScore" } }
-      ).sort({ score: { $meta: "textScore" }, updatedAt: -1 });
+      ).sort({
+        score: { $meta: "textScore" },
+        updatedAt: -1,
+        totalQuestion: -1,
+      });
     else
       quizzes = await Quiz.find({ creatorId: req.user.id }).sort({
         updatedAt: -1,
+        totalQuestion: -1,
       });
     res.json({ quizzes });
   } catch (err) {
@@ -123,7 +137,10 @@ const fetchAllQuizByCreatorId = async (req, res) => {
 const fetchAllQuestionByQuizId = async (req, res) => {
   try {
     const { id: quizId } = req.params;
-    const questions = await Question.find({ quizId }).sort({ updatedAt: -1 });
+    const questions = await Question.find({ quizId }).sort({
+      updatedAt: -1,
+      totalQuestion: -1,
+    });
     res.json({ questions });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
@@ -132,7 +149,10 @@ const fetchAllQuestionByQuizId = async (req, res) => {
 const fetchAllQuizByCategoryId = async (req, res) => {
   try {
     const { id: categoryId } = req.params;
-    const quizzes = await Quiz.find({ categoryId }).sort({ updatedAt: -1 });
+    const quizzes = await Quiz.find({ categoryId }).sort({
+      updatedAt: -1,
+      totalQuestion: -1,
+    });
     res.json({ quizzes });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
