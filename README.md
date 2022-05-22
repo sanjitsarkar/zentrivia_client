@@ -1,6 +1,6 @@
 ## ZenTrivia
 
-#### It's a Quiz app where you can take your musical knowledge to test.
+#### It's a Quiz app where you can put your musical knowledge to test.
 
 ![Forks](https://img.shields.io/github/forks/sanjitsarkar/zentriviax)
 &emsp;
@@ -10,7 +10,9 @@
 
 ## Live Website: [ZenTrivia](https://zentrivia.vercel.app/)
 
-## Video Demo:
+## Demo:
+![zenTrivia](https://user-images.githubusercontent.com/8179761/169650188-4720576c-45a2-46f9-9054-74567f97322e.gif)
+![Zentrivia1](https://user-images.githubusercontent.com/8179761/169650190-d46d3d39-d5fa-49a0-8fe3-7172d6097c16.gif)
 
 ---
 
