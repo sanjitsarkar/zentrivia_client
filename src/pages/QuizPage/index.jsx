@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Layout, Loader, NotAvailable } from "../../components";
 import QuizCard from "../../components/QuizCard";
 import { useCategory, useQuiz } from "../../hooks";
@@ -14,21 +14,14 @@ const QuizPage = () => {
     fetchCategoryInfo,
     clearCategoryInfo,
   } = useCategory();
-  const location = useLocation();
-  let pathName = location.pathname.split("/");
-  let categoryId = pathName[pathName.length - 1];
-  const isQuestionIsOfcategoryId = (quizzes, categoryId) => {
-    return quizzes.data.findIndex((quiz) => quiz.categoryId === categoryId) ===
-      -1
-      ? false
-      : true;
-  };
+  const { id: categoryId } = useParams();
+
   useEffect(() => {
     clearCategoryInfo();
   }, []);
   useEffect(() => {
     fetchQuizzesByCategoryId(categoryId);
-  }, [location]);
+  }, [categoryId]);
   useEffect(() => {
     if (activeCategory === "") fetchCategoryInfo(categoryId);
   }, [activeCategory]);
@@ -42,7 +35,8 @@ const QuizPage = () => {
     <Layout>
       <main className="col items-center mt-4">
         <h1 className="text-3xl text-bold mb-3  text-center">
-          {quizzes.data.length} Quiz{quizzes.data.length > 1 && "zes"} on{" "}
+          {!quizzes.loading && quizzes.data.length} Quiz
+          {!quizzes.loading && quizzes.data.length > 1 && "zes"} on{" "}
           <span className="text-primary">{activeCategory}</span>
         </h1>
         {quizzes.loading && <Loader />}

@@ -52,7 +52,7 @@ const EditProfileForm = ({ profile, toggleModal }) => {
             placeholder="Enter full name"
             className="input"
             id="name"
-            value={profileInfo.name}
+            defaultValue={profileInfo.name}
             onChange={(e) =>
               setProfileInfo({ ...profileInfo, name: e.target.value })
             }

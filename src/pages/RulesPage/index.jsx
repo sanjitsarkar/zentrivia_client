@@ -1,13 +1,11 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Layout } from "../../components";
 import "./RulesPage.css";
 
 const RulesPage = () => {
+  const { id: quizId } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
-  let pathName = location.pathname.split("/");
-  let quizId = pathName[pathName.length - 1];
   return (
     <Layout>
       <div className="backdrop"></div>

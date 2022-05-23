@@ -8,14 +8,33 @@ import {
   QuizCard,
 } from "../../components";
 import Modal from "../../components/Modal";
-import { useQuiz } from "../../hooks";
+import { useCategory, useQuiz } from "../../hooks";
 
 const UserQuizPage = ({ type }) => {
   const { id: categoryId } = useParams();
+  const {
+    activeCategory,
+    setActiveCategory,
+    categoryInfo,
+    fetchCategoryInfo,
+    clearCategoryInfo,
+  } = useCategory();
+
+  useEffect(() => {
+    clearCategoryInfo();
+  }, []);
   const { yourQuizzes, fetchYourQuizzes, fetchYourQuizzesByCategoryId } =
     useQuiz();
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
+  useEffect(() => {
+    if (activeCategory === "") fetchCategoryInfo(categoryId);
+  }, [activeCategory]);
+  useEffect(() => {
+    if (!categoryInfo.loading && categoryInfo.data.length !== 0) {
+      setActiveCategory(categoryInfo.data.name);
+    }
+  }, [categoryInfo]);
   useEffect(() => {
     (async () => {
       if (type === "category") {
@@ -32,7 +51,11 @@ const UserQuizPage = ({ type }) => {
       </Modal>
 
       <main className="col items-center mt-4">
-        <h1 className="text-3xl text-bold mb-3  text-center">Your Quizzes</h1>
+        <h1 className="text-3xl text-bold mb-3  text-center">
+          {!yourQuizzes.loading && yourQuizzes.data.length} Quiz
+          {!yourQuizzes.loading && yourQuizzes.data.length > 1 && "zes"} on{" "}
+          <span className="text-primary">{activeCategory}</span>
+        </h1>
         {yourQuizzes.loading && <Loader />}
         <div className="col gap-2 justify-center mb-4">
           {!yourQuizzes.loading &&

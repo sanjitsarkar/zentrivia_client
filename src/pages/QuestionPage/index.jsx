@@ -1,18 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Layout, Loader, NotAvailable } from "../../components";
 import { useAuth, useQuestion, useQuiz } from "../../hooks";
 import "./QuestionPage.css";
 
 const QuestionPage = () => {
   const navigate = useNavigate();
-  const {
-    questions,
-    fetchQuestions,
-    isQuestionIsOfQuizId,
-    wrongQuestions,
-    setWrongQuestions,
-  } = useQuestion();
+  const { questions, fetchQuestions, wrongQuestions, setWrongQuestions } =
+    useQuestion();
   const { addScore } = useAuth();
   const {
     activeQuiz,
@@ -22,10 +17,7 @@ const QuestionPage = () => {
     quizInfo,
     isQuizInfoIsOfQuizId,
   } = useQuiz();
-  const location = useLocation();
-
-  let pathName = location.pathname.split("/");
-  let quizId = pathName[pathName.length - 2];
+  const { id: quizId } = useParams();
 
   const [activeQuestionNo, setActiveQuestionNo] = useState(0);
   const [optionStateColor, setOptionColor] = useState("light");
@@ -45,7 +37,7 @@ const QuestionPage = () => {
 
     await addScore(
       _score,
-      activeQuiz._id,
+      quizId,
       _wrongQuestions.map((wrongQuestion) => wrongQuestion.questionId)
     );
 
@@ -107,7 +99,9 @@ const QuestionPage = () => {
           ];
         }
         (async () => {
-          await navigateToResultPage(_wrongQuestions, _score);
+          setTimeout(async () => {
+            await navigateToResultPage(_wrongQuestions, _score);
+          }, 1000);
         })();
       }
     }
@@ -126,16 +120,17 @@ const QuestionPage = () => {
   }, [activeQuestionNo, timeLeft]);
 
   useEffect(() => {
-    fetchQuestions(quizId);
+    (async () => await fetchQuestions(quizId))();
   }, [quizId]);
 
   useEffect(() => {
     if (quizInfo.data.length === 0 || !isQuizInfoIsOfQuizId(quizInfo, quizId))
       fetchQuizInfo(quizId);
     clearQuizInfo();
+
     setPoints(0);
     setWrongQuestions([]);
-  }, []);
+  }, [quizId]);
 
   useEffect(() => {
     if (!quizInfo.loading && quizInfo.data.length !== 0) {

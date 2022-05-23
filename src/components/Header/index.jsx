@@ -31,7 +31,6 @@ const Header = () => {
             <form
               onSubmit={(e) => {
                 e.preventDefault(e);
-                searchQuizzes(search);
                 navigate("/quizzes?search=" + search);
               }}
               className="input-box input input-dark"
@@ -97,6 +96,7 @@ const Header = () => {
       {isLoggedIn && showProfileMenu && (
         <ul className="menu absolute text-dark t-5 mt-2  bg-light z-55 br-sm  col items-center gap-05 p-2 r-1 ">
           <Link to="/">Home</Link>
+          <Link to="/categories">Categories</Link>
           <Link to="/profile">Profile</Link>
           <li>
             <button className="btn btn-secondary auth-button " onClick={logOut}>
