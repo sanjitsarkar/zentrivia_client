@@ -72,7 +72,7 @@ const fetchAllCategory = async (req, res) => {
     const { search } = req.query;
     if (search)
       categories = await Category.find(
-        { $text: { $search: search } },
+        { $text: { $search: search, $caseSensitive: false } },
         { score: { $meta: "textScore" } }
       ).sort({ score: { $meta: "textScore" }, updatedAt: -1, quizCount: -1 });
     else
@@ -90,7 +90,7 @@ const fetchAllCategoryByCreatorId = async (req, res) => {
       categories = await Category.find(
         {
           creatorId: req.user.id,
-          $text: { $search: search },
+          $text: { $search: search, $caseSensitive: false },
         },
         { score: { $meta: "textScore" } }
       ).sort({ score: { $meta: "textScore" }, updatedAt: -1, quizCount: -1 });

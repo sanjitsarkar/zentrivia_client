@@ -81,7 +81,7 @@ const searchQuestion = async (req, res) => {
     const { id: quizId } = req.params;
     if (!search) throw Error("Please add query search value");
     const questions = await Question.find(
-      { quizId, $text: { $search: search } },
+      { quizId, $text: { $search: search, $caseSensitive: false } },
       { score: { $meta: "textScore" } }
     ).sort({ score: { $meta: "textScore" }, updatedAt: -1 });
     res.json({ questions });

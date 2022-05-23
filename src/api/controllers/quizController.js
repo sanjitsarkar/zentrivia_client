@@ -98,7 +98,7 @@ const fetchAllQuiz = async (req, res) => {
     let quizzes;
     if (search)
       quizzes = await Quiz.find(
-        { $text: { $search: search } },
+        { $text: { $search: search, $caseSensitive: false } },
         { score: { $meta: "textScore" } }
       ).sort({
         score: { $meta: "textScore" },
@@ -117,7 +117,10 @@ const fetchAllQuizByCreatorId = async (req, res) => {
     let quizzes;
     if (search)
       quizzes = await Quiz.find(
-        { creatorId: req.user.id, $text: { $search: search } },
+        {
+          creatorId: req.user.id,
+          $text: { $search: search, $caseSensitive: false },
+        },
         { score: { $meta: "textScore" } }
       ).sort({
         score: { $meta: "textScore" },
