@@ -74,6 +74,9 @@
 .modal-form .input{
   background: var(--primary-lighter-color);
 }
+.light i.fa{
+  color:var(--white-color);
+}
 .light #header {
   background: var(--white-color);
   box-shadow: 0 0 1rem var(--black-color-7);

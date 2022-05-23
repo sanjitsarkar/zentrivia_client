@@ -5,6 +5,7 @@ import "./Layout.css";
 const Layout = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
+
   return (
     <div className="bg-dark text-light ">
       <Header />
@@ -13,7 +14,19 @@ const Layout = ({ children }) => {
           <button
             className="back-button fixed  z-10  br-full w-12 h-12 bg-primary text-2xl bx-sh-primary-2"
             onClick={() => {
-              navigate(-1);
+              if (
+                location.pathname.includes("questions") ||
+                location.pathname.includes("result")
+              ) {
+                navigate("/categories");
+              } else if (
+                location.pathname === "/quizzes" ||
+                location.pathname === "/profile"
+              ) {
+                navigate("/");
+              } else {
+                navigate(-1);
+              }
             }}
           >
             &#10140;
