@@ -195,18 +195,18 @@ const QuestionPage = () => {
         {(questions.loading || loading) && <Loader />}
         {!loading && !questions.loading && questions.data.length > 0 && (
           <>
-            <h1 className="text-3xl text-bold mb-3  text-primary">
+            <h1 className="text-3xl text-bold mb-3  text-primary text-center">
               {activeQuiz.title}
             </h1>
             <div className="col gap-2 ">
               <div className="row justify-between items-center gap-05">
-                <h3 className="text-xl ">
+                <h3 className="text-xl text-center">
                   Question:{" "}
                   <span className="text-medium  text-primary ml-05">
                     {activeQuestionNo + 1}/{questions.data.length}
                   </span>
                 </h3>
-                <div className="row gap-1 ">
+                <div className="row gap-1 text-center  items-center">
                   <h3 className="text-xl " ref={timeRef}>
                     Time Left:
                     <span
@@ -217,7 +217,7 @@ const QuestionPage = () => {
                       {timeLeft} Second{timeLeft > 1 && "s"}
                     </span>
                   </h3>
-                  <h3 className="text-xl ">
+                  <h3 className="text-xl text-center">
                     Score:
                     <span className="text-medium  text-primary ml-05">
                       {score}
@@ -226,7 +226,7 @@ const QuestionPage = () => {
                 </div>
               </div>
               <div className="col gap-1">
-                <h3 className="text-light text-2xl font-medium">
+                <h3 className="text-light text-center text-2xl font-medium">
                   {questions.data[activeQuestionNo].title}
                 </h3>
                 <div className="col options gap-1 mt-2" ref={questionRef}>

@@ -51,11 +51,16 @@ const UserQuizPage = ({ type }) => {
       </Modal>
 
       <main className="col items-center mt-4">
-        <h1 className="text-3xl text-bold mb-3  text-center">
-          {!yourQuizzes.loading && yourQuizzes.data.length} Quiz
-          {!yourQuizzes.loading && yourQuizzes.data.length > 1 && "zes"} on{" "}
-          <span className="text-primary">{activeCategory}</span>
-        </h1>
+        {type === "category" ? (
+          <h1 className="text-3xl text-bold mb-3  text-center">
+            {!yourQuizzes.loading && yourQuizzes.data.length} Quiz
+            {!yourQuizzes.loading &&
+              yourQuizzes.data.length > 1 &&
+              "zes"} on <span className="text-primary">{activeCategory}</span>
+          </h1>
+        ) : (
+          <h1 className="text-3xl text-bold mb-3  text-center">Your quizzes</h1>
+        )}
         {yourQuizzes.loading && <Loader />}
         <div className="col gap-2 justify-center mb-4">
           {!yourQuizzes.loading &&

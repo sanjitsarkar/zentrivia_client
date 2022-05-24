@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
       <div className="main relative row justify-center">
         {location.pathname !== "/" && !location.pathname.includes("rules") && (
           <button
-            className="back-button fixed  z-10  br-full w-12 h-12 bg-primary text-2xl bx-sh-primary-2"
+            className="back-button fixed  z-10  br-full w-12 h-12  text-2xl bx-sh-primary-2"
             onClick={() => {
               if (
                 location.pathname.includes("questions") ||

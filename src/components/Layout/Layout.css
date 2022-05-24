@@ -9,21 +9,23 @@
 .back-button {
   left: 1rem;
   top: 5.5rem;
+  background: var(--primary-color-1);
   transform: rotate(-180deg) scale(0.9);
   transition: all 0.1s ease-in-out;
 }
 .back-button:hover {
+  background: var(--primary-color);
   transform: rotate(-180deg) scale(1.03);
 }
 .back-button:active {
   transform: rotate(-180deg) scale(0.9);
 }
 
-@media all and (max-width: 335px) {
+@media all and (max-width: 360px) {
   .back-button {
     transform: rotate(-180deg) scale(0.8);
-    left: 0.1rem;
-    top: 5rem;
+    left: 0rem;
+    top: 4.5rem;
   }
 }
 .back-button:hover {
