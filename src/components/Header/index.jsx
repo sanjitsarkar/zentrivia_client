@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth, useQuiz, useTheme } from "../../hooks";
+import LOGO from "../../assets/logo.png";
+import { useAuth, useTheme } from "../../hooks";
 import { PROFILE_PIC_PLACEHOLDER } from "../../utils";
 import "./Header.css";
 const Header = () => {
@@ -10,7 +11,6 @@ const Header = () => {
   const { profile, getUserInfo } = useAuth();
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
-  const { searchQuizzes } = useQuiz();
   useEffect(() => {
     (async () => await getUserInfo())();
   }, []);
@@ -23,8 +23,11 @@ const Header = () => {
       <div className="row items-center justify-between w-full gap-1 flex-nowrap">
         <div className="row gap-1 items-center  flex-nowrap">
           <div className={`left title ${isLoggedIn ? "hide" : ""}`}>
-            <Link to="/" className="text-2xl">
-              Zen<span className="text-primary">Trivia</span>
+            <Link to="/" className="text-2xl row gap-1 items-center">
+              <img src={LOGO} alt="ZenTrivia" className="w-10 h-10 logo" />
+              <span>
+                Zen<span className="text-primary">Trivia</span>
+              </span>
             </Link>
           </div>
           {isLoggedIn && (

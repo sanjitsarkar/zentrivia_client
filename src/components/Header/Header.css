@@ -37,4 +37,11 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   header .hide {
     display: none;
   }
+  
+}
+@media screen and (max-width: 616px) {
+  header .logo {
+    display: none;
+  }
+  
 }

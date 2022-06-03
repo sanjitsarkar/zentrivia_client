@@ -3,18 +3,49 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="" />
+  <meta name="description" content="The place where you can test your
+knowledge about Music" />
+  <meta property="title" content="ZenTrivia - The place where you can test your
+knowledge about Music" />
+  <meta property="image" content="%PUBLIC_URL%/image/apple-touch-icon.png" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link href="%PUBLIC_URL%/image/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
+  <link href="%PUBLIC_URL%/image/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/image/apple-touch-icon.png" />
+  <meta name="theme-color" content="#FFFFFF" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://zentrivia.vercel.app" />
+  <meta name="author" content="Sanjit Sarkar" />
+  <meta property="og:image" content="%PUBLIC_URL%/image/apple-touch-icon.png" />
+  <meta property="og:title" content="The place where you can test your
+knowledge about Music" />
+  <meta property="og:description" content="ZenTrivia - The place where you can test your
+knowledge about Music" />
+  <meta property="og:url" content="https://zentrivia.vercel.app" />
+  <meta property="og:type" content="website" />
+  <meta name="keywords" content="zentrivia,trivia,quiz,music,enthusiast">
+  <link rel="icon" href="%PUBLIC_URL%/image/favicon.ico" />
   <link rel="stylesheet" href="https://xendesign.netlify.app/css/index.css" />
   <script src="https://xendesign.netlify.app/js/index.js" defer></script>
-  <title>ZenTrivia</title>
+  <title>ZenTrivia - The place where you can test your
+    knowledge about Music</title>
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('worker.js').then(function (registration) {
+        }, function (err) {
+        }).catch(function (err) {
+        });
+      });
+    } else {
+    }
+  </script>
 </body>
 
 </html>
