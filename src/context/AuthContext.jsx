@@ -162,27 +162,6 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("token", data.token);
     setIsLoggedIn(true);
   };
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     setToken(localStorage.getItem("token"));
-  //     localStorage.setItem("user", JSON.stringify(state.data));
-  //     localStorage.setItem("token", state.data.token);
-
-  //     if (location.pathname === "/signup") navigate("/", { replace: true });
-  //     else if (location.pathname !== "/") navigate(-1, { replace: true });
-  //   }
-  // }, [isLoggedIn, state]);
-  // useEffect(() => {
-  //   if (localStorage.getItem("token")) {
-  //     setToken(localStorage.getItem("token"));
-  //     setIsLoggedIn(true);
-  //     dispatch({
-  //       type: ACTION_TYPE_SUCCESS,
-  //       payload: JSON.parse(localStorage.getItem("user")),
-  //     });
-  //     navigate("/", { replace: true });
-  //   }
-  // }, []);
   return (
     <AuthContext.Provider
       value={{
