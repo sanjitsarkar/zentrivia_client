@@ -1,12 +1,19 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Layout, Loader } from "../../components";
 import { useAuth } from "../../hooks";
 import { GUEST_CREDENTIAL } from "../../utils";
 const LoginPage = () => {
-  const { logIn, loginCred, setLoginCred, user } = useAuth();
+  const { logIn, loginCred, setLoginCred, isLoggedIn, user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (pathname === "/signup") navigate("/", { replace: true });
+      else if (pathname !== "/") navigate(-1, { replace: true });
+    }
+  }, [isLoggedIn, pathname]);
   return (
     <Layout>
       <form

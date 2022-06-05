@@ -5,12 +5,13 @@ import { useAuth, useTheme } from "../../hooks";
 import { PROFILE_PIC_PLACEHOLDER } from "../../utils";
 import "./Header.css";
 const Header = () => {
-  const { isLoggedIn, logOut } = useAuth();
+  const { user, logOut, isLoggedIn } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { toggleTheme, theme } = useTheme();
   const { profile, getUserInfo } = useAuth();
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+
   useEffect(() => {
     (async () => await getUserInfo())();
   }, []);
