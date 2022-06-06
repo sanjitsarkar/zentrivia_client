@@ -11,7 +11,6 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (user.isLoggedIn) {
-      console.log("logged");
       if (pathname === "/signup") navigate("/", { replace: true });
       else if (pathname !== "/") navigate(-1, { replace: true });
     }
