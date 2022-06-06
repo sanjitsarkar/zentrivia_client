@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Loader } from ".";
-import { useQuestion } from "../hooks";
+import { useQuestion } from "../context";
 import { initialQuestionState } from "../utils";
 import Option from "./Option";
 

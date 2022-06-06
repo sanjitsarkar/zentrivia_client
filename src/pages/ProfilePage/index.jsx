@@ -4,7 +4,7 @@ import { IoIosCreate } from "react-icons/io";
 import { Layout, Loader } from "../../components";
 import EditProfileForm from "../../components/EditProfileForm";
 import Modal from "../../components/Modal";
-import { useAuth } from "../../hooks";
+import { useAuth } from "../../context";
 import "./ProfilePage.css";
 import ProfileTab from "./ProfileTab";
 const ProfilePage = () => {

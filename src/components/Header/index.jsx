@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LOGO from "../../assets/logo.png";
-import { useAuth, useTheme } from "../../hooks";
+import { useAuth, useTheme } from "../../context";
 import { PROFILE_PIC_PLACEHOLDER } from "../../utils";
 import "./Header.css";
 const Header = () => {
-  const { user, logOut, isLoggedIn } = useAuth();
+  const { logOut, user } = useAuth();
+
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { toggleTheme, theme } = useTheme();
   const { profile, getUserInfo } = useAuth();
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
-
   useEffect(() => {
-    (async () => await getUserInfo())();
+    user.isLoggedIn && (async () => await getUserInfo())();
   }, []);
   return (
     <header
@@ -23,7 +23,7 @@ const Header = () => {
     >
       <div className="row items-center justify-between w-full gap-1 flex-nowrap">
         <div className="row gap-1 items-center  flex-nowrap">
-          <div className={`left title ${isLoggedIn ? "hide" : ""}`}>
+          <div className={`left title ${user.isLoggedIn ? "hide" : ""}`}>
             <Link to="/" className="text-2xl row gap-1 items-center">
               <img src={LOGO} alt="ZenTrivia" className="w-10 h-10 logo" />
               <span>
@@ -31,7 +31,7 @@ const Header = () => {
               </span>
             </Link>
           </div>
-          {isLoggedIn && (
+          {user.isLoggedIn && (
             <form
               onSubmit={(e) => {
                 e.preventDefault(e);
@@ -74,7 +74,7 @@ const Header = () => {
               />
             )}
           </button>
-          {!isLoggedIn ? (
+          {!user.isLoggedIn ? (
             <li>
               <Link to="/login">
                 <button className="btn btn-primary auth-button">Login</button>
@@ -82,22 +82,26 @@ const Header = () => {
             </li>
           ) : (
             <li className=" col items-center justify-center">
-              <img
-                src={profile.data.profilePictureURL ?? PROFILE_PIC_PLACEHOLDER}
-                className="w-12 b-2 br-primary b-solid  img-rounded"
-                id="avatar"
-                alt={profile.data.name}
-                onClick={() =>
-                  setShowProfileMenu(
-                    (prevShowProfileMenu) => !prevShowProfileMenu
-                  )
-                }
-              />
+              {!profile.loading && profile.data && (
+                <img
+                  src={
+                    profile.data.profilePictureURL ?? PROFILE_PIC_PLACEHOLDER
+                  }
+                  className="w-12 b-2 br-primary b-solid  img-rounded"
+                  id="avatar"
+                  alt={profile.data.name}
+                  onClick={() =>
+                    setShowProfileMenu(
+                      (prevShowProfileMenu) => !prevShowProfileMenu
+                    )
+                  }
+                />
+              )}
             </li>
           )}
         </ul>
       </div>
-      {isLoggedIn && showProfileMenu && (
+      {user.isLoggedIn && showProfileMenu && (
         <ul className="menu absolute text-dark t-5 mt-2  bg-light z-55 br-sm  col items-center gap-05 p-2 r-1 ">
           <Link to="/">Home</Link>
           <Link to="/categories">Categories</Link>

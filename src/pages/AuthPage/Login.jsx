@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Layout, Loader } from "../../components";
-import { useAuth } from "../../hooks";
+import { useAuth } from "../../context";
 import { GUEST_CREDENTIAL } from "../../utils";
 const LoginPage = () => {
-  const { logIn, loginCred, setLoginCred, isLoggedIn, user } = useAuth();
+  const { logIn, loginCred, setLoginCred, user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
   useEffect(() => {
-    if (isLoggedIn) {
+    if (user.isLoggedIn) {
+      console.log("logged");
       if (pathname === "/signup") navigate("/", { replace: true });
       else if (pathname !== "/") navigate(-1, { replace: true });
     }
-  }, [isLoggedIn, pathname]);
+  }, [user, pathname]);
+
   return (
     <Layout>
       <form

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useCategory } from "../hooks";
+import { useCategory } from "../context";
 import { CATEGORY_COVER_PLACEHOLDER } from "../utils";
 import Modal from "./Modal";
 import UpdateCategoryForm from "./UpdateCategoryForm";

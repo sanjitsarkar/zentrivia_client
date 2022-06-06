@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth, useQuiz } from "../hooks";
+import { useAuth, useQuiz } from "../context";
 import { notify, QUIZ_COVER_PLACEHOLDER } from "../utils";
 import Modal from "./Modal";
 import UpdateQuizForm from "./UpdateQuizForm";

@@ -3,7 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { PrivateRoute } from "./components";
-import { useTheme } from "./hooks";
+import { useTheme } from "./context";
 import {
   CategoryPage,
   HomePage,

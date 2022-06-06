@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useCategory } from "../hooks";
+import { useCategory } from "../context";
 import { initialCategoryState, uploadImages, validURL } from "../utils";
 import Loader from "./Loader";
 

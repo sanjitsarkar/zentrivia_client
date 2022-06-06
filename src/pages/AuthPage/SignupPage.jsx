@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Layout, Loader } from "../../components";
-import { useAuth } from "../../hooks";
+import { useAuth } from "../../context";
 
 const SignupPage = () => {
-  const { signUp, signupCred, setSignupCred, isLoggedIn, user } = useAuth();
+  const { signUp, signupCred, setSignupCred, user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
   useEffect(() => {
-    if (isLoggedIn) {
+    if (user.isLoggedIn) {
       if (pathname === "/signup") navigate("/", { replace: true });
       else if (pathname !== "/") navigate(-1, { replace: true });
     }
-  }, [isLoggedIn, pathname]);
+  }, [user, pathname]);
   return (
     <Layout>
       <form

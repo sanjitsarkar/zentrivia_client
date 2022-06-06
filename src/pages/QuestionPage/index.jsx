@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout, Loader, NotAvailable } from "../../components";
-import { useAuth, useQuestion, useQuiz } from "../../hooks";
+import { useAuth, useQuestion, useQuiz } from "../../context";
 import "./QuestionPage.css";
 
 const QuestionPage = () => {

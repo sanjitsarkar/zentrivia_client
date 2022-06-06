@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { CategoryCard, Layout, Loader, NotAvailable } from "../../components";
-import { useCategory } from "../../hooks";
+import { useCategory } from "../../context";
 import "./CategoryPage.css";
 
 const CategoryPage = () => {

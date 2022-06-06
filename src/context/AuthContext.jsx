@@ -14,16 +14,13 @@ import {
 const AuthContext = createContext();
 const initialState = {
   data: JSON.parse(localStorage?.getItem("user")),
+  isLoggedIn: JSON.parse(localStorage?.getItem("user")) ? true : false,
   loading: false,
   erorr: "",
 };
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage?.getItem("user") ? true : false
-  );
   const [profile, dispatchProfile] = useReducer(reducer, initialState);
-  const [token, setToken] = useState();
   const [loginCred, setLoginCred] = useState(initialLoginCredState);
   const [signupCred, setSignupCred] = useState(initialSignupCredState);
 
@@ -48,7 +45,11 @@ const AuthProvider = ({ children }) => {
       setLoginCred(initialLoginCredState);
       setSignupCred(initialSignupCredState);
       storeUserData(result.data);
-      dispatch({ type: ACTION_TYPE_SUCCESS, payload: result.data });
+      dispatch({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data,
+        isLoggedIn: true,
+      });
     } catch (err) {
       notify(formatError(err), "error");
       dispatch({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
@@ -59,7 +60,6 @@ const AuthProvider = ({ children }) => {
       dispatchProfile({ type: ACTION_TYPE_LOADING });
       const result = await callApi("put", "user", true, user);
       dispatchProfile({ type: ACTION_TYPE_SUCCESS, payload: result.data });
-      setIsLoggedIn(true);
     } catch (err) {
       notify(formatError(err), "error");
       dispatchProfile({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
@@ -78,7 +78,11 @@ const AuthProvider = ({ children }) => {
       setLoginCred(initialLoginCredState);
       setSignupCred(initialSignupCredState);
       storeUserData(result.data);
-      dispatch({ type: ACTION_TYPE_SUCCESS, payload: result.data });
+      dispatch({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data,
+        isLoggedIn: true,
+      });
     } catch (err) {
       notify(formatError(err), "error");
       dispatch({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
@@ -151,24 +155,17 @@ const AuthProvider = ({ children }) => {
   };
   const logOut = () => {
     notify(`Goodbye, ${state.data.name}`);
-    localStorage.removeItem("token");
     localStorage.removeItem("user");
-    setIsLoggedIn(false);
-    dispatch({ type: ACTION_TYPE_SUCCESS, payload: [] });
+    dispatch({ type: ACTION_TYPE_SUCCESS, payload: [], isLoggedIn: false });
   };
   const storeUserData = (data) => {
-    setToken(localStorage.getItem("token"));
     localStorage.setItem("user", JSON.stringify(data));
-    localStorage.setItem("token", data.token);
-    setIsLoggedIn(true);
   };
   return (
     <AuthContext.Provider
       value={{
-        token,
         user: state,
         setUser: dispatch,
-        isLoggedIn,
         signUp,
         logIn,
         logOut,

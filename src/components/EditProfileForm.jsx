@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Loader } from ".";
-import { useAuth } from "../hooks";
+import { useAuth } from "../context";
 import {
   initialProfileState,
   PROFILE_PIC_PLACEHOLDER,

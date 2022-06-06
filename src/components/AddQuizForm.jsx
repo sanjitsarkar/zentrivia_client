@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useCategory, useQuiz } from "../hooks";
+import { useCategory, useQuiz } from "../context";
 import { initialQuizState, uploadImages } from "../utils";
 import Loader from "./Loader";
 
