@@ -7,7 +7,7 @@ import UpdateQuizForm from "./UpdateQuizForm";
 
 const QuizCard = ({ quiz, type }) => {
   let title = quiz.title;
-  const { isLoggedIn } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
@@ -48,7 +48,7 @@ const QuizCard = ({ quiz, type }) => {
               <button
                 className="quiz-play-button  pl-3 text-dark text-md pr-3 text-center"
                 onClick={() => {
-                  if (!isLoggedIn) {
+                  if (!user.isLoggedIn) {
                     notify("You must be logged in to play a quiz", "error");
                     navigate("/login");
                   } else if (quiz.totalQuestion === 0) {

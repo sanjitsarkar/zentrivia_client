@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { PrivateRoute } from "./components";
-import { useTheme } from "./context";
+import { useAuth, useTheme } from "./context";
 import {
   CategoryPage,
   HomePage,
@@ -22,6 +22,10 @@ import {
 
 function App() {
   const { theme } = useTheme();
+  const { user, getUserInfo } = useAuth();
+  useEffect(() => {
+    user.isLoggedIn && (async () => await getUserInfo())();
+  }, [user]);
   return (
     <div className={theme}>
       <Routes>

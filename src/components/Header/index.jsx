@@ -9,12 +9,10 @@ const Header = () => {
 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { toggleTheme, theme } = useTheme();
-  const { profile, getUserInfo } = useAuth();
+  const { profile } = useAuth();
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
-  useEffect(() => {
-    user.isLoggedIn && (async () => await getUserInfo())();
-  }, []);
+
   return (
     <header
       id="header"
