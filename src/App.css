@@ -20,9 +20,9 @@
   }
 }
 
-/* .cover-image{
- min-width: 10rem;
-} */
+.cover-image{
+ width: min(20rem,100%);
+}
 .scaleUp{
   animation: scaleUpAnim  .5s linear infinite alternate ;
 }
