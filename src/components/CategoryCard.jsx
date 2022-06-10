@@ -40,7 +40,8 @@ const CategoryCard = ({ category, type }) => {
           <img
             src={category.img ?? CATEGORY_COVER_PLACEHOLDER}
             alt={category.name}
-            className="h-40  object-cover w-full"
+            style={{ objectFit: "cover" }}
+            className="h-40 w-full "
           />
         </div>
         <div className="card-bottom">
