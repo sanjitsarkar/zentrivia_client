@@ -8,6 +8,7 @@ import {
   CategoryPage,
   HomePage,
   LoginPage,
+  PageNotFound,
   ProfilePage,
   QuestionPage,
   QuizPage,
@@ -29,6 +30,7 @@ function App() {
   return (
     <div className={theme}>
       <Routes>
+        <Route path="*" element={<PageNotFound />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
