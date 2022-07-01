@@ -1,33 +1,37 @@
-import React, { createContext, useContext, useReducer, useState } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 import { initialState, reducer } from "../reducers/reducer";
+import { InitialStateType } from "../types";
+import { Question } from "../types/Quiz";
 import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
   callApi,
   formatError,
-  notify,
+  notify
 } from "../utils";
 
-const QuestionContext = createContext();
+const QuestionContext = createContext(null);
 
-const QuestionProvider = ({ children }) => {
+const QuestionProvider = ({ children }:any) => {
   const [activeQuestion, setActiveQuestion] = useState("");
-  const [questions, dispatchQuestions] = useReducer(reducer, initialState);
+
+
+  const [questions, dispatchQuestions] = useReducer<any>(reducer, initialState) as [InitialStateType, any];
   const [wrongQuestions, setWrongQuestions] = useState([]);
 
-  const [questionInfo, dispatchQuestionInfo] = useReducer(
+  const [questionInfo, dispatchQuestionInfo] = useReducer<any>(
     reducer,
     initialState
-  );
+  ) as [InitialStateType, any];
 
-  const fetchQuestions = async (quizId) => {
+  const fetchQuestions = async (quizId:String) => {
     dispatchQuestions({ type: ACTION_TYPE_LOADING });
     try {
       const result = await callApi("get", `quizzes/${quizId}/questions`, false);
       dispatchQuestions({
         type: ACTION_TYPE_SUCCESS,
-        payload: result.data.questions,
+        payload: result?.data.questions as Question[],
       });
     } catch (err) {
       dispatchQuestions({
@@ -37,14 +41,14 @@ const QuestionProvider = ({ children }) => {
     }
   };
 
-  const fetchQuestionInfo = async (questionId) => {
+  const fetchQuestionInfo = async (questionId:String) => {
     dispatchQuestionInfo({ type: ACTION_TYPE_LOADING });
 
     try {
       const result = await callApi("get", `questions/${questionId}`, false);
       dispatchQuestionInfo({
         type: ACTION_TYPE_SUCCESS,
-        payload: result.data.question,
+        payload: result?.data.question as Question,
       });
     } catch (err) {
       dispatchQuestionInfo({
@@ -53,14 +57,14 @@ const QuestionProvider = ({ children }) => {
       });
     }
   };
-  const addQuestion = async (question) => {
+  const addQuestion = async (question:Question) => {
     dispatchQuestions({ type: ACTION_TYPE_LOADING });
     try {
       const result = await callApi("post", "questions", false, question);
       notify("Question added successfully");
       dispatchQuestions({
         type: ACTION_TYPE_SUCCESS,
-        payload: [result.data.question, ...questions.data],
+        payload: [result?.data.question, ...questions.data || []] ,
       });
     } catch (err) {
       if (formatError(err).includes("duplicate key")) {
@@ -73,7 +77,7 @@ const QuestionProvider = ({ children }) => {
     }
   };
 
-  const deleteQuestion = async (quizId, questionId) => {
+  const deleteQuestion = async (quizId:String, questionId:String) => {
     dispatchQuestions({ type: ACTION_TYPE_LOADING });
     try {
       notify("Question deleted successfully");
@@ -81,7 +85,7 @@ const QuestionProvider = ({ children }) => {
       dispatchQuestions({
         type: ACTION_TYPE_SUCCESS,
         payload: questions.data.filter(
-          (question) => question._id !== questionId
+          (question:any) => question._id !== questionId
         ),
       });
     } catch (err) {
@@ -91,7 +95,7 @@ const QuestionProvider = ({ children }) => {
       });
     }
   };
-  const updateQuestion = async (questionId, question) => {
+  const updateQuestion = async (questionId:String, question:Question) => {
     dispatchQuestions({ type: ACTION_TYPE_LOADING });
     try {
       const result = await callApi(
@@ -103,9 +107,10 @@ const QuestionProvider = ({ children }) => {
       notify("Question updated successfully");
       dispatchQuestions({
         type: ACTION_TYPE_SUCCESS,
-        payload: questions.data.map((question) =>
-          question._id === questionId ? result.data.question : question
-        ),
+        payload: questions?.data.map((question:any):Question => 
+        {
+         return  question._id === questionId? result?.data.question : question} 
+        ) 
       });
     } catch (err) {
       if (formatError(err).includes("duplicate key")) {
@@ -117,12 +122,10 @@ const QuestionProvider = ({ children }) => {
       });
     }
   };
-  const isQuestionIsOfQuizId = (questions, quizId) => {
-    return questions.data.findIndex(
-      (question) => question.quizId === quizId
-    ) === -1
-      ? false
-      : true;
+  const isQuestionIsOfquizId = (questions:any, quizId:String) => {
+    return questions?.data?.some(
+      (question:Question) => question?.quizId === quizId
+    ) 
   };
 
   return (
@@ -139,10 +142,10 @@ const QuestionProvider = ({ children }) => {
         updateQuestion,
         questionInfo,
         dispatchQuestionInfo,
-        isQuestionIsOfQuizId,
+        isQuestionIsOfquizId,
         wrongQuestions,
         setWrongQuestions,
-      }}
+      }} 
     >
       {children}
     </QuestionContext.Provider>

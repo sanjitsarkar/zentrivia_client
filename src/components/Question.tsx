@@ -3,7 +3,7 @@ import { useQuestion } from "../context";
 import Modal from "./Modal";
 import UpdateQuestionForm from "./UpdateQuestionForm";
 
-const Question = ({ question, i, type, quizId }) => {
+const Question = ({ question, i, type, quizId:String }) => {
   const { wrongQuestions, deleteQuestion } = useQuestion();
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
@@ -30,7 +30,7 @@ const Question = ({ question, i, type, quizId }) => {
             <div className="row gap-1 z-5 items-center">
               <i
                 onClick={async () => {
-                  await deleteQuestion(quizId, question._id);
+                  await deleteQuestion(quizId:String, question._id);
                 }}
                 className="cursor-pointer  fa fa-trash  bg-error text-light grid place-content-center bx-sh-3 img-rounded w-8 h-8"
               />

@@ -15,9 +15,9 @@ const QuestionPage = () => {
     clearQuizInfo,
     fetchQuizInfo,
     quizInfo,
-    isQuizInfoIsOfQuizId,
+    isQuizInfoIsOfquizId:String,
   } = useQuiz();
-  const { id: quizId } = useParams();
+  const { id: quizId:String } = useParams();
 
   const [activeQuestionNo, setActiveQuestionNo] = useState(0);
   const [optionStateColor, setOptionColor] = useState("light");
@@ -37,8 +37,8 @@ const QuestionPage = () => {
 
     await addScore(
       _score,
-      quizId,
-      _wrongQuestions.map((wrongQuestion) => wrongQuestion.questionId)
+      quizId:String,
+      _wrongQuestions.map((wrongQuestion) => wrongQuestion.questionId:String)
     );
 
     setLoading(false);
@@ -64,7 +64,7 @@ const QuestionPage = () => {
         setWrongQuestions((prevWrongQuestions) => [
           ...prevWrongQuestions,
           {
-            questionId: questions.data[activeQuestionNo]._id,
+            questionId:String: questions.data[activeQuestionNo]._id,
             optionId: option._id,
           },
         ]);
@@ -93,7 +93,7 @@ const QuestionPage = () => {
           _wrongQuestions = [
             ...wrongQuestions,
             {
-              questionId: questions.data[activeQuestionNo]._id,
+              questionId:String: questions.data[activeQuestionNo]._id,
               optionId: option._id,
             },
           ];
@@ -120,17 +120,17 @@ const QuestionPage = () => {
   }, [activeQuestionNo, timeLeft]);
 
   useEffect(() => {
-    (async () => await fetchQuestions(quizId))();
-  }, [quizId]);
+    (async () => await fetchQuestions(quizId:String))();
+  }, [quizId:String]);
 
   useEffect(() => {
-    if (quizInfo.data.length === 0 || !isQuizInfoIsOfQuizId(quizInfo, quizId))
-      fetchQuizInfo(quizId);
+    if (quizInfo.data.length === 0 || !isQuizInfoIsOfquizId:String(quizInfo, quizId:String))
+      fetchQuizInfo(quizId:String);
     clearQuizInfo();
 
     setPoints(0);
     setWrongQuestions([]);
-  }, [quizId]);
+  }, [quizId:String]);
 
   useEffect(() => {
     if (!quizInfo.loading && quizInfo.data.length !== 0) {

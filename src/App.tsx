@@ -18,10 +18,10 @@ import {
   SignupPage,
   UserCategoryPage,
   UserQuestionPage,
-  UserQuizPage,
+  UserQuizPage
 } from "./pages";
 
-function App() {
+function App(){
   const { theme } = useTheme();
   const { user, getUserInfo } = useAuth();
   useEffect(() => {

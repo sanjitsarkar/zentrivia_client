@@ -4,7 +4,7 @@ import { Layout } from "../../components";
 import "./RulesPage.css";
 
 const RulesPage = () => {
-  const { id: quizId } = useParams();
+  const { id: quizId:String } = useParams();
   const navigate = useNavigate();
   return (
     <Layout>
@@ -38,7 +38,7 @@ const RulesPage = () => {
             Exit
           </button>
 
-          <Link to={`/quizzes/${quizId}/questions`}>
+          <Link to={`/quizzes/${quizId:String}/questions`}>
             <button className="btn btn-dark">Continue</button>
           </Link>
         </div>

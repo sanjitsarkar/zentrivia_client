@@ -1,9 +1,14 @@
+import { ActionType, InitialStateType } from './../types/OtherDataTypes';
+
 const initialState = {
   data: [],
   loading: false,
-  erorr: "",
+  error: "",
+  isLoggedIn: false,
 };
-const reducer = (state, action) => {
+
+
+const reducer = (state:InitialStateType, action:ActionType):InitialStateType => {
   switch (action.type) {
     case "LOADING":
       return {
@@ -15,7 +20,7 @@ const reducer = (state, action) => {
         ...state,
         data: action.payload,
         loading: false,
-        isLoggedIn: action.isLoggedIn,
+        isLoggedIn: action?.isLoggedIn,
       };
     case "FAILURE":
       return {

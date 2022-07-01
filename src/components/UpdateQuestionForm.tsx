@@ -15,7 +15,7 @@ const UpdateQuestionForm = ({ question, toggleModal }) => {
         e.preventDefault();
         setLoading(true);
         await updateQuestion(question._id, questionInfo);
-        setQuestionInfo({ ...initialQuestionState, quizId: question.quizId });
+        setQuestionInfo({ ...initialQuestionState, quizId:String: question.quizId:String });
         toggleModal();
         setLoading(false);
       }}

@@ -1,12 +1,11 @@
 import React, { createContext, useContext, useReducer, useState } from "react";
 import { initialState, reducer } from "../reducers/reducer";
 import {
-  ACTION_TYPE_FAILURE,
-  ACTION_TYPE_LOADING,
-  ACTION_TYPE_SUCCESS,
-  callApi,
-  formatError,
-  notify,
+    ACTION_TYPE_FAILURE,
+    ACTION_TYPE_LOADING,
+    ACTION_TYPE_SUCCESS,
+    callApi,
+    formatError
 } from "../utils";
 
 const QuizContext = createContext();
@@ -47,11 +46,11 @@ const QuizProvider = ({ children }) => {
       });
     }
   };
-  const fetchQuizInfo = async (quizId) => {
+  const fetchQuizInfo = async (quizId:String) => {
     dispatchQuizInfo({ type: ACTION_TYPE_LOADING });
 
     try {
-      const result = await callApi("get", `quizzes/${quizId}`, false);
+      const result = await callApi("get", `quizzes/${quizId:String}`, false);
       dispatchQuizInfo({
         type: ACTION_TYPE_SUCCESS,
         payload: result.data.quiz,
@@ -83,14 +82,14 @@ const QuizProvider = ({ children }) => {
     }
   };
 
-  const deleteQuiz = async (quizId) => {
+  const deleteQuiz = async (quizId:String) => {
     dispatchYourQuizzes({ type: ACTION_TYPE_LOADING });
     try {
-      await callApi("delete", `quizzes/${quizId}`, false);
+      await callApi("delete", `quizzes/${quizId:String}`, false);
       notify("Quiz deleted successfully");
       dispatchYourQuizzes({
         type: ACTION_TYPE_SUCCESS,
-        payload: yourQuizzes.data.filter((quiz) => quiz._id !== quizId),
+        payload: yourQuizzes.data.filter((quiz) => quiz._id !== quizId:String),
       });
     } catch (err) {
       dispatchYourQuizzes({
@@ -99,15 +98,15 @@ const QuizProvider = ({ children }) => {
       });
     }
   };
-  const updateQuiz = async (quizId, quiz) => {
+  const updateQuiz = async (quizId:String, quiz) => {
     dispatchYourQuizzes({ type: ACTION_TYPE_LOADING });
     try {
-      const result = await callApi("put", `quizzes/${quizId}`, false, quiz);
+      const result = await callApi("put", `quizzes/${quizId:String}`, false, quiz);
       notify("Quiz updated successfully");
       dispatchYourQuizzes({
         type: ACTION_TYPE_SUCCESS,
         payload: yourQuizzes.data.map((quiz) =>
-          quiz._id === quizId ? result.data.quiz : quiz
+          quiz._id === quizId:String ? result.data.quiz : quiz
         ),
       });
     } catch (err) {
@@ -191,13 +190,12 @@ const QuizProvider = ({ children }) => {
   };
 
   const clearQuizInfo = () => {
-    dispatchQuizInfo({
-      type: ACTION_TYPE_SUCCESS,
+    dispatchQuizInfo( ACTION_TYPE_SUCCESS,
       payload: [],
     });
   };
-  const isQuizInfoIsOfQuizId = (quizInfo, quizId) => {
-    return quizInfo["_id"] === quizId;
+  const isQuizInfoIsOfquizId:String = (quizInfo, quizId:String) => {
+    return quizInfo["_id"] === quizId:String;
   };
   return (
     <QuizContext.Provider
@@ -220,7 +218,7 @@ const QuizProvider = ({ children }) => {
         dispatchQuizInfo,
         fetchQuizzesByCategoryId,
         clearQuizInfo,
-        isQuizInfoIsOfQuizId,
+        isQuizInfoIsOfquizId:String,
         fetchYourQuizzesByCategoryId,
       }}
     >

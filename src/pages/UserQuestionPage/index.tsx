@@ -9,16 +9,16 @@ const UserQuestionsPage = () => {
   const { questions, fetchQuestions } = useQuestion();
   const { setActiveQuiz, activeQuiz, clearQuizInfo, fetchQuizInfo, quizInfo } =
     useQuiz();
-  const { id: quizId } = useParams();
+  const { id: quizId:String } = useParams();
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
   useEffect(() => {
     (async () => {
-      await fetchQuestions(quizId);
+      await fetchQuestions(quizId:String);
     })();
-  }, [quizId]);
+  }, [quizId:String]);
   useEffect(() => {
-    fetchQuizInfo(quizId);
+    fetchQuizInfo(quizId:String);
     clearQuizInfo();
   }, []);
 
@@ -46,7 +46,7 @@ const UserQuestionsPage = () => {
             questions.data.map((question, i) => (
               <Question
                 type="user"
-                quizId={quizId}
+                quizId:String={quizId:String}
                 question={question}
                 i={i}
                 key={question._id}

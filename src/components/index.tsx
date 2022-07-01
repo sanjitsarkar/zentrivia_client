@@ -15,3 +15,4 @@ export { default as QuizCard } from "./QuizCard";
 export { default as ScrollToTop } from "./ScrollToTop";
 export { default as UpdateCategoryForm } from "./UpdateCategoryForm";
 export { default as UpdateQuizForm } from "./UpdateQuizForm";
+

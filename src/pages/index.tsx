@@ -12,3 +12,4 @@ export { default as SearchedQuizPage } from "./SearchedQuizPage";
 export { default as UserCategoryPage } from "./UserCategoryPage";
 export { default as UserQuestionPage } from "./UserQuestionPage";
 export { default as UserQuizPage } from "./UserQuizPage";
+

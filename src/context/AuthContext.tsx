@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useState } from "react";
 import { reducer } from "../reducers/reducer";
+import { UserType } from "../types";
 import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
@@ -8,17 +9,17 @@ import {
   formatError,
   initialLoginCredState,
   initialSignupCredState,
-  notify,
+  notify
 } from "../utils";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 const initialState = {
-  data: JSON.parse(localStorage?.getItem("user")),
-  isLoggedIn: JSON.parse(localStorage?.getItem("user")) ? true : false,
+  data: JSON.parse(localStorage?.getItem("user") || "") as UserType,
+  isLoggedIn: JSON.parse(localStorage?.getItem("user") || "") ? true : false,
   loading: false,
-  erorr: "",
+  error: "",
 };
-const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }:any) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [profile, dispatchProfile] = useReducer(reducer, initialState);
   const [loginCred, setLoginCred] = useState(initialLoginCredState);

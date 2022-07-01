@@ -6,7 +6,7 @@ import { initialOptionState, initialQuestionState } from "../utils";
 import Option from "./Option";
 
 const AddQuestionForm = ({ toggleModal }) => {
-  const { id: quizId } = useParams();
+  const { id: quizId:String } = useParams();
   const { addQuestion } = useQuestion();
   const [loading, setLoading] = useState(false);
   const [questionInfo, setQuestionInfo] = useState(initialQuestionState);
@@ -16,7 +16,7 @@ const AddQuestionForm = ({ toggleModal }) => {
       onSubmit={async (e) => {
         e.preventDefault();
         setLoading(true);
-        await addQuestion({ ...questionInfo, quizId });
+        await addQuestion({ ...questionInfo, quizId:String });
         initialQuestionState.options = initialOptionState;
         setQuestionInfo(initialQuestionState);
         toggleModal();

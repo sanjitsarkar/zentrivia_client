@@ -1,12 +1,20 @@
 import React from "react";
 import empty from "../../assets/icons/empty.gif";
+
+type Props = {
+  title:String,
+  img:String,
+  children:ReactFR
+  classes:String,
+  type:String
+}
 const NotAvailable = ({
   title,
   img = empty,
   children,
   classes = "",
   type = "",
-}) => {
+}:Props) => {
   return (
     <div
       className={`w-full rounded-full grid place-content-center  ${

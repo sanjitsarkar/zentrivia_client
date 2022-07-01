@@ -42,7 +42,7 @@ export const initialOptionState = [
 
 export const initialQuestionState = {
   title: "",
-  quizId: "",
+  quizId:String: "",
   options: initialOptionState,
 };
 export function validURL(str) {
