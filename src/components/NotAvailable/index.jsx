@@ -15,7 +15,9 @@ const NotAvailable = ({
     >
       <img
         src={img}
-        className={`${type === "404" ? "w-80" : "w-80 img-rounded"}`}
+        className={`${
+          type === "404" ? "w-80" : "w-80"
+        } aspect-square img-rounded`}
         alt={title}
       />
       <h2 className="text-center text-xl text-dark">{title}</h2>

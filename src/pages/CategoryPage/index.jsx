@@ -16,7 +16,7 @@ const CategoryPage = () => {
           Choose <span className="text-primary">Trivia</span> Category
         </h1>
         {categories.loading && <Loader />}
-        <div className="row gap-1 justify-center items-center ">
+        <div className="grid category-grid ">
           {!categories.loading &&
             categories.data.length > 0 &&
             categories.data.map((category) => (

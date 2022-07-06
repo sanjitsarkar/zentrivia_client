@@ -5,6 +5,7 @@
   margin-top: var(--main-top-margin);
   min-height: calc(100vh - var(--main-top-margin));
   color: var(--light-color);
+  overflow-x:hidden ;
 }
 .back-button {
   left: 1rem;
