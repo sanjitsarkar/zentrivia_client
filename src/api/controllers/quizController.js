@@ -151,6 +151,7 @@ const fetchAllQuestionByQuizId = async (req, res) => {
 const fetchAllQuizByCategoryId = async (req, res) => {
   try {
     const { id: categoryId } = req.params;
+
     const quizzes = await Quiz.find({ categoryId }).sort({
       updatedAt: -1,
       totalQuestion: -1,
