@@ -94,18 +94,25 @@ const fetchQuiz = async (req, res) => {
 };
 const fetchAllQuiz = async (req, res) => {
   try {
-    const { search } = req.query;
+    const { search, skip } = req.query;
     let quizzes;
     if (search)
       quizzes = await Quiz.find(
         { $text: { $search: search, $caseSensitive: false } },
         { score: { $meta: "textScore" } }
-      ).sort({
-        score: { $meta: "textScore" },
-        updatedAt: -1,
-        totalQuestion: -1,
-      });
-    else quizzes = await Quiz.find().sort({ updatedAt: -1, totalQuestion: -1 });
+      )
+        .sort({
+          score: { $meta: "textScore" },
+          updatedAt: -1,
+          totalQuestion: -1,
+        })
+        .skip(skip)
+        .limit(5);
+    else
+      quizzes = await Quiz.find()
+        .sort({ updatedAt: -1, totalQuestion: -1 })
+        .skip(skip)
+        .limit(5);
     res.json({ quizzes });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
@@ -113,7 +120,7 @@ const fetchAllQuiz = async (req, res) => {
 };
 const fetchAllQuizByCreatorId = async (req, res) => {
   try {
-    const { search } = req.query;
+    const { search, skip } = req.query;
     let quizzes;
     if (search)
       quizzes = await Quiz.find(
@@ -122,16 +129,22 @@ const fetchAllQuizByCreatorId = async (req, res) => {
           $text: { $search: search, $caseSensitive: false },
         },
         { score: { $meta: "textScore" } }
-      ).sort({
-        score: { $meta: "textScore" },
-        updatedAt: -1,
-        totalQuestion: -1,
-      });
+      )
+        .sort({
+          score: { $meta: "textScore" },
+          updatedAt: -1,
+          totalQuestion: -1,
+        })
+        .skip(skip)
+        .limit(5);
     else
-      quizzes = await Quiz.find({ creatorId: req.user.id }).sort({
-        updatedAt: -1,
-        totalQuestion: -1,
-      });
+      quizzes = await Quiz.find({ creatorId: req.user.id })
+        .sort({
+          updatedAt: -1,
+          totalQuestion: -1,
+        })
+        .skip(skip)
+        .limit(5);
     res.json({ quizzes });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
@@ -140,9 +153,21 @@ const fetchAllQuizByCreatorId = async (req, res) => {
 const fetchAllQuestionByQuizId = async (req, res) => {
   try {
     const { id: quizId } = req.params;
-    const questions = await Question.find({ quizId }).sort({
-      updatedAt: 1,
-    });
+    const { search, skip } = req.query;
+    let questions;
+    if (search)
+      questions = await Question.find(
+        { quizId, $text: { $search: search, $caseSensitive: false } },
+        { score: { $meta: "textScore" } }
+      )
+        .sort({
+          score: { $meta: "textScore" },
+          updatedAt: -1,
+          totalQuestion: -1,
+        })
+        .skip(skip)
+        .limit(5);
+    else questions = await Question.find({ quizId }).skip(skip).limit(5);
     res.json({ questions });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
@@ -151,11 +176,30 @@ const fetchAllQuestionByQuizId = async (req, res) => {
 const fetchAllQuizByCategoryId = async (req, res) => {
   try {
     const { id: categoryId } = req.params;
+    const { difficulty, skip } = req.query;
+    let quizzes;
+    if (difficulty !== "undefined")
+      quizzes = await Quiz.find({
+        categoryId,
+        quizDifficulty: difficulty,
+      })
+        .skip(skip)
+        .limit(5)
+        .sort({
+          updatedAt: -1,
+          totalQuestion: -1,
+        });
+    else
+      quizzes = await Quiz.find({
+        categoryId,
+      })
+        .skip(skip)
+        .limit(5)
+        .sort({
+          updatedAt: -1,
+          totalQuestion: -1,
+        });
 
-    const quizzes = await Quiz.find({ categoryId }).sort({
-      updatedAt: -1,
-      totalQuestion: -1,
-    });
     res.json({ quizzes });
   } catch (err) {
     res.status(404).json({ errors: [err.message.split(",")] });
