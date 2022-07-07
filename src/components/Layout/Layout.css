@@ -29,6 +29,12 @@
     top: 4.5rem;
   }
 }
+@media all and (max-width: 420px) {
+  .quiz-difficulty-button {
+    padding: 0.3rem .8rem;
+    font-size: medium;
+  }
+}
 .back-button:hover {
   transform: rotate(-180deg) scale(0.9);
 }

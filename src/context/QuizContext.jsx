@@ -17,13 +17,17 @@ const QuizProvider = ({ children }) => {
   const [yourQuizzes, dispatchYourQuizzes] = useReducer(reducer, initialState);
   const [quizInfo, dispatchQuizInfo] = useReducer(reducer, initialState);
 
-  const fetchQuizzes = async () => {
+  const fetchQuizzes = async (skip = 0, difficulty) => {
     dispatchQuizzes({ type: ACTION_TYPE_LOADING });
     try {
-      const result = await callApi("get", "quizzes", false);
+      const result = await callApi(
+        "get",
+        `quizzes/?skip=${skip}&difficulty=${difficulty}`,
+        false
+      );
       dispatchQuizzes({
         type: ACTION_TYPE_SUCCESS,
-        payload: result.data.quizzes,
+        payload: [...quizzes, ...result.data.quizzes],
       });
     } catch (err) {
       dispatchQuizzes({
@@ -32,13 +36,17 @@ const QuizProvider = ({ children }) => {
       });
     }
   };
-  const fetchQuizzesByCategoryId = async (id) => {
+  const fetchQuizzesByCategoryId = async (id, skip = 0, difficulty) => {
     dispatchQuizzes({ type: ACTION_TYPE_LOADING });
     try {
-      const result = await callApi("get", `categories/${id}/quizzes`, false);
+      const result = await callApi(
+        "get",
+        `categories/${id}/quizzes?skip=${skip}&difficulty=${difficulty}`,
+        false
+      );
       dispatchQuizzes({
         type: ACTION_TYPE_SUCCESS,
-        payload: result.data.quizzes,
+        payload: [...quizzes, ...result.data.quizzes],
       });
     } catch (err) {
       dispatchQuizzes({

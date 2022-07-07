@@ -102,8 +102,12 @@ const SignupPage = () => {
           {user.loading ? <Loader isButtonLoader={true} /> : "Signup"}
         </button>
 
-        <Link to="/login" className="text-dark-4 block">
-          Already have an account?
+        <Link
+          to="/login"
+          className="text-dark-4 row items-center flex-wrap gap-025"
+        >
+          <span> Already have an account?</span>
+          <span className="text-dark font-medium">Login</span>
         </Link>
       </form>
     </Layout>

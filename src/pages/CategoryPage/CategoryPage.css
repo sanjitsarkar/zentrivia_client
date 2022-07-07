@@ -34,7 +34,7 @@
   
 }
 .category-card {
-  width: 15rem;
+  width: 100%;
   max-width: unset;
   min-width: unset;
   height: 16rem;

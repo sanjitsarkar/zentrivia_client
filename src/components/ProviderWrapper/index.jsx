@@ -8,6 +8,7 @@ import {
   QuestionProvider,
   QuizProvider,
   ScoreProvider,
+  SearchProvider,
   ThemeProvider,
 } from "../../context";
 
@@ -21,7 +22,9 @@ const ProviderWrapper = ({ children }) => {
             <QuestionProvider>
               <ThemeProvider>
                 <ScoreProvider>
-                  <ModalProvider>{children}</ModalProvider>
+                  <ModalProvider>
+                    <SearchProvider>{children}</SearchProvider>
+                  </ModalProvider>
                 </ScoreProvider>
               </ThemeProvider>
             </QuestionProvider>

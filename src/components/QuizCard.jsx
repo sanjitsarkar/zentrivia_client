@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useQuiz } from "../context";
 import { notify, QUIZ_COVER_PLACEHOLDER } from "../utils";
 import Modal from "./Modal";
 import UpdateQuizForm from "./UpdateQuizForm";
 
-const QuizCard = ({ quiz, type }) => {
+const QuizCard = forwardRef(({ quiz, type }, ref) => {
   let title = quiz.title;
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -19,7 +19,10 @@ const QuizCard = ({ quiz, type }) => {
           <UpdateQuizForm quiz={quiz} toggleModal={toggleModal} />
         </Modal>
       )}
-      <div className="quiz-card  row  gap-1  text-light p-2 br-sm relative">
+      <div
+        ref={ref}
+        className="quiz-card  row  gap-1  text-light p-2 br-sm relative"
+      >
         {type === "user" && (
           <div className="row  z-5 gap-1 absolute text-white t-2 r-2">
             <i
@@ -93,6 +96,6 @@ const QuizCard = ({ quiz, type }) => {
       </div>
     </>
   );
-};
+});
 
 export default QuizCard;

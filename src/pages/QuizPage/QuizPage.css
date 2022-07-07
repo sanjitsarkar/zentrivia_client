@@ -11,7 +11,11 @@
 .quiz-card:active {
   transform: scale(0.99);
 }
-
+.difficulty-list::-webkit-scrollbar{
+    display: none;
+    -ms-overflow-style: none;
+scrollbar-width: none;
+}
 @media screen and (max-width: 723px) {
   .quiz-card-bottom {
     min-width: 100%;

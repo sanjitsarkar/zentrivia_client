@@ -59,12 +59,6 @@ const LoginPage = () => {
               onClick={() => setShowPassword(!showPassword)}
             ></i>
           </div>
-
-          <label className="checkbox-container">
-            Remember Me
-            <input type="checkbox" />
-            <span className="checkmark"></span>
-          </label>
         </div>
 
         <button
@@ -75,18 +69,20 @@ const LoginPage = () => {
         </button>
 
         <button
-          className="btn btn-info w-full text-md mb-1"
+          className="btn btn-info w-full text-md mb-2"
           onClick={() => {
             setLoginCred(GUEST_CREDENTIAL);
           }}
         >
-          Guest Login
+          Login as Guest
         </button>
-        <a href="#" className="text-dark-4 block mb-05">
-          Forgot Password?
-        </a>
-        <Link to="/signup" className="text-dark-4 block">
-          Don't have an account?
+
+        <Link
+          to="/signup"
+          className="text-dark-4 row items-center flex-wrap gap-025"
+        >
+          <span>Don't have an account?</span>
+          <span className="text-dark font-medium">Signup</span>
         </Link>
       </form>
     </Layout>
