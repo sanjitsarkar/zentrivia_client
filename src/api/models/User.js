@@ -2,7 +2,6 @@ const { Schema, model } = require("mongoose");
 const { isEmail } = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { default: isURL } = require("validator/lib/isURL");
 const userSchema = new Schema(
   {
     name: {
@@ -10,15 +9,16 @@ const userSchema = new Schema(
       minlength: [5, "Name should be atleast of 5 characters."],
       required: [true, "Name is required."],
     },
+    phoneNo: {
+      type: String,
+      minlength: [13, "phoneNo should be atleast of 5 characters."],
+      required: [true, "phoneNo is required."],
+    },
     email: {
       type: String,
       unique: [true, "Email is already taken."],
       required: [true, "Email is required."],
       validate: (value) => isEmail(value),
-    },
-    profilePictureURL: {
-      type: String,
-      validate: (value) => isURL(value),
     },
     password: {
       type: String,
@@ -27,10 +27,6 @@ const userSchema = new Schema(
     },
     token: {
       type: String,
-    },
-    totalScore: {
-      type: Number,
-      default: 0,
     },
   },
   {

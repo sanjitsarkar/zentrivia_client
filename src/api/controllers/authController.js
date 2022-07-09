@@ -1,6 +1,6 @@
-const req = require("express/lib/request");
 const { User } = require("../models");
 const loginController = async (req, res) => {
+  console.log("loginController");
   const { email, password } = req.body;
   try {
     const user = await User.login(email, password);
@@ -8,11 +8,9 @@ const loginController = async (req, res) => {
     if (user) {
       res.json({
         _id: user._id,
-
-        profilePictureURL: user.profilePictureURL,
         email: user.email,
         name: user.name,
-        totalScore: user.totalScore,
+        phoneNo: user.phoneNo,
         updatedAt: user.updatedAt,
         createdAt: user.createdAt,
         token: user.token,
@@ -24,16 +22,15 @@ const loginController = async (req, res) => {
 };
 const signupController = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, phoneNo } = req.body;
     const user = await User.signup(name, email, password);
     res.json({
       _id: user._id,
       email: user.email,
       name: user.name,
-      profilePictureURL: user.profilePictureURL,
+      phoneNo,
       updatedAt: user.updatedAt,
       createdAt: user.createdAt,
-      totalScore: user.totalScore,
       token: user.token,
     });
   } catch (err) {
@@ -47,10 +44,8 @@ const getUserInfo = async (req, res) => {
       _id: user._id,
       email: user.email,
       name: user.name,
-      profilePictureURL: user.profilePictureURL,
       updatedAt: user.updatedAt,
       createdAt: user.createdAt,
-      totalScore: user.totalScore,
     });
   } catch (err) {
     res.status(401).json({ errors: [err.message.split(",")] });
@@ -58,7 +53,7 @@ const getUserInfo = async (req, res) => {
 };
 const updateUserInfo = async (req, res) => {
   try {
-    const { name, profilePictureURL } = req.body;
+    const { name, phoneNo } = req.body;
     const user = await User.findByIdAndUpdate(
       req.user.id,
       {
@@ -71,10 +66,9 @@ const updateUserInfo = async (req, res) => {
       _id: user._id,
       email: user.email,
       name: user.name,
-      profilePictureURL: user.profilePictureURL,
+      phoneNo: user.phoneNo,
       updatedAt: user.updatedAt,
       createdAt: user.createdAt,
-      totalScore: user.totalScore,
       token: user.token,
     });
   } catch (err) {

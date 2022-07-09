@@ -3,26 +3,11 @@ const cors = require("cors");
 require("dotenv").config();
 
 const connectMongo = require("./config/index.js");
-const {
-  authRoutes,
-  categoryRoutes,
-  quizRoutes,
-  questionRoutes,
-  userRoutes,
-} = require("./api/routes");
+const { authRoutes, userRoutes, reminderRoutes } = require("./api/routes");
 const { auth } = require("./api/middlewares/");
 const app = express();
-app.use(
-  cors({
-    origin: [
-      "http://localhost:3000",
-      "http://192.168.42.242:3000",
-      "https://zentriviax.netlify.app",
-      process.env.CLIENT_URL,
-    ],
-    methods: ["GET", "POST", "DELETE", "PUT"],
-  })
-);
+app.use(cors());
+
 const PORT = process.env.PORT || 5000;
 
 connectMongo(() => {
@@ -34,13 +19,9 @@ connectMongo(() => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
-app.use("/api/categories", categoryRoutes);
-app.use("/api/quizzes", quizRoutes);
-app.use("/api/questions", questionRoutes);
-app.use("/api/user", userRoutes);
-app.get("/welcome", auth, (req, res) => {
-  res.send("Welcome ", req.user.id);
-});
+app.use("/api/reminders", auth, reminderRoutes);
+app.use("/api/users", auth, userRoutes);
+
 app.get("/", (_, res) => {
-  res.send("Welcome to ZenTrivia");
+  res.send("Welcome to Reminderly");
 });

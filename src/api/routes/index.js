@@ -1,12 +1,8 @@
 const authRoutes = require("./authRoutes");
-const categoryRoutes = require("./categoryRoutes");
-const quizRoutes = require("./quizRoutes");
-const questionRoutes = require("./questionRoutes");
+const reminderRoutes = require("./reminderRoutes");
 const userRoutes = require("./userRoutes");
 module.exports = {
   authRoutes,
-  categoryRoutes,
-  quizRoutes,
-  questionRoutes,
+  reminderRoutes,
   userRoutes,
 };

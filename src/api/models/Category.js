@@ -1,12 +1,12 @@
 const { Schema, model } = require("mongoose");
 const { default: isURL } = require("validator/lib/isURL");
-const categorySchema = new Schema(
+const reminderSchema = new Schema(
   {
     name: {
       type: String,
       index: true,
-      unique: [true, "Category name should be unique."],
-      required: [true, "Category name can't be empty."],
+      unique: [true, "Reminder name should be unique."],
+      required: [true, "Reminder name can't be empty."],
     },
     img: {
       type: String,
@@ -24,5 +24,5 @@ const categorySchema = new Schema(
   },
   { timestamps: true }
 );
-categorySchema.index({ name: "text" });
-module.exports = Category = model("category", categorySchema);
+ReminderSchema.index({ name: "text" });
+module.exports = Reminder = model("Reminder", ReminderSchema);
