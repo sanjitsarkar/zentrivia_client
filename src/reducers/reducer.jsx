@@ -15,12 +15,14 @@ const reducer = (state, action) => {
         ...state,
         data: action.payload,
         loading: false,
+        isLoggedIn: action.isLoggedIn,
       };
     case "FAILURE":
       return {
         ...state,
         error: action.payload,
         loading: false,
+        isLoggedIn: false,
       };
     default:
       return state;

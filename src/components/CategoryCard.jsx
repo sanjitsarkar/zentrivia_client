@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useCategory } from "../hooks";
+import { useCategory } from "../context";
 import { CATEGORY_COVER_PLACEHOLDER } from "../utils";
 import Modal from "./Modal";
 import UpdateCategoryForm from "./UpdateCategoryForm";
@@ -41,7 +41,7 @@ const CategoryCard = ({ category, type }) => {
             src={category.img ?? CATEGORY_COVER_PLACEHOLDER}
             alt={category.name}
             style={{ objectFit: "cover" }}
-            className="img h-40  w-full"
+            className="h-40 w-full "
           />
         </div>
         <div className="card-bottom">

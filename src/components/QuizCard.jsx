@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth, useQuiz } from "../hooks";
+import { useAuth, useQuiz } from "../context";
 import { notify, QUIZ_COVER_PLACEHOLDER } from "../utils";
 import Modal from "./Modal";
 import UpdateQuizForm from "./UpdateQuizForm";
 
-const QuizCard = ({ quiz, type }) => {
+const QuizCard = forwardRef(({ quiz, type }, ref) => {
   let title = quiz.title;
-  const { isLoggedIn } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
@@ -19,7 +19,10 @@ const QuizCard = ({ quiz, type }) => {
           <UpdateQuizForm quiz={quiz} toggleModal={toggleModal} />
         </Modal>
       )}
-      <div className="quiz-card  row  gap-1  text-light p-2 br-sm relative">
+      <div
+        ref={ref}
+        className="quiz-card  row  gap-1  text-light p-2 br-sm relative"
+      >
         {type === "user" && (
           <div className="row  z-5 gap-1 absolute text-white t-2 r-2">
             <i
@@ -48,7 +51,7 @@ const QuizCard = ({ quiz, type }) => {
               <button
                 className="quiz-play-button  pl-3 text-dark text-md pr-3 text-center"
                 onClick={() => {
-                  if (!isLoggedIn) {
+                  if (!user.isLoggedIn) {
                     notify("You must be logged in to play a quiz", "error");
                     navigate("/login");
                   } else if (quiz.totalQuestion === 0) {
@@ -93,6 +96,6 @@ const QuizCard = ({ quiz, type }) => {
       </div>
     </>
   );
-};
+});
 
 export default QuizCard;

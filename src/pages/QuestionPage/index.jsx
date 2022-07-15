@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout, Loader, NotAvailable } from "../../components";
-import { useAuth, useQuestion, useQuiz } from "../../hooks";
+import { useAuth, useQuestion, useQuiz } from "../../context";
 import "./QuestionPage.css";
 
 const QuestionPage = () => {
@@ -42,7 +42,8 @@ const QuestionPage = () => {
     );
 
     setLoading(false);
-
+    sessionStorage.removeItem("timeLeft");
+    sessionStorage.removeItem("activeQuestionNo");
     navigate("/result", {
       state: {
         score: _score,
@@ -81,6 +82,8 @@ const QuestionPage = () => {
             (prevActiveQuestionNo) => prevActiveQuestionNo + 1
           );
         }
+        sessionStorage.setItem("timeLeft", timeLeft);
+        sessionStorage.setItem("activeQuestionNo", activeQuestionNo);
         setIsClicked(false);
       }, 1000);
 
@@ -131,7 +134,6 @@ const QuestionPage = () => {
     setPoints(0);
     setWrongQuestions([]);
   }, [quizId]);
-
   useEffect(() => {
     if (!quizInfo.loading && quizInfo.data.length !== 0) {
       setActiveQuiz(quizInfo.data);
@@ -185,7 +187,15 @@ const QuestionPage = () => {
   useEffect(() => {
     scrollToQuestion();
   }, [questionRef, activeQuestionNo]);
-
+  useEffect(() => {
+    const _timeLeft = sessionStorage?.getItem("timeLeft");
+    const _activeQuestionNo = sessionStorage?.getItem("activeQuestionNo");
+    if (_timeLeft && _activeQuestionNo) {
+      clearTimeout(timeRef.current);
+      setTimeLeft(parseInt(_timeLeft));
+      setActiveQuestionNo(parseInt(_activeQuestionNo));
+    }
+  }, []);
   return (
     <Layout>
       <section className="question-section w-5-6 text-light mt-4 mb-3">

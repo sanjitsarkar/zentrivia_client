@@ -5,6 +5,7 @@
   margin-top: var(--main-top-margin);
   min-height: calc(100vh - var(--main-top-margin));
   color: var(--light-color);
+  overflow-x:hidden ;
 }
 .back-button {
   left: 1rem;
@@ -26,6 +27,12 @@
     transform: rotate(-180deg) scale(0.8);
     left: 0rem;
     top: 4.5rem;
+  }
+}
+@media all and (max-width: 420px) {
+  .quiz-difficulty-button {
+    padding: 0.3rem .8rem;
+    font-size: medium;
   }
 }
 .back-button:hover {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Layout, Loader, NotAvailable, QuizCard } from "../../components";
-import { useQuiz } from "../../hooks";
+import { useQuiz } from "../../context";
 
 const SearchedQuizPage = () => {
   const [searchParams] = useSearchParams();

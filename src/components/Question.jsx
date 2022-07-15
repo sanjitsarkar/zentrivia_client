@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuestion } from "../hooks";
+import { useQuestion } from "../context";
 import Modal from "./Modal";
 import UpdateQuestionForm from "./UpdateQuestionForm";
 

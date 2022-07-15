@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Layout, Loader, NotAvailable, Question } from "../../components";
 import AddQuestionsForm from "../../components/AddQuestionForm";
 import Modal from "../../components/Modal";
-import { useQuestion, useQuiz } from "../../hooks";
+import { useQuestion, useQuiz } from "../../context";
 
 const UserQuestionsPage = () => {
   const { questions, fetchQuestions } = useQuestion();

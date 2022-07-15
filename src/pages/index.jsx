@@ -1,3 +1,4 @@
+export { default as PageNotFound } from "./404Page";
 export { default as LoginPage } from "./AuthPage/Login";
 export { default as SignupPage } from "./AuthPage/SignupPage";
 export { default as CategoryPage } from "./CategoryPage";

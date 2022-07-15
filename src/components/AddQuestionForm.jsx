@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Loader } from ".";
-import { useQuestion } from "../hooks";
+import { useQuestion } from "../context";
 import { initialOptionState, initialQuestionState } from "../utils";
 import Option from "./Option";
 

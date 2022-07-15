@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  AddQuizForm,
-  Layout,
-  Loader,
-  NotAvailable,
-  QuizCard,
+    AddQuizForm,
+    Layout,
+    Loader,
+    NotAvailable,
+    QuizCard
 } from "../../components";
 import Modal from "../../components/Modal";
-import { useCategory, useQuiz } from "../../hooks";
+import { useCategory, useQuiz } from "../../context";
 
 const UserQuizPage = ({ type }) => {
   const { id: categoryId } = useParams();

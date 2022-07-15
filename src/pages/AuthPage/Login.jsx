@@ -1,11 +1,20 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Layout, Loader } from "../../components";
-import { useAuth } from "../../hooks";
+import { useAuth } from "../../context";
 import { GUEST_CREDENTIAL } from "../../utils";
 const LoginPage = () => {
   const { logIn, loginCred, setLoginCred, user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (user.isLoggedIn) {
+      if (pathname === "/signup") navigate("/", { replace: true });
+      else if (pathname !== "/") navigate(-1, { replace: true });
+    }
+  }, [user, pathname]);
 
   return (
     <Layout>
@@ -50,12 +59,6 @@ const LoginPage = () => {
               onClick={() => setShowPassword(!showPassword)}
             ></i>
           </div>
-
-          <label className="checkbox-container">
-            Remember Me
-            <input type="checkbox" />
-            <span className="checkmark"></span>
-          </label>
         </div>
 
         <button
@@ -66,18 +69,20 @@ const LoginPage = () => {
         </button>
 
         <button
-          className="btn btn-info w-full text-md mb-1"
+          className="btn btn-info w-full text-md mb-2"
           onClick={() => {
             setLoginCred(GUEST_CREDENTIAL);
           }}
         >
-          Guest Login
+          Login as Guest
         </button>
-        <a href="#" className="text-dark-4 block mb-05">
-          Forgot Password?
-        </a>
-        <Link to="/signup" className="text-dark-4 block">
-          Don't have an account?
+
+        <Link
+          to="/signup"
+          className="text-dark-4 row items-center flex-wrap gap-025"
+        >
+          <span>Don't have an account?</span>
+          <span className="text-dark font-medium">Signup</span>
         </Link>
       </form>
     </Layout>

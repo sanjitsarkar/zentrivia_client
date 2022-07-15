@@ -1,12 +1,5 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { initialState, reducer } from "../reducers/reducer";
+import React, { createContext, useContext, useReducer, useState } from "react";
+import { reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
@@ -19,15 +12,15 @@ import {
 } from "../utils";
 
 const AuthContext = createContext();
-
+const initialState = {
+  data: JSON.parse(localStorage?.getItem("user")),
+  isLoggedIn: JSON.parse(localStorage?.getItem("user")) ? true : false,
+  loading: false,
+  erorr: "",
+};
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [profile, dispatchProfile] = useReducer(reducer, initialState);
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState();
   const [loginCred, setLoginCred] = useState(initialLoginCredState);
   const [signupCred, setSignupCred] = useState(initialSignupCredState);
 
@@ -51,12 +44,14 @@ const AuthProvider = ({ children }) => {
       notify(`Welcome, ${result.data.name}`);
       setLoginCred(initialLoginCredState);
       setSignupCred(initialSignupCredState);
-      dispatch({ type: ACTION_TYPE_SUCCESS, payload: result.data });
-
-      setIsLoggedIn(true);
+      storeUserData(result.data);
+      dispatch({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data,
+        isLoggedIn: true,
+      });
     } catch (err) {
       notify(formatError(err), "error");
-
       dispatch({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
     }
   };
@@ -80,24 +75,23 @@ const AuthProvider = ({ children }) => {
       });
 
       notify(`Welcome, ${result.data.name}`);
-
       setLoginCred(initialLoginCredState);
       setSignupCred(initialSignupCredState);
-      dispatch({ type: ACTION_TYPE_SUCCESS, payload: result.data });
-
-      setIsLoggedIn(true);
+      storeUserData(result.data);
+      dispatch({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data,
+        isLoggedIn: true,
+      });
     } catch (err) {
       notify(formatError(err), "error");
-
       dispatch({ type: ACTION_TYPE_FAILURE, payload: formatError(err) });
     }
   };
   const getUserInfo = async () => {
     try {
       dispatchProfile({ type: ACTION_TYPE_LOADING });
-
       const result = await callApi("get", "user", true);
-
       const {
         _id,
         email,
@@ -107,6 +101,7 @@ const AuthProvider = ({ children }) => {
         createdAt,
         totalScore,
       } = result.data;
+
       dispatchProfile({
         type: ACTION_TYPE_SUCCESS,
         payload: {
@@ -141,6 +136,7 @@ const AuthProvider = ({ children }) => {
         createdAt,
         totalScore,
       } = result.data;
+
       dispatchProfile({
         type: ACTION_TYPE_SUCCESS,
         payload: {
@@ -159,40 +155,17 @@ const AuthProvider = ({ children }) => {
   };
   const logOut = () => {
     notify(`Goodbye, ${state.data.name}`);
-    localStorage.removeItem("token");
     localStorage.removeItem("user");
-    setIsLoggedIn(false);
-    dispatch({ type: ACTION_TYPE_SUCCESS, payload: [] });
+    dispatch({ type: ACTION_TYPE_SUCCESS, payload: [], isLoggedIn: false });
   };
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      setToken(localStorage.getItem("token"));
-      localStorage.setItem("user", JSON.stringify(state.data));
-      localStorage.setItem("token", state.data.token);
-
-      if (location.pathname === "/signup") navigate("/", { replace: true });
-      else if (location.pathname !== "/") navigate(-1, { replace: true });
-    }
-  }, [isLoggedIn, state]);
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      setToken(localStorage.getItem("token"));
-      setIsLoggedIn(true);
-      dispatch({
-        type: ACTION_TYPE_SUCCESS,
-        payload: JSON.parse(localStorage.getItem("user")),
-      });
-      navigate("/", { replace: true });
-    }
-  }, []);
+  const storeUserData = (data) => {
+    localStorage.setItem("user", JSON.stringify(data));
+  };
   return (
     <AuthContext.Provider
       value={{
-        token,
         user: state,
         setUser: dispatch,
-        isLoggedIn,
         signUp,
         logIn,
         logOut,

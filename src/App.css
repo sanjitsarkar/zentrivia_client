@@ -19,10 +19,13 @@
     transform: scale(1.1);
   }
 }
-
-/* .cover-image{
- min-width: 10rem;
-} */
+.underline{
+  text-decoration: underline;
+  color:inherit;
+}
+.cover-image{
+ width: min(20rem,100%);
+}
 .scaleUp{
   animation: scaleUpAnim  .5s linear infinite alternate ;
 }

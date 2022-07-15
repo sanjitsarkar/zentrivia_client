@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
-  AddCategoryForm,
-  CategoryCard,
-  Layout,
-  Loader,
-  NotAvailable,
+    AddCategoryForm,
+    CategoryCard,
+    Layout,
+    Loader,
+    NotAvailable
 } from "../../components";
 import Modal from "../../components/Modal";
-import { useCategory } from "../../hooks";
+import { useCategory } from "../../context";
 
 const UserCategoryPage = ({}) => {
   const { yourCategories, fetchYourCategories } = useCategory();
